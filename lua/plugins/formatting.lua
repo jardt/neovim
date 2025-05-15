@@ -30,7 +30,7 @@ return {
 				yaml = { "yamlfmt", stop_after_first = true },
 				json = { "fixjson", stop_after_first = true },
 				markdown = { "markdownlint", stop_after_first = true },
-				go = { "goimports", "gofumpt" },
+				go = { "goimports-reviser", "gofumpt" },
 				sql = { "sqruff" },
 				mysql = { "sqruff" },
 				plsql = { "sqruff" },
