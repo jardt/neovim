@@ -1,3 +1,13 @@
+vim.lsp.enable({
+	"lua",
+	"yaml",
+	"nix",
+	-- "go",
+	-- "terraform",
+	-- "ansible",
+	-- "marksman",
+})
+
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.g.have_nerd_font = true
@@ -68,11 +78,6 @@ vim.opt.foldtext = ""
 vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 99
 
-local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
-for type, icon in pairs(signs) do
-	local hl = "DiagnosticSign" .. type
-	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
 ---@type vim.diagnostic.Opts
 vim.diagnostic.config({
 	virtual_lines = {
@@ -86,4 +91,12 @@ vim.diagnostic.config({
 		source = "if_many",
 	},
 	severity_sort = true,
+	signs = {
+		text = {
+			[vim.diagnostic.severity.ERROR] = "󰅚",
+			[vim.diagnostic.severity.WARN] = "󰀪",
+			[vim.diagnostic.severity.HINT] = "󰌶",
+			[vim.diagnostic.severity.INFO] = "",
+		},
+	},
 })

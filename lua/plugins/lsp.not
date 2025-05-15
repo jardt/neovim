@@ -2,7 +2,6 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
-			{ "b0o/schemastore.nvim" },
 			{
 				"williamboman/mason-lspconfig.nvim",
 				config = function(_, _opts)
@@ -49,67 +48,39 @@ return {
 							},
 						},
 					},
-					yamlls = {
-						settings = {
-							yaml = {
-								keyOrdering = false,
-								format = {
-									enable = true,
-								},
-								validate = true,
-								schemaStore = {
-									-- You must disable built-in schemaStore support if you want to use
-									-- this plugin and its advanced options like `ignore`.
-									enable = false,
-									-- Avoid TypeError: Cannot read properties of undefined (reading 'length')
-									url = "",
-								},
-								schemas = require("schemastore").yaml.schemas({
-									-- extra = {
-									-- 	{
-									-- 		description = "k8s jsonschema",
-									-- 		fileMatch = "*.yml",
-									-- 		name = "k8s",
-									-- 		url = "https://kubernetesjsonschema.dev/v1.14.0/deployment-apps-v1.json",
-									-- 	},
-									-- },
-								}),
-							},
-						},
-					},
 					taplo = {},
 					html = { "svelte", "html", "typescriptreact", "javascriptreact " },
 					cssls = {
 						filetypes = { "svelte", "css", "less", "sass", "typescriptreact", "javascriptreact " },
 					},
 					tailwindcss = {},
-					lua_ls = {
-						settings = {
-							Lua = {
-								diagnostics = { globals = { "vim" } },
-								workspace = {
-									checkThirdParty = false,
-								},
-								codeLens = {
-									enable = true,
-								},
-								completion = {
-									callSnippet = "Replace",
-								},
-								doc = {
-									privateName = { "^_" },
-								},
-								hint = {
-									enable = true,
-									setType = false,
-									paramType = true,
-									paramName = "Disable",
-									semicolon = "Disable",
-									arrayIndex = "Disable",
-								},
-							},
-						},
-					},
+					-- lua_ls = {
+					-- 	settings = {
+					-- 		Lua = {
+					-- 			diagnostics = { globals = { "vim" } },
+					-- 			workspace = {
+					-- 				checkThirdParty = false,
+					-- 			},
+					-- 			codeLens = {
+					-- 				enable = true,
+					-- 			},
+					-- 			completion = {
+					-- 				callSnippet = "Replace",
+					-- 			},
+					-- 			doc = {
+					-- 				privateName = { "^_" },
+					-- 			},
+					-- 			hint = {
+					-- 				enable = true,
+					-- 				setType = false,
+					-- 				paramType = true,
+					-- 				paramName = "Disable",
+					-- 				semicolon = "Disable",
+					-- 				arrayIndex = "Disable",
+					-- 			},
+					-- 		},
+					-- 	},
+					-- },
 					rust_analyzer = {
 						enabled = false,
 					},
@@ -204,18 +175,6 @@ return {
 					dockerls = {},
 					ansiblels = {
 						filetypes = { "yaml.ansible" },
-					},
-					nixd = {
-						settings = {
-							nixd = {
-								nixpkgs = {
-									expr = "import <nixpkgs> { }",
-								},
-								formatting = {
-									command = { "nixfmt" },
-								},
-							},
-						},
 					},
 				},
 				setup = {},
