@@ -38,7 +38,7 @@ vim.lsp.config("*", {
 			"n",
 			"<space>Wr",
 			vim.lsp.buf.remove_workspace_folder,
-			{ desc = "remove workspace folder", buffer = event.buf }
+			{ desc = "remove workspace folder", buffer = bufnr }
 		)
 		vim.keymap.set("n", "<space>ca", function()
 			require("fzf-lua").lsp_code_actions({
@@ -53,7 +53,7 @@ vim.lsp.config("*", {
 		end, opts)
 		vim.keymap.set("n", "<space>Wl", function()
 			print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-		end, { desc = "List workspace folder", buffer = event.buf })
+		end, { desc = "List workspace folder", buffer = bufnr })
 		vim.keymap.set("n", "<leader>i", function()
 			vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ 0 }), { 0 })
 		end, { desc = "toggle inlay hints" })
