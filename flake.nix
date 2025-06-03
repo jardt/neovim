@@ -125,7 +125,13 @@
           # This is for plugins that will load at startup without using packadd:
           startupPlugins = {
             gitPlugins = with pkgs.neovimPlugins; [ ];
-            general = with pkgs.vimPlugins; [ ];
+            general = with pkgs.vimPlugins; [
+              lazy-nvim
+              fzf-lua
+              yazi-nvim
+              SchemaStore-nvim
+              plenary-nvim
+            ];
           };
 
           # not loaded automatically at startup.
