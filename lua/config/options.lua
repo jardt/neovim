@@ -1,6 +1,6 @@
 vim.opt.number = true
 vim.opt.relativenumber = true
-vim.g.have_nerd_font = true
+vim.g.have_nerd_font = nixCats("have_nerd_font")
 -- Keep signcolumn on by default
 vim.opt.signcolumn = "yes"
 -- Decrease update time
