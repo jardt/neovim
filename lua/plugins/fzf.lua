@@ -19,7 +19,11 @@ return {
 
 			return {
 				"default-title",
-				fzf_colors = true,
+				fzf_colors = {
+					true,
+					bg = "-1",
+					gutter = "-1",
+				},
 				fzf_opts = {
 					["--no-scrollbar"] = true,
 				},
