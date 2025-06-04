@@ -420,21 +420,21 @@
                 go = true;
                 markdown = true;
               };
-            };
-            opts = {
-              welcome = {
-                snacks = true;
-                alpha = false;
+              opts = {
+                welcome = {
+                  snacks = true;
+                  alpha = false;
+                };
+                theme = {
+                  base16 = false;
+                };
+                toThisSet = [
+                  "and the contents of this categories set"
+                  "will be accessible to your lua with"
+                  "nixCats('path.to.value')"
+                  "see :help nixCats"
+                ];
               };
-              theme = {
-                base16 = false;
-              };
-              toThisSet = [
-                "and the contents of this categories set"
-                "will be accessible to your lua with"
-                "nixCats('path.to.value')"
-                "see :help nixCats"
-              ];
             };
 
           };
