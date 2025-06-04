@@ -146,11 +146,6 @@
               ansible-language-server
               dockerfile-language-server-nodejs
               hadolint
-              (nvim-treesitter.withPlugins (
-                plugins: with plugins; [
-                  dockerfile
-                ]
-              ))
             ];
 
             debug = with pkgs; [
@@ -161,23 +156,12 @@
             database = with pkgs; [
               sqruff
               sqlfluff
-              (nvim-treesitter.withPlugins (
-                plugins: with plugins; [
-                  sql
-                ]
-              ))
             ];
 
             langs = {
               rust = with pkgs; [
                 cargo
                 rust-analyzer-unwrapped
-                (nvim-treesitter.withPlugins (
-                  plugins: with plugins; [
-                    rust
-                    ron
-                  ]
-                ))
               ];
               go = with pkgs; [
                 gopls
@@ -185,23 +169,10 @@
                 gofumpt
                 gomodifytags
                 goimports-reviser
-                (nvim-treesitter.withPlugins (
-                  plugins: with plugins; [
-                    go
-                    gomod
-                    gosum
-                    gowork
-                  ]
-                ))
               ];
               markdown = with pkgs; [
                 markdownlint-cli
                 marksman
-                (nvim-treesitter.withPlugins (
-                  plugins: with plugins; [
-                    markdown
-                  ]
-                ))
               ];
               lua = with pkgs; [
                 stylua
@@ -209,11 +180,6 @@
                 lua54Packages.lua
                 lua54Packages.luacheck
                 luajitPackages.luarocks
-                (nvim-treesitter.withPlugins (
-                  plugins: with plugins; [
-                    lua
-                  ]
-                ))
               ];
               web = with pkgs; [
                 tailwindcss-language-server
@@ -223,47 +189,18 @@
                 prettierd
                 astro-language-server
                 vscode-langservers-extracted
-                (nvim-treesitter.withPlugins (
-                  plugins: with plugins; [
-                    javascript
-                    typescript
-                    html
-                    css
-                    tsx
-                    svelte
-                    angular
-                    jsdoc
-                    astro
-                  ]
-                ))
               ];
               dotnet = with pkgs; [
                 csharpier
                 csharp-ls
-                (nvim-treesitter.withPlugins (
-                  plugins: with plugins; [
-                    c_sharp
-                  ]
-                ))
               ];
               java = with pkgs; [
                 ktlint
                 kotlin-language-server
                 jdt-language-server
-                (nvim-treesitter.withPlugins (
-                  plugins: with plugins; [
-                    kotlin
-                    java
-                  ]
-                ))
               ];
               zig = with pkgs; [
                 zls
-                (nvim-treesitter.withPlugins (
-                  plugins: with plugins; [
-                    zig
-                  ]
-                ))
               ];
             };
           };
@@ -320,6 +257,11 @@
               vim-dadbod
               vim-dadbod-ui
               vim-dadbod-completion
+              (nvim-treesitter.withPlugins (
+                plugins: with plugins; [
+                  sql
+                ]
+              ))
             ];
             formatlint = with pkgs.vimPlugins; [
               conform-nvim
@@ -394,15 +336,88 @@
               nvim-dap-ui
               nvim-dap-virtual-text
             ];
+            devops = with pkgs.vimPlugins; [
+              (nvim-treesitter.withPlugins (
+                plugins: with plugins; [
+                  dockerfile
+                ]
+              ))
+            ];
+
             langs = {
               rust = with pkgs.vimPlugins; [
                 rustaceanvim
+                (nvim-treesitter.withPlugins (
+                  plugins: with plugins; [
+                    rust
+                    ron
+                  ]
+                ))
               ];
               markdown = with pkgs.vimPlugins; [
                 render-markdown-nvim
                 obsidian-nvim
                 markdown-preview-nvim
                 plenary-nvim
+                (nvim-treesitter.withPlugins (
+                  plugins: with plugins; [
+                    markdown
+                  ]
+                ))
+              ];
+              go = with pkgs.vimPlugins; [
+                (nvim-treesitter.withPlugins (
+                  plugins: with plugins; [
+                    go
+                    gomod
+                    gosum
+                    gowork
+                  ]
+                ))
+              ];
+              lua = with pkgs.vimPlugins; [
+                (nvim-treesitter.withPlugins (
+                  plugins: with plugins; [
+                    lua
+                  ]
+                ))
+              ];
+              web = with pkgs.vimPlugins; [
+                (nvim-treesitter.withPlugins (
+                  plugins: with plugins; [
+                    javascript
+                    typescript
+                    html
+                    css
+                    tsx
+                    svelte
+                    angular
+                    jsdoc
+                    astro
+                  ]
+                ))
+              ];
+              dotnet = with pkgs.vimPlugins; [
+                (nvim-treesitter.withPlugins (
+                  plugins: with plugins; [
+                    c_sharp
+                  ]
+                ))
+              ];
+              java = with pkgs.vimPlugins; [
+                (nvim-treesitter.withPlugins (
+                  plugins: with plugins; [
+                    kotlin
+                    java
+                  ]
+                ))
+              ];
+              zig = with pkgs.vimPlugins; [
+                (nvim-treesitter.withPlugins (
+                  plugins: with plugins; [
+                    zig
+                  ]
+                ))
               ];
 
             };
