@@ -413,12 +413,14 @@
               welcome = false;
               undotree = true;
               statusline = true;
+              formatlint = true;
               debugtest = true;
               git = true;
               langs = {
                 web = true;
                 go = true;
                 markdown = true;
+                lua = true;
               };
               opts = {
                 welcome = {

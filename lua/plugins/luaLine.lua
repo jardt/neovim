@@ -2,6 +2,7 @@ return {
 	{
 		"nvim-lualine/lualine.nvim",
 		event = "BufReadPre",
+		enabled = require("nixCatsUtils").enableForCategory("statusline", false),
 		dependencies = { "folke/trouble.nvim" },
 		init = function()
 			vim.g.lualine_laststatus = vim.o.laststatus
@@ -28,7 +29,7 @@ return {
 			return {
 				options = {
 					icons_enabled = true,
-					theme = "catppuccin",
+					theme = "auto",
 				},
 				sections = {
 					lualine_c = {
