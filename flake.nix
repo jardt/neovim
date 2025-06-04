@@ -410,7 +410,7 @@
               practice = true;
               explorer = true;
               test = true;
-              welcome = true;
+              welcome = false;
               undotree = true;
               statusline = true;
               debugtest = true;
