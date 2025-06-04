@@ -125,11 +125,84 @@
               nixd
               ripgrep
               fd
-              stylua
-              lua-language-server
               universal-ctags
               stdenv.cc.cc
+              git
+              gcc
+              yamllint
+              gnumake
+              unzip
+              fzf
+              fixjson
+              yamlfmt
+              nixfmt-rfc-style
+              taplo-lsp
+              yaml-language-server
+              bash-language-server
             ];
+
+            devops = with pkgs; [
+              ansible-lint
+              ansible-language-server
+              dockerfile-language-server-nodejs
+              hadolint
+            ];
+
+            debug = with pkgs; [
+              lldb
+              delve
+              clang-tools
+            ];
+            database = with pkgs; [
+              sqruff
+              sqlfluff
+            ];
+
+            langs = {
+              rust = with pkgs; [
+                cargo
+                rust-analyzer-unwrapped
+              ];
+              go = with pkgs; [
+                gopls
+                impl
+                gofumpt
+                gomodifytags
+                goimports-reviser
+              ];
+              markdown = with pkgs; [
+                markdownlint-cli
+                marksman
+              ];
+              lua = with pkgs; [
+                stylua
+                lua-language-server
+                lua54Packages.lua
+                lua54Packages.luacheck
+                luajitPackages.luarocks
+              ];
+              web = with pkgs; [
+                tailwindcss-language-server
+                svelte-language-server
+                vtsls
+                eslint_d
+                prettierd
+                astro-language-server
+                vscode-langservers-extracted
+              ];
+              dotnet = with pkgs; [
+                csharpier
+                csharp-ls
+              ];
+              java = with pkgs; [
+                ktlint
+                kotlin-language-server
+                jdt-language-server
+              ];
+              zig = with pkgs; [
+                zls
+              ];
+            };
           };
 
           # This is for plugins that will load at startup without using packadd:
@@ -242,23 +315,27 @@
               nvim-dap-ui
               nvim-dap-virtual-text
             ];
-            rust = with pkgs.vimPlugins; [
-              rustaceanvim
-            ];
-            markdown = with pkgs.vimPlugins; [
-              render-markdown-nvim
-              obsidian-nvim
-              markdown-preview-nvim
-              plenary-nvim
-            ];
+            langs = {
+              rust = with pkgs.vimPlugins; [
+                rustaceanvim
+              ];
+              markdown = with pkgs.vimPlugins; [
+                render-markdown-nvim
+                obsidian-nvim
+                markdown-preview-nvim
+                plenary-nvim
+              ];
 
+            };
           };
 
           # shared libraries to be added to LD_LIBRARY_PATH
           # variable available to nvim runtime
           sharedLibraries = {
             general = with pkgs; [
-              # libgit2
+              libgit2
+              libxml2
+              imagemagick
             ];
           };
 
@@ -306,7 +383,7 @@
       packageDefinitions = {
         # These are the names of your packages
         # you can include as many as you wish.
-        nvim =
+        catsvim =
           { pkgs, name, ... }:
           {
             # they contain a settings set defined above
@@ -317,7 +394,7 @@
               wrapRc = true;
               # IMPORTANT:
               # your alias may not conflict with your other packages.
-              aliases = [ "vim" ];
+              aliases = [ "nx" ];
               neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.system}.neovim;
             };
             # and a set of categories that you want
@@ -338,25 +415,33 @@
               statusline = true;
               debugtest = true;
               git = true;
-              markdown = true;
-              opts = {
-                welcome = {
-                  snacks = true;
-                  alpha = false;
-                };
-                toThisSet = [
-                  "and the contents of this categories set"
-                  "will be accessible to your lua with"
-                  "nixCats('path.to.value')"
-                  "see :help nixCats"
-                ];
+              langs = {
+                web = true;
+                go = true;
+                markdown = true;
               };
             };
+            opts = {
+              welcome = {
+                snacks = true;
+                alpha = false;
+              };
+              theme = {
+                base16 = false;
+              };
+              toThisSet = [
+                "and the contents of this categories set"
+                "will be accessible to your lua with"
+                "nixCats('path.to.value')"
+                "see :help nixCats"
+              ];
+            };
+
           };
       };
       # In this section, the main thing you will need to do is change the default package name
       # to the name of the packageDefinitions entry you wish to use as the default.
-      defaultPackageName = "nvim";
+      defaultPackageName = "nixCats";
     in
 
     # see :help nixCats.flake.outputs.exports
