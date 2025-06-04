@@ -1,6 +1,7 @@
 return {
 	{
 		"saghen/blink.cmp",
+		enabled = require("nixCatsUtils").enableForCategory("completion", false),
 		-- optional: provides snippets for the snippet source
 		dependencies = {
 			{ "rafamadriz/friendly-snippets" },

@@ -2,6 +2,7 @@ return {
 	{
 
 		"NeogitOrg/neogit",
+		enabled = require("nixCatsUtils").enableForCategory("git", true),
 		event = "BufReadPre",
 		dependencies = {
 			"nvim-lua/plenary.nvim", -- required
@@ -21,6 +22,7 @@ return {
 	},
 	{
 		"lewis6991/gitsigns.nvim",
+		enabled = require("nixCatsUtils").enableForCategory("git", true),
 		event = "BufReadPre",
 		opts = {
 			signs = {
@@ -64,6 +66,7 @@ return {
 	},
 	{
 		"tpope/vim-fugitive",
+		enabled = require("nixCatsUtils").enableForCategory("git", true),
 		cmd = {
 			"Gco",
 			"Git",
@@ -79,6 +82,7 @@ return {
 	},
 	{
 		"sindrets/diffview.nvim",
+		enabled = require("nixCatsUtils").enableForCategory("git", true),
 		cmd = {
 			"DiffviewClose",
 			"DiffviewFileHistory",
@@ -100,5 +104,5 @@ return {
 			},
 		},
 	},
-	{ "thePrimeagen/git-worktree.nvim" },
+	{ "thePrimeagen/git-worktree.nvim", enabled = require("nixCatsUtils").enableForCategory("git", true) },
 }

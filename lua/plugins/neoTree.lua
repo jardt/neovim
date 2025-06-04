@@ -1,6 +1,7 @@
 return {
 	{
 		"nvim-neo-tree/neo-tree.nvim",
+		enabled = require("nixCatsUtils").enableForCategory("explorer", false),
 		cmd = "Neotree",
 		dependencies = {
 			"nvim-lua/plenary.nvim",

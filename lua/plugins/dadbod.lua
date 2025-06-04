@@ -2,9 +2,11 @@ return {
 	{
 		"tpope/vim-dadbod",
 		cmd = "DB",
+		enabled = require("nixCatsUtils").enableForCategory("database", false),
 	},
 	{
 		"kristijanhusak/vim-dadbod-completion",
+		enabled = require("nixCatsUtils").enableForCategory("database", false),
 		dependencies = {
 			{ "tpope/vim-dadbod", lazy = true },
 			{ "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true },
@@ -22,6 +24,7 @@ return {
 	},
 	{
 		"kristijanhusak/vim-dadbod-ui",
+		enabled = require("nixCatsUtils").enableForCategory("database", false),
 		dependencies = {
 			{ "tpope/vim-dadbod", lazy = true },
 			{ "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true }, -- Optional

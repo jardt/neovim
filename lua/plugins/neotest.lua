@@ -1,6 +1,7 @@
 return {
 	{
 		"nvim-neotest/neotest",
+		enabled = require("nixCatsUtils").enableForCategory("debugtest", false),
 		dependencies = {
 			"nvim-neotest/nvim-nio",
 			"nvim-lua/plenary.nvim",

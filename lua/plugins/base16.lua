@@ -24,7 +24,7 @@ return {
 			}
 
 			if require("nixCatsUtils").getCatOrDefault("opts.theme.base16", false) ~= false then
-				_theme = nixCats.opts.theme.base16
+				_theme = require("nixCatsUtils").getCatOrDefault("opts.theme.base16", false)
 			end
 
 			require("mini.base16").setup({

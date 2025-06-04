@@ -2,6 +2,7 @@ return {
 	{
 		"mrcjkb/rustaceanvim",
 		version = "^5", -- Recommended
+		enabled = require("nixCatsUtils").enableForCategory("langs.rust", false),
 		event = "BufRead",
 		ft = "rust",
 	},

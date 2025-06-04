@@ -1,6 +1,7 @@
 return {
 	{
 		"mfussenegger/nvim-lint",
+		enabled = require("nixCatsUtils").enableForCategory("formatlint", false),
 		event = {
 			"BufReadPre",
 			"BufNewFile",

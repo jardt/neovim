@@ -2,6 +2,7 @@ return {
 	{
 		"stevearc/conform.nvim",
 		event = { "BufWritePre" },
+		enabled = require("nixCatsUtils").enableForCategory("formatlint", true),
 		cmd = { "ConformInfo" },
 		-- This will provide type hinting with LuaLS
 		---@module "conform"
