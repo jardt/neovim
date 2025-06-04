@@ -2,6 +2,7 @@ return {
 	{
 		"nvim-lualine/lualine.nvim",
 		event = "BufReadPre",
+		dependencies = { "folke/trouble.nvim" },
 		init = function()
 			vim.g.lualine_laststatus = vim.o.laststatus
 			if vim.fn.argc(-1) > 0 then
@@ -51,7 +52,7 @@ return {
 						},
 					},
 				},
-				extensions = { "neo-tree", "lazy", "quickfix", "nvim-dap-ui", "trouble", "mason", "fzf" },
+				extensions = { "neo-tree", "lazy", "quickfix", "nvim-dap-ui", "trouble", "fzf" },
 			}
 		end,
 	},

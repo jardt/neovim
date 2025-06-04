@@ -2,7 +2,7 @@ return {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		version = false, -- last release is way too old and doesn't work on Windows
-		build = ":TSUpdate",
+		build = require("nixCatsUtils").lazyAdd(":TSUpdate"),
 		event = { "VeryLazy" },
 		lazy = vim.fn.argc(-1) == 0, -- load treesitter early when opening a file from the cmdline
 		init = function(plugin)
@@ -18,9 +18,11 @@ return {
 		---@type TSConfig
 		---@diagnostic disable-next-line: missing-fields
 		config = function()
+			require("nvim-treesitter.install").prefer_git = true
 			local configs = require("nvim-treesitter.configs")
 			configs.setup({
-				ensure_installed = {
+
+				ensure_installed = require("nixCatsUtils").lazyAdd({
 					"c",
 					"ron", --rust object notation
 					"lua",
@@ -69,12 +71,12 @@ return {
 					"xml",
 					"dockerfile",
 					"csv",
-				},
+				}),
 				highlight = { enable = true, use_languagetree = true },
 				indent = { enable = true },
 				rainbow = { enable = true, extended_mode = true, max_file_lines = 1000 },
 				sync_install = true,
-				auto_install = true,
+				auto_install = require("nixCatsUtils").lazyAdd(true, false),
 				autopairs = { enable = true },
 				autotag = { enable = true },
 				context_commentstring = { enable = true },

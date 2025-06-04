@@ -28,6 +28,16 @@
       url = "github:nix-community/neovim-nightly-overlay";
     };
 
+    plugins-nvim-ansible = {
+      url = "github:mfussenegger/nvim-ansible";
+      flake = false;
+    };
+
+    plugins-nvim-lsp-endhints = {
+      url = "github:chrisgrieser/nvim-lsp-endhints";
+      flake = false;
+    };
+
     # see :help nixCats.flake.inputs
     # If you want your plugin to be loaded by the standard overlay,
     # i.e. if it wasnt on nixpkgs, but doesnt have an extra build step.
@@ -124,13 +134,29 @@
 
           # This is for plugins that will load at startup without using packadd:
           startupPlugins = {
-            gitPlugins = with pkgs.neovimPlugins; [ ];
+            gitPlugins = with pkgs.neovimPlugins; [
+              nvim-ansible
+              nvim-lsp-endhints
+            ];
             general = with pkgs.vimPlugins; [
               lazy-nvim
               fzf-lua
               yazi-nvim
               SchemaStore-nvim
               plenary-nvim
+              lazydev-nvim
+              mini-base16
+              harpoon2
+              vim-tmux-navigator
+              which-key-nvim
+              (nvim-treesitter.withPlugins (
+                plugins: with plugins; [
+                  nix
+                  lua
+                ]
+              ))
+              nvim-treesitter-textobjects
+              flash-nvim
             ];
           };
 
@@ -138,7 +164,94 @@
           # use with packadd and an autocommand in config to achieve lazy loading
           optionalPlugins = {
             gitPlugins = with pkgs.neovimPlugins; [ ];
-            general = with pkgs.vimPlugins; [ ];
+            database = with pkgs.vimPlugins; [
+              vim-dadbod
+              vim-dadbod-ui
+              vim-dadbod-completion
+            ];
+            formatlint = with pkgs.vimPlugins; [
+              conform-nvim
+              nvim-lint
+            ];
+            completion = with pkgs.vimPlugins; [
+              blink-cmp
+              blink-compat
+              blink-ripgrep-nvim
+              friendly-snippets
+              lazydev-nvim
+              colorful-menu-nvim
+            ];
+            snippets = with pkgs.vimPlugins; [
+              luasnip
+            ];
+            explorer = with pkgs.vimPlugins; [
+              neo-tree-nvim
+              nui-nvim
+              plenary-nvim
+            ];
+            welcome = with pkgs.vimPlugins; [
+              snacks-nvim
+              alpha-nvim
+              mini-icons
+            ];
+            undotree = with pkgs.vimPlugins; [
+              undotree
+            ];
+            git = with pkgs.vimPlugins; [
+              neogit
+              plenary-nvim
+              diffview-nvim
+              fzf-lua
+              gitsigns-nvim
+              vim-fugitive
+              git-worktree-nvim
+            ];
+            practice = with pkgs.vimPlugins; [
+              hardtime-nvim
+              nui-nvim
+            ];
+            extras = with pkgs.vimPlugins; [
+              grug-far-nvim
+              nvim-surround
+              vim-illuminate
+              trouble-nvim
+              todo-comments-nvim
+              plenary-nvim
+              snacks-nvim
+              ts-comments-nvim
+              mini-ai
+              mini-hipatterns
+            ];
+            statusline = with pkgs.vimPlugins; [
+              lualine-nvim
+              trouble-nvim
+            ];
+            notify = with pkgs.vimPlugins; [
+              noice-nvim
+            ];
+            debugtest = with pkgs.vimPlugins; [
+              neotest
+              nvim-nio
+              nvim-treesitter
+              plenary-nvim
+              neotest-vitest
+              neotest-golang
+              nvim-dap-go
+              nvim-dap
+              nvim-dap-ui
+              nvim-dap-ui
+              nvim-dap-virtual-text
+            ];
+            rust = with pkgs.vimPlugins; [
+              rustaceanvim
+            ];
+            markdown = with pkgs.vimPlugins; [
+              render-markdown-nvim
+              obsidian-nvim
+              markdown-preview-nvim
+              plenary-nvim
+            ];
+
           };
 
           # shared libraries to be added to LD_LIBRARY_PATH
@@ -205,17 +318,32 @@
               # IMPORTANT:
               # your alias may not conflict with your other packages.
               aliases = [ "vim" ];
-              # neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.system}.neovim;
+              neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.system}.neovim;
             };
             # and a set of categories that you want
             # (and other information to pass to lua)
             categories = {
               general = true;
               gitPlugins = true;
+              completion = true;
               customPlugins = true;
+              database = true;
+              snippets = true;
+              extras = true;
+              practice = true;
+              explorer = true;
               test = true;
-              example = {
-                youCan = "add more than just booleans";
+              welcome = true;
+              undotree = true;
+              statusline = true;
+              debugtest = true;
+              git = true;
+              markdown = true;
+              opts = {
+                welcome = {
+                  snacks = true;
+                  alpha = false;
+                };
                 toThisSet = [
                   "and the contents of this categories set"
                   "will be accessible to your lua with"

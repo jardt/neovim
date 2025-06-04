@@ -228,11 +228,45 @@
         "type": "github"
       }
     },
+    "plugins-nvim-ansible": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1741814378,
+        "narHash": "sha256-hhmhXV9qkZfjHnSBYZ05SX9QD4qBgW9Ob2k3VRfCDgs=",
+        "owner": "mfussenegger",
+        "repo": "nvim-ansible",
+        "rev": "bba61168b7aef735e7f950fdfece5ef6c388eacf",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mfussenegger",
+        "repo": "nvim-ansible",
+        "type": "github"
+      }
+    },
+    "plugins-nvim-lsp-endhints": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1747674129,
+        "narHash": "sha256-TXtNf6l+WIT0A0/SgL69DmA9EqQfmLtc4echMUopgWk=",
+        "owner": "chrisgrieser",
+        "repo": "nvim-lsp-endhints",
+        "rev": "f9e5ffa17dd1161ea2dda265c1702df78432dad7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "chrisgrieser",
+        "repo": "nvim-lsp-endhints",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nixCats": "nixCats",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_2",
+        "plugins-nvim-ansible": "plugins-nvim-ansible",
+        "plugins-nvim-lsp-endhints": "plugins-nvim-lsp-endhints"
       }
     },
     "treefmt-nix": {

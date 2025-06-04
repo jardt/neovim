@@ -4,10 +4,9 @@ return {
 		dependencies = {
 			"nvim-neotest/nvim-nio",
 			"nvim-lua/plenary.nvim",
-			"antoinemadec/FixCursorHold.nvim",
 			"nvim-treesitter/nvim-treesitter",
 			"marilari88/neotest-vitest",
-			"llllvvuu/neotest-foundry",
+			-- "llllvvuu/neotest-foundry",
 			"fredrikaverpil/neotest-golang",
 			"leoluz/nvim-dap-go",
 		},
@@ -22,7 +21,7 @@ return {
 						-- go_test_args = { "-v", "-race", "-count=1", "-timeout=60s" },
 						dap_go_enabled = true, -- requires leoluz/nvim-dap-go
 					},
-					require("neotest-foundry"),
+					-- require("neotest-foundry"),
 				},
 			})
 		end,

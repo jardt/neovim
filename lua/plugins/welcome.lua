@@ -1,6 +1,7 @@
 return {
 	{
 		"folke/snacks.nvim",
+		enabled = require("nixCatsUtils").getCatOrDefault("opts.welcome.snacks", true),
 		---@type snacks.Config
 		opts = {
 			dashboard = {
@@ -16,7 +17,7 @@ return {
 	},
 	{
 		"goolord/alpha-nvim",
-		enabled = false,
+		enabled = require("nixCatsUtils").getCatOrDefault("opts.welcome.alpha", false),
 		config = function()
 			local startify = require("alpha.themes.startify")
 			-- available: devicons, mini, default is mini

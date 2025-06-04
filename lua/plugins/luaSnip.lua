@@ -4,8 +4,17 @@ return {
 		-- follow latest release.
 		event = "InsertEnter",
 		version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+		name = "luasnip",
 		-- install jsregexp (optional!).
-		build = "make install_jsregexp",
+		build = require("nixCatsUtils").lazyAdd((function()
+			-- Build Step is needed for regex support in snippets.
+			-- This step is not supported in many windows environments.
+			-- Remove the below condition to re-enable on windows.
+			if vim.fn.has("win32") == 1 or vim.fn.executable("make") == 0 then
+				return
+			end
+			return "make install_jsregexp"
+		end)()),
 		dependencies = { "rafamadriz/friendly-snippets" },
 		config = function()
 			local luasnip = require("luasnip")
