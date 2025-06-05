@@ -45,6 +45,7 @@ return {
 						{ "lsp_status" },
 					},
 				},
+				inactive_sections = {},
 				extensions = { "neo-tree", "lazy", "quickfix", "nvim-dap-ui", "trouble", "fzf" },
 			}
 		end,

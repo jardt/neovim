@@ -503,7 +503,7 @@
       packageDefinitions = {
         # These are the names of your packages
         # you can include as many as you wish.
-        catsvim =
+        neovim =
           { pkgs, name, ... }:
           {
             # they contain a settings set defined above
@@ -515,7 +515,7 @@
               # IMPORTANT:
               # your alias may not conflict with your other packages.
               aliases = [ "n" ];
-              neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.system}.neovim;
+              #neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.system}.neovim;
             };
             # and a set of categories that you want
             # (and other information to pass to lua)

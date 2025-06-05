@@ -93,6 +93,10 @@ vim.diagnostic.config({
 
 -- transparent nvim
 vim.cmd.highlight({ "Normal", "guibg=NONE", "ctermbg=NONE" })
+vim.cmd.highlight({ "NormalNC", "guibg=NONE", "ctermbg=NONE" })
+vim.cmd.highlight({ "WinSeparator", "guibg=NONE", "ctermbg=NONE" })
+vim.cmd.highlight({ "StatusLine", "guibg=NONE", "ctermbg=NONE" })
+vim.cmd.highlight({ "StatusLineNC", "guibg=NONE", "ctermbg=NONE" })
 vim.cmd.highlight({ "NonText", "guibg=NONE", "ctermbg=NONE" })
 vim.cmd.highlight({ "SignColumn", "guibg=NONE", "ctermbg=NONE" })
 vim.cmd.highlight({ "LineNr", "guibg=NONE", "ctermbg=NONE" })
