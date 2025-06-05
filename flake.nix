@@ -503,7 +503,7 @@
       packageDefinitions = {
         # These are the names of your packages
         # you can include as many as you wish.
-        neovim =
+        catsvim =
           { pkgs, name, ... }:
           {
             # they contain a settings set defined above
