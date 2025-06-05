@@ -7,6 +7,7 @@ return {
 			{ "rafamadriz/friendly-snippets" },
 			{ "saghen/blink.compat", version = "*", opts = { impersonate_nvim_cmp = true } },
 			{ "mikavilpas/blink-ripgrep.nvim" },
+			{ "jdrupal-dev/css-vars.nvim", name = "blink-css-vars" },
 			{ "folke/lazydev.nvim" },
 		},
 		event = "InsertEnter",
@@ -16,8 +17,6 @@ return {
 		-- If you use nix, you can build from source using latest nightly rust with:
 		-- build = 'nix run .#build-plugin',
 		config = function()
-			local isNixCats = require("nixCatsUtils").isNixCats
-
 			---@type blink.cmp.Config
 			local blink_opts = {
 				-- 'default' for mappings similar to built-in completion
@@ -141,6 +140,18 @@ return {
 			end
 			if require("nixCatsUtils").getCatOrDefault("snippets", true) then
 				blink_opts.snippets.preset = "luasnip"
+			end
+
+			if require("nixCatsUtils").getCatOrDefault("langs.web", true) then
+				blink_opts.sources.providers.css_vars = {
+					name = "css-vars",
+					module = "css-vars.blink",
+					opts = {
+						-- WARNING: The search is not optimized to look for variables in JS files.
+						-- If you change the search_extensions you might get false positives and weird completion results.
+						search_extensions = { ".css", ".js", ".ts", ".jsx", ".tsx" },
+					},
+				}
 			end
 
 			require("blink.cmp").setup(blink_opts)

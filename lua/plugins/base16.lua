@@ -1,6 +1,7 @@
 return {
 	{
 		"echasnovski/mini.base16",
+		enabled = require("nixCatsUtils").getCatOrDefault("opts.theme.base16.enable", false),
 		version = false,
 		config = function()
 			-- fallback kanagawa theme
@@ -23,8 +24,8 @@ return {
 				base0F = "#D27E99",
 			}
 
-			if require("nixCatsUtils").getCatOrDefault("opts.theme.base16", false) ~= false then
-				_theme = require("nixCatsUtils").getCatOrDefault("opts.theme.base16", false)
+			if require("nixCatsUtils").getCatOrDefault("opts.theme.base16.enable", false) then
+				_theme = require("nixCatsUtils").getCatOrDefault("opts.theme.base16.table", _theme)
 			end
 
 			require("mini.base16").setup({

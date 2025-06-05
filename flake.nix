@@ -38,6 +38,11 @@
       flake = false;
     };
 
+    plugins-blink-css-vars = {
+      url = "github:jdrupal-dev/css-vars.nvim";
+      flake = false;
+    };
+
     # see :help nixCats.flake.inputs
     # If you want your plugin to be loaded by the standard overlay,
     # i.e. if it wasnt on nixpkgs, but doesnt have an extra build step.
@@ -209,50 +214,60 @@
           startupPlugins = {
             gitPlugins = with pkgs.neovimPlugins; [
               nvim-ansible
-              nvim-lsp-endhints
             ];
-            general = with pkgs.vimPlugins; [
-              lazy-nvim
-              fzf-lua
-              yazi-nvim
-              SchemaStore-nvim
-              plenary-nvim
-              lazydev-nvim
-              mini-base16
-              harpoon2
-              vim-tmux-navigator
-              which-key-nvim
-              (nvim-treesitter.withPlugins (
-                plugins: with plugins; [
-                  nix
-                  c
-                  lua
-                  vimdoc
-                  json
-                  json5
-                  jsonc
-                  comment
-                  git_rebase
-                  toml
-                  yaml
-                  tmux
-                  xml
-                  csv
-                  regex
-                  diff
-                  vim
-                  vimdoc
-                ]
-              ))
-              nvim-treesitter-textobjects
-              flash-nvim
-            ];
+            general =
+              with pkgs.vimPlugins;
+              [
+                lazy-nvim
+                fzf-lua
+                yazi-nvim
+                SchemaStore-nvim
+                plenary-nvim
+                lazydev-nvim
+                harpoon2
+                vim-tmux-navigator
+
+                #themes
+                mini-base16
+                catppuccin-nvim
+                kanagawa-nvim
+                cyberdream-nvim
+
+                which-key-nvim
+                (nvim-treesitter.withPlugins (
+                  plugins: with plugins; [
+                    nix
+                    c
+                    lua
+                    vimdoc
+                    json
+                    json5
+                    jsonc
+                    comment
+                    git_rebase
+                    toml
+                    yaml
+                    tmux
+                    xml
+                    csv
+                    regex
+                    diff
+                    vim
+                    vimdoc
+                  ]
+                ))
+                nvim-treesitter-textobjects
+                flash-nvim
+              ]
+              ++ [
+                pkgs.neovimPlugins.nvim-lsp-endhints
+
+              ];
           };
 
           # not loaded automatically at startup.
           # use with packadd and an autocommand in config to achieve lazy loading
           optionalPlugins = {
-            gitPlugins = with pkgs.neovimPlugins; [ ];
             database = with pkgs.vimPlugins; [
               vim-dadbod
               vim-dadbod-ui
@@ -282,6 +297,7 @@
               neo-tree-nvim
               nui-nvim
               plenary-nvim
+              mini-icons
             ];
             welcome = with pkgs.vimPlugins; [
               snacks-nvim
@@ -318,7 +334,6 @@
             ];
             statusline = with pkgs.vimPlugins; [
               lualine-nvim
-              trouble-nvim
             ];
             notify = with pkgs.vimPlugins; [
               noice-nvim
@@ -336,13 +351,19 @@
               nvim-dap-ui
               nvim-dap-virtual-text
             ];
-            devops = with pkgs.vimPlugins; [
-              (nvim-treesitter.withPlugins (
-                plugins: with plugins; [
-                  dockerfile
-                ]
-              ))
-            ];
+            devops =
+              with pkgs.vimPlugins;
+              [
+                (nvim-treesitter.withPlugins (
+                  plugins: with plugins; [
+                    dockerfile
+                  ]
+                ))
+              ]
+              ++ [
+                pkgs.neovimPlugins.nvim-lsp-endhints
+
+              ];
 
             langs = {
               rust = with pkgs.vimPlugins; [
@@ -382,21 +403,26 @@
                   ]
                 ))
               ];
-              web = with pkgs.vimPlugins; [
-                (nvim-treesitter.withPlugins (
-                  plugins: with plugins; [
-                    javascript
-                    typescript
-                    html
-                    css
-                    tsx
-                    svelte
-                    angular
-                    jsdoc
-                    astro
-                  ]
-                ))
-              ];
+              web =
+                with pkgs.vimPlugins;
+                [
+                  (nvim-treesitter.withPlugins (
+                    plugins: with plugins; [
+                      javascript
+                      typescript
+                      html
+                      css
+                      tsx
+                      svelte
+                      angular
+                      jsdoc
+                      astro
+                    ]
+                  ))
+                ]
+                ++ [
+                  pkgs.neovimPlugins.blink-css-vars
+                ];
               dotnet = with pkgs.vimPlugins; [
                 (nvim-treesitter.withPlugins (
                   plugins: with plugins; [
@@ -528,14 +554,12 @@
                   alpha = false;
                 };
                 theme = {
-                  base16 = false;
+                  base16 = {
+                    enable = false;
+                    table = { };
+                  };
+                  name = "kanagawa"; # "kanagawa"; # "catppuccin-gruvbox";
                 };
-                toThisSet = [
-                  "and the contents of this categories set"
-                  "will be accessible to your lua with"
-                  "nixCats('path.to.value')"
-                  "see :help nixCats"
-                ];
               };
             };
 

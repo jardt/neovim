@@ -1,11 +1,12 @@
 return {
 	{
 		"folke/snacks.nvim",
-		enabled = require("nixCatsUtils").enableForCategory("welcome", false)
-			and require("nixCatsUtils").getCatOrDefault("opts.welcome.snacks", true),
+		enabled = true,
 		---@type snacks.Config
 		opts = {
 			dashboard = {
+				enabled = require("nixCatsUtils").enableForCategory("welcome", false)
+					and require("nixCatsUtils").getCatOrDefault("opts.welcome.snacks", true),
 				sections = {
 					{ section = "header" },
 					{ icon = " ", title = "Keymaps", section = "keys", indent = 2, padding = 1 },
