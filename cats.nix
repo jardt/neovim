@@ -216,18 +216,24 @@ in
       hardtime-nvim
       nui-nvim
     ];
-    extras = with pkgs.vimPlugins; [
-      grug-far-nvim
-      nvim-surround
-      vim-illuminate
-      trouble-nvim
-      todo-comments-nvim
-      plenary-nvim
-      snacks-nvim
-      ts-comments-nvim
-      mini-ai
-      mini-hipatterns
-    ];
+    extras =
+      with pkgs.vimPlugins;
+      [
+        grug-far-nvim
+        nvim-surround
+        vim-illuminate
+        trouble-nvim
+        todo-comments-nvim
+        plenary-nvim
+        snacks-nvim
+        ts-comments-nvim
+        mini-ai
+        mini-hipatterns
+      ]
+      ++ [
+        pkgs.neovimPlugins.nvim-lsp-endhints
+
+      ];
     statusline = with pkgs.vimPlugins; [
       lualine-nvim
     ];
@@ -247,19 +253,14 @@ in
       nvim-dap-ui
       nvim-dap-virtual-text
     ];
-    devops =
-      with pkgs.vimPlugins;
-      [
-        (nvim-treesitter.withPlugins (
-          plugins: with plugins; [
-            dockerfile
-          ]
-        ))
-      ]
-      ++ [
-        pkgs.neovimPlugins.nvim-lsp-endhints
-
-      ];
+    devops = with pkgs.vimPlugins; [
+      (nvim-treesitter.withPlugins (
+        plugins: with plugins; [
+          dockerfile
+          bicep
+        ]
+      ))
+    ];
 
     langs = {
       rust = with pkgs.vimPlugins; [

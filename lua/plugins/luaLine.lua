@@ -14,10 +14,18 @@ return {
 			end
 		end,
 		opts = function()
+			-- transparent bg
+			local auto = require("lualine.themes.auto")
+			local lualine_modes = { "insert", "normal", "visual", "command", "replace", "inactive", "terminal" }
+			for _, field in ipairs(lualine_modes) do
+				if auto[field] and auto[field].c then
+					auto[field].c.bg = "NONE"
+				end
+			end
 			return {
 				options = {
 					icons_enabled = true,
-					theme = "auto",
+					theme = auto,
 				},
 				sections = {
 					lualine_c = {
