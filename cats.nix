@@ -47,6 +47,8 @@ in
       ansible-language-server
       dockerfile-language-server-nodejs
       hadolint
+      terraform-ls
+      tflint
     ];
 
     debug = with pkgs; [
@@ -108,9 +110,6 @@ in
 
   # This is for plugins that will load at startup without using packadd:
   startupPlugins = {
-    gitPlugins = with pkgs.neovimPlugins; [
-      nvim-ansible
-    ];
     general =
       with pkgs.vimPlugins;
       [
@@ -253,14 +252,21 @@ in
       nvim-dap-ui
       nvim-dap-virtual-text
     ];
-    devops = with pkgs.vimPlugins; [
-      (nvim-treesitter.withPlugins (
-        plugins: with plugins; [
-          dockerfile
-          bicep
-        ]
-      ))
-    ];
+    devops =
+      with pkgs.vimPlugins;
+      [
+        (nvim-treesitter.withPlugins (
+          plugins: with plugins; [
+            dockerfile
+            bicep
+            terraform
+            hcl
+          ]
+        ))
+      ]
+      ++ [
+        pkgs.neovimPlugins.nvim-ansible
+      ];
 
     langs = {
       rust = with pkgs.vimPlugins; [

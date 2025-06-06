@@ -36,6 +36,10 @@ return {
 				mysql = { "sqruff" },
 				plsql = { "sqruff" },
 				nix = { "nixfmt" },
+				hlc = { "packer_fmt" },
+				tf = { "terraform_fmt" },
+				terraform = { "terraform_fmt" },
+				["terraform-vars"] = { "terraform_fmt" },
 				["*"] = { "injected" }, -- enables injected-lang formatting for all filetypes
 			},
 			formatters = {

@@ -22,6 +22,8 @@ return {
 				mysql = { "sqruff" },
 				plsql = { "sqruff" },
 				dockerfile = { "hadolint" },
+				terraform = { "terraform_validate" },
+				tf = { "terraform_validate" },
 			}
 
 			vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave", "BufEnter" }, {
