@@ -2,9 +2,30 @@ return {
 	{
 		"folke/snacks.nvim",
 		enabled = true,
-		---@type snacks.Config
+		---@class snacks.dashboard.Config
+		---@field enabled? boolean
+		---@field sections snacks.dashboard.Section
+		---@field formats table<string, snacks.dashboard.Text|fun(item:snacks.dashboard.Item, ctx:snacks.dashboard.Format.ctx):snacks.dashboard.Text>
 		opts = {
 			dashboard = {
+				preset = {
+					header = require("nixCatsUtils").lazyAdd(
+						[[
+███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗
+████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║
+██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║
+██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║
+██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║
+╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝]],
+						[[
+ ██████╗ █████╗ ████████╗███████╗██╗   ██╗██╗███╗   ███╗
+██╔════╝██╔══██╗╚══██╔══╝██╔════╝██║   ██║██║████╗ ████║
+██║     ███████║   ██║   ███████╗██║   ██║██║██╔████╔██║
+██║     ██╔══██║   ██║   ╚════██║╚██╗ ██╔╝██║██║╚██╔╝██║
+╚██████╗██║  ██║   ██║   ███████║ ╚████╔╝ ██║██║ ╚═╝ ██║
+ ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚══════╝  ╚═══╝  ╚═╝╚═╝     ╚═╝]]
+					),
+				},
 				enabled = require("nixCatsUtils").enableForCategory("welcome", false)
 					and require("nixCatsUtils").getCatOrDefault("opts.welcome.snacks", true),
 				sections = {

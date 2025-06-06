@@ -64,6 +64,7 @@ in
     settings = catsvim_settings args // {
     };
     categories = catsvim_categories args // {
+      welcome = true;
     };
   };
   #minimal
