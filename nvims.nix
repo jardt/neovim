@@ -43,6 +43,7 @@ let
         dotnet = false;
         zig = false;
         java = false;
+        qml = false;
       };
       opts = {
         welcome = {
@@ -89,9 +90,17 @@ in
       devops = false;
       notify = false;
       git = false;
-      langs.go = false;
-      langs.web = false;
-      langs.markdown = false;
+      langs = {
+        rust = false;
+        web = false;
+        go = false;
+        markdown = false;
+        lua = false;
+        dotnet = false;
+        zig = false;
+        java = false;
+        qml = false;
+      };
     };
   };
 }

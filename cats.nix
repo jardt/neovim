@@ -105,6 +105,9 @@ in
       zig = with pkgs; [
         zls
       ];
+      qml = with pkgs; [
+        kdePackages.qtdeclarative
+      ];
     };
   };
 
@@ -345,6 +348,13 @@ in
         (nvim-treesitter.withPlugins (
           plugins: with plugins; [
             zig
+          ]
+        ))
+      ];
+      qml = with pkgs.vimPlugins; [
+        (nvim-treesitter.withPlugins (
+          plugins: with plugins; [
+            qmljs
           ]
         ))
       ];
