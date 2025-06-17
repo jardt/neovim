@@ -1,6 +1,7 @@
 return {
 	{
 		"ThePrimeagen/harpoon",
+		name = "harpoon2",
 		branch = "harpoon2",
 		enabled = require("nixCatsUtils").enableForCategory("general", false),
 		keys = function()

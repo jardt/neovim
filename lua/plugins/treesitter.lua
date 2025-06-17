@@ -71,6 +71,7 @@ return {
 					"xml",
 					"dockerfile",
 					"csv",
+					"yuck",
 				}),
 				highlight = { enable = true, use_languagetree = true },
 				indent = { enable = true },
