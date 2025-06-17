@@ -358,7 +358,14 @@ in
           ]
         ))
       ];
-
+      yuck = with pkgs.vimPlugins; [
+        yuck-vim
+        (nvim-treesitter.withPlugins (
+          plugins: with plugins; [
+            yuck
+          ]
+        ))
+      ];
     };
   };
 

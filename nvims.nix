@@ -44,6 +44,7 @@ let
         zig = false;
         java = false;
         qml = false;
+        yuck = false;
       };
       opts = {
         welcome = {
@@ -100,6 +101,7 @@ in
         zig = false;
         java = false;
         qml = false;
+        yuck = false;
       };
     };
   };
