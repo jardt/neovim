@@ -1,6 +1,7 @@
 return {
 	{
 		"mfussenegger/nvim-lint",
+		enabled = require("nixCatsUtils").enableForCategory("formatlint", false),
 		event = {
 			"BufReadPre",
 			"BufNewFile",
@@ -21,6 +22,8 @@ return {
 				mysql = { "sqruff" },
 				plsql = { "sqruff" },
 				dockerfile = { "hadolint" },
+				terraform = { "terraform_validate" },
+				tf = { "terraform_validate" },
 			}
 
 			vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave", "BufEnter" }, {

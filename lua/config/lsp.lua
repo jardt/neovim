@@ -15,6 +15,8 @@ vim.lsp.enable({
 	"html",
 	"css-variables",
 	"css",
+	"terraform",
+	"qml",
 })
 
 vim.lsp.config("*", {

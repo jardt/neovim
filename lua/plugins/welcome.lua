@@ -1,9 +1,33 @@
 return {
 	{
 		"folke/snacks.nvim",
-		---@type snacks.Config
+		enabled = true,
+		---@class snacks.dashboard.Config
+		---@field enabled? boolean
+		---@field sections snacks.dashboard.Section
+		---@field formats table<string, snacks.dashboard.Text|fun(item:snacks.dashboard.Item, ctx:snacks.dashboard.Format.ctx):snacks.dashboard.Text>
 		opts = {
 			dashboard = {
+				preset = {
+					header = require("nixCatsUtils").lazyAdd(
+						[[
+███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗
+████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║
+██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║
+██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║
+██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║
+╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝]],
+						[[
+ ██████╗ █████╗ ████████╗███████╗██╗   ██╗██╗███╗   ███╗
+██╔════╝██╔══██╗╚══██╔══╝██╔════╝██║   ██║██║████╗ ████║
+██║     ███████║   ██║   ███████╗██║   ██║██║██╔████╔██║
+██║     ██╔══██║   ██║   ╚════██║╚██╗ ██╔╝██║██║╚██╔╝██║
+╚██████╗██║  ██║   ██║   ███████║ ╚████╔╝ ██║██║ ╚═╝ ██║
+ ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚══════╝  ╚═══╝  ╚═╝╚═╝     ╚═╝]]
+					),
+				},
+				enabled = require("nixCatsUtils").enableForCategory("welcome", false)
+					and require("nixCatsUtils").getCatOrDefault("opts.welcome.snacks", true),
 				sections = {
 					{ section = "header" },
 					{ icon = " ", title = "Keymaps", section = "keys", indent = 2, padding = 1 },
@@ -16,7 +40,8 @@ return {
 	},
 	{
 		"goolord/alpha-nvim",
-		enabled = false,
+		enabled = require("nixCatsUtils").enableForCategory("welcome", false)
+			and require("nixCatsUtils").getCatOrDefault("opts.welcome.alpha", false),
 		config = function()
 			local startify = require("alpha.themes.startify")
 			-- available: devicons, mini, default is mini
