@@ -73,6 +73,7 @@ in
   catsvi = args: {
     settings = catsvim_settings args // {
       aliases = [ "cvi" ];
+      neovim-unwrapped = args.pkgs.neovim-unwrapped;
     };
     categories = catsvim_categories args // {
       general = true;
