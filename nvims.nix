@@ -45,6 +45,7 @@ let
         java = false;
         qml = false;
         yuck = false;
+        tex = true;
       };
       opts = {
         welcome = {
@@ -103,6 +104,7 @@ in
         java = false;
         qml = false;
         yuck = false;
+        tex = false;
       };
     };
   };

@@ -366,6 +366,9 @@ in
           ]
         ))
       ];
+      tex = with pkgs.vimPlugins; [
+        vimtex
+      ];
     };
   };
 

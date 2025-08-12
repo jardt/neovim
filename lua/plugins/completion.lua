@@ -89,6 +89,7 @@ return {
 						"obsidian_new",
 						"obsidian_tags",
 						"lazydev",
+						"vimtex",
 					},
 					providers = {
 						lsp = {
@@ -106,7 +107,6 @@ return {
 								additional_rg_options = {},
 							},
 						},
-
 						lazydev = {
 							name = "LazyDev",
 							module = "lazydev.integrations.blink",
@@ -151,6 +151,13 @@ return {
 						-- If you change the search_extensions you might get false positives and weird completion results.
 						search_extensions = { ".css", ".js", ".ts", ".jsx", ".tsx" },
 					},
+				}
+			end
+			if require("nixCatsUtils").getCatOrDefault("langs.tex", true) then
+				blink_opts.sources.providers.vimtex = {
+					name = "vimtex",
+					module = "blink.compat.source",
+					score_offset = 3,
 				}
 			end
 
