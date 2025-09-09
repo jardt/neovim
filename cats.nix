@@ -74,6 +74,7 @@ in
         goimports-reviser
       ];
       markdown = with pkgs; [
+        pngpaste
         markdownlint-cli
         marksman
       ];
@@ -91,11 +92,12 @@ in
         eslint_d
         prettierd
         astro-language-server
+        angular-language-server
         vscode-langservers-extracted
       ];
       dotnet = with pkgs; [
         csharpier
-        csharp-ls
+        roslyn-ls
       ];
       java = with pkgs; [
         ktlint
@@ -332,7 +334,7 @@ in
       dotnet = with pkgs.vimPlugins; [
         (nvim-treesitter.withPlugins (
           plugins: with plugins; [
-            c_sharp
+            roslyn-nvim
           ]
         ))
       ];

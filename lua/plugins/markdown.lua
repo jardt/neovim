@@ -19,7 +19,7 @@ return {
 		opts = {},
 	},
 	{
-		"epwalsh/obsidian.nvim",
+		"obsidian-nvim/obsidian.nvim",
 		version = "*", -- recommended, use latest release instead of latest commit
 		enabled = require("nixCatsUtils").enableForCategory("langs.markdown", false),
 		lazy = true,

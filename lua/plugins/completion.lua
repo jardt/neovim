@@ -112,18 +112,6 @@ return {
 							module = "lazydev.integrations.blink",
 							score_offset = 100, -- show at a higher priority than lsp
 						},
-						obsidian = {
-							name = "obsidian",
-							module = "blink.compat.source",
-						},
-						obsidian_new = {
-							name = "obsidian_new",
-							module = "blink.compat.source",
-						},
-						obsidian_tags = {
-							name = "obsidian_tags",
-							module = "blink.compat.source",
-						},
 					},
 				},
 				signature = {
@@ -132,6 +120,21 @@ return {
 				},
 				fuzzy = { implementation = "prefer_rust_with_warning" },
 			}
+
+			if require("nixCatsUtils").getCatOrDefault("langs.markdown", true) then
+				blink_opts.sources.providers.obsidian = {
+					name = "obsidian",
+					module = "blink.compat.source",
+				}
+				blink_opts.sources.providers.obsidian_new = {
+					name = "obsidian_new",
+					module = "blink.compat.source",
+				}
+				blink_opts.sources.providers.obsidian_tags = {
+					name = "obsidian_tags",
+					module = "blink.compat.source",
+				}
+			end
 
 			-- add dadbod completion
 			if require("nixCatsUtils").getCatOrDefault("database", true) then
