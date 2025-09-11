@@ -74,7 +74,6 @@ in
         goimports-reviser
       ];
       markdown = with pkgs; [
-        pngpaste
         markdownlint-cli
         marksman
       ];
@@ -208,7 +207,6 @@ in
       undotree
     ];
     git = with pkgs.vimPlugins; [
-      neogit
       plenary-nvim
       diffview-nvim
       fzf-lua

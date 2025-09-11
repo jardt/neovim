@@ -17,6 +17,8 @@ vim.lsp.enable({
 	"css",
 	"terraform",
 	"qml",
+	"angular",
+	"roslyn",
 })
 
 vim.lsp.config("*", {

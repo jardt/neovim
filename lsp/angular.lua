@@ -10,6 +10,6 @@ return {
 		"--angularCoreVersion",
 		"",
 	},
-	filetypes = { "typescript", "html", "typescriptreact", "typescript.tsx", "htmlangular" },
+	filetypes = { "typescript", "html", "htmlangular" },
 	root_markers = { "angular.json", "nx.json" },
 }

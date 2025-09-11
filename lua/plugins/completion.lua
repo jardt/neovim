@@ -89,7 +89,6 @@ return {
 						"obsidian_new",
 						"obsidian_tags",
 						"lazydev",
-						"vimtex",
 					},
 					providers = {
 						lsp = {

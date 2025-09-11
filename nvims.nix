@@ -19,7 +19,7 @@ let
       general = true;
       gitPlugins = true;
       completion = true;
-      database = true;
+      database = false;
       snippets = true;
       extras = true;
       practice = true;
@@ -106,6 +106,45 @@ in
         yuck = false;
         tex = false;
       };
+    };
+  };
+  #dotnet aglularnvim
+  cats_dotang_nvim = args: {
+    settings = catsvim_settings args // {
+      aliases = [ "fvim" ];
+      neovim-unwrapped = args.pkgs.neovim-unwrapped;
+    };
+    categories = catsvim_categories args // {
+      general = true;
+      completion = true;
+      database = true;
+      snippets = false;
+      extras = true;
+      practice = true;
+      explorer = true;
+      test = false;
+      welcome = true;
+      undotree = true;
+      statusline = true;
+      formatlint = true;
+      debugtest = true;
+      devops = true;
+      notify = true;
+      git = true;
+      langs = {
+        rust = false;
+        web = true;
+        go = false;
+        markdown = true;
+        lua = false;
+        dotnet = true;
+        zig = false;
+        java = false;
+        qml = false;
+        yuck = false;
+        tex = false;
+      };
+
     };
   };
 }
