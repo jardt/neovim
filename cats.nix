@@ -45,7 +45,7 @@ in
     devops = with pkgs; [
       ansible-lint
       ansible-language-server
-      dockerfile-language-server-nodejs
+      dockerfile-language-server
       hadolint
       terraform-ls
       tflint
@@ -160,7 +160,6 @@ in
       ]
       ++ [
         pkgs.neovimPlugins.nvim-lsp-endhints
-
       ];
   };
 
