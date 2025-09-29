@@ -111,7 +111,9 @@ in
   #dotnet aglularnvim
   cats_dotang_nvim = args: {
     settings = catsvim_settings args // {
-      aliases = [ "fvim" ];
+      aliases = [
+        "fvim"
+      ];
       neovim-unwrapped = args.pkgs.neovim-unwrapped;
     };
     categories = catsvim_categories args // {
@@ -122,7 +124,7 @@ in
       extras = true;
       practice = true;
       explorer = true;
-      test = false;
+      test = true;
       welcome = true;
       undotree = true;
       statusline = true;

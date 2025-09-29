@@ -45,7 +45,7 @@ in
     devops = with pkgs; [
       ansible-lint
       ansible-language-server
-      dockerfile-language-server-nodejs
+      dockerfile-language-server
       hadolint
       terraform-ls
       tflint
@@ -96,7 +96,7 @@ in
       ];
       dotnet = with pkgs; [
         csharpier
-        roslyn-ls
+        # roslyn-ls
       ];
       java = with pkgs; [
         ktlint
@@ -160,7 +160,6 @@ in
       ]
       ++ [
         pkgs.neovimPlugins.nvim-lsp-endhints
-
       ];
   };
 

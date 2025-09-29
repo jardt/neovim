@@ -76,6 +76,7 @@
         allowUnfree = true;
         doCheck = true; # turn off if too slow?
       };
+
       # management of the system variable is one of the harder parts of using flakes.
 
       # so I have done it here in an interesting way to keep it out of the way.
