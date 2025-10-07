@@ -9,7 +9,7 @@ vim.lsp.enable({
 	"docker",
 	"markdown",
 	"json",
-	"ansible",
+	-- "ansible", unmaintained in nixpkgs
 	"toml",
 	"tailwind",
 	"html",

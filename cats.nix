@@ -44,7 +44,6 @@ in
 
     devops = with pkgs; [
       ansible-lint
-      ansible-language-server
       dockerfile-language-server
       hadolint
       terraform-ls
@@ -206,6 +205,7 @@ in
       undotree
     ];
     git = with pkgs.vimPlugins; [
+      neogit
       plenary-nvim
       diffview-nvim
       fzf-lua
