@@ -37,7 +37,7 @@ in
       fixjson
       yamlfmt
       nixfmt-rfc-style
-      taplo-lsp
+      taplo
       yaml-language-server
       bash-language-server
     ];
