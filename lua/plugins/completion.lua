@@ -31,6 +31,9 @@ return {
 				},
 
 				completion = {
+					trigger = {
+						show_on_keyword = true,
+					},
 					documentation = {
 						auto_show = true,
 						auto_show_delay_ms = 500,
@@ -94,11 +97,12 @@ return {
 						lsp = {
 							name = "LSP",
 							module = "blink.cmp.sources.lsp",
-							score_offset = 0, -- Boost/penalize the score of the items
+							score_offset = 99, -- Boost/penalize the score of the items
 						},
 						ripgrep = {
 							module = "blink-ripgrep",
 							name = "Ripgrep",
+							score_offset = 0,
 							opts = {
 								prefix_min_len = 3,
 								context_size = 5,
