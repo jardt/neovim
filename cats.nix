@@ -130,6 +130,11 @@ in
         catppuccin-nvim
         kanagawa-nvim
         cyberdream-nvim
+        blink-pairs
+        nvim-treesitter-textobjects
+        flash-nvim
+        blink-pairs
+        gruvbox-nvim
 
         which-key-nvim
         (nvim-treesitter.withPlugins (
@@ -154,11 +159,10 @@ in
             vimdoc
           ]
         ))
-        nvim-treesitter-textobjects
-        flash-nvim
       ]
       ++ [
         pkgs.neovimPlugins.nvim-lsp-endhints
+        pkgs.neovimPlugins.blink-indent
       ];
   };
 

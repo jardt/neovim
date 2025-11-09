@@ -1,5 +1,13 @@
 return {
 	{
+		"ellisonleao/gruvbox.nvim",
+		enabled = require("nixCatsUtils").getCatOrDefault("opts.theme.name", "") == "gruvbox",
+		priority = 1000,
+		config = function()
+			vim.cmd([[colorscheme gruvbox]])
+		end,
+	},
+	{
 		"scottmckendry/cyberdream.nvim",
 		lazy = false,
 		enabled = require("nixCatsUtils").getCatOrDefault("opts.theme.name", "") == "cyberdream",

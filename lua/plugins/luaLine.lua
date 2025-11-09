@@ -25,7 +25,7 @@ return {
 			return {
 				options = {
 					icons_enabled = true,
-					theme = "base16",
+					theme = require("nixCatsUtils").getCatOrDefault("opts.theme.name", "base16"),
 					component_separators = "",
 					section_separators = "",
 				},
