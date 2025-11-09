@@ -49,7 +49,9 @@ in
       terraform-ls
       tflint
     ];
-
+    git = with pkgs; [
+      gh
+    ];
     debug = with pkgs; [
       lldb
       delve
@@ -210,13 +212,12 @@ in
       undotree
     ];
     git = with pkgs.vimPlugins; [
-      neogit
+      snacks-nvim
       plenary-nvim
       diffview-nvim
       fzf-lua
       gitsigns-nvim
       vim-fugitive
-      git-worktree-nvim
     ];
     practice = with pkgs.vimPlugins; [
       hardtime-nvim

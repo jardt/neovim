@@ -1,8 +1,7 @@
 return {
 	{
-
 		"NeogitOrg/neogit",
-		enabled = require("nixCatsUtils").enableForCategory("git", true),
+		enabled = false,
 		event = "BufReadPre",
 		dependencies = {
 			"nvim-lua/plenary.nvim", -- required
@@ -104,5 +103,4 @@ return {
 			},
 		},
 	},
-	{ "thePrimeagen/git-worktree.nvim", enabled = require("nixCatsUtils").enableForCategory("git", true) },
 }

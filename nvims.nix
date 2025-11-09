@@ -17,7 +17,6 @@ let
     { pkgs, ... }:
     {
       general = true;
-      gitPlugins = true;
       completion = true;
       database = false;
       snippets = true;
