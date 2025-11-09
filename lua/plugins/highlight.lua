@@ -2,6 +2,7 @@ return {
 	{
 		"RRethy/vim-illuminate",
 		event = "BufRead",
+		enabled = require("nixCatsUtils").enableForCategory("extras", true),
 		config = function()
 			-- default configuration
 			require("illuminate").configure({
