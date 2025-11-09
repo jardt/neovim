@@ -135,6 +135,7 @@ in
         flash-nvim
         blink-pairs
         gruvbox-nvim
+        nord-nvim
 
         which-key-nvim
         (nvim-treesitter.withPlugins (

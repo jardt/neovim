@@ -1,5 +1,13 @@
 return {
 	{
+		"shaunsingh/nord.nvim",
+		enabled = require("nixCatsUtils").getCatOrDefault("opts.theme.name", "") == "nord",
+		priority = 1000,
+		config = function()
+			vim.cmd([[colorscheme nord]])
+		end,
+	},
+	{
 		"ellisonleao/gruvbox.nvim",
 		enabled = require("nixCatsUtils").getCatOrDefault("opts.theme.name", "") == "gruvbox",
 		priority = 1000,
