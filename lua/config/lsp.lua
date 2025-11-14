@@ -40,6 +40,7 @@ vim.lsp.config("*", {
 			vim.lsp.buf.remove_workspace_folder,
 			{ desc = "remove workspace folder", buffer = bufnr }
 		)
+		vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP Code Action" })
 		vim.keymap.set("n", "<space>Wl", function()
 			print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 		end, { desc = "List workspace folder", buffer = bufnr })
