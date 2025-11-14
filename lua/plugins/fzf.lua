@@ -2,6 +2,7 @@ return {
 	{
 		"ibhagwan/fzf-lua",
 		event = "VeryLazy",
+		enabled = require("nixCatsUtils").getCatOrDefault("opts.picker.fzf", false),
 		dependencies = { "echasnovski/mini.icons" },
 		opts = function()
 			local fzf = require("fzf-lua")
@@ -148,6 +149,42 @@ return {
 						rg_opts = [=[--column --line-number --hidden --no-heading --color=always --smart-case --max-columns=4096 -g '!.git' -e]=],
 					})
 				end,
+			},
+			{
+				"<leader>gd",
+				"<cmd>FzfLua lsp_definitions jump1 ignore_current_line=true<cr>",
+				desc = "lsp definitins",
+			},
+			{
+				"<leader>gr",
+				"<cmd>FzfLua lsp_references jump1 ignore_current_line=true<cr>",
+				desc = "lsp references",
+			},
+			{
+				"<leader>gI",
+				"<cmd>FzfLua lsp_implementations jump1 ignore_current_line=true<cr>",
+				desc = "lsp definitins",
+			},
+			{
+				"<leader>gt",
+				"<cmd>FzfLua lsp_typedefs jump1 ignore_current_line=true<cr>",
+				desc = "lsp typedefs",
+			},
+			{
+
+				"<space>ca",
+				function()
+					require("fzf-lua").lsp_code_actions({
+						winopts = {
+							relative = "cursor",
+							width = 0.6,
+							height = 0.6,
+							row = 1,
+							preview = { vertical = "up:70%" },
+						},
+					})
+				end,
+				desc = "code action",
 			},
 		},
 	},

@@ -51,6 +51,10 @@ let
           snacks = true;
           alpha = false;
         };
+        picker = {
+          fzf = false;
+          snacks = true;
+        };
         theme = {
           base16 = {
             enable = false;
