@@ -5,7 +5,14 @@ return {
 		desc = "Debugging support. Requires language specific adapters to be configured. (see lang extras)",
 		dependencies = {
 			{
-				"leoluz/nvim-dap-go",
+				{
+					"nicholasmata/nvim-dap-cs",
+					enabled = require("nixCatsUtils").enableForCategory("langs.dotnet", false),
+				},
+				{
+					"leoluz/nvim-dap-go",
+					enabled = require("nixCatsUtils").enableForCategory("langs.go", false),
+				},
 				"rcarriga/nvim-dap-ui",
 				dependencies = { "nvim-neotest/nvim-nio" },
 				keys = {

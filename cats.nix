@@ -98,6 +98,7 @@ in
       dotnet = with pkgs; [
         csharpier
         roslyn-ls
+        netcoredbg
       ];
       java = with pkgs; [
         ktlint
