@@ -19,6 +19,7 @@ vim.lsp.enable({
 	"qml",
 	"angular",
 	"roslyn",
+	"typst",
 })
 
 vim.lsp.config("*", {

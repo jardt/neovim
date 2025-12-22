@@ -34,6 +34,7 @@ let
       git = true;
 
       langs = {
+        typst = true;
         rust = false;
         web = true;
         go = true;

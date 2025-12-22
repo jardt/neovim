@@ -33,7 +33,6 @@ return {
 			if require("nixCatsUtils").getCatOrDefault("langs.web", false) then
 				table.insert(setup.adapters, require("neotest-vitest"))
 			end
-
 			if require("nixCatsUtils").getCatOrDefault("langs.dotnet", false) then
 				table.insert(setup.adapters, require("neotest-vstest"))
 			end

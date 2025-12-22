@@ -63,6 +63,11 @@ in
     ];
 
     langs = {
+      typst = with pkgs; [
+        typst
+        tinymist
+        typstyle
+      ];
       rust = with pkgs; [
         rustup
         rust-analyzer-unwrapped
@@ -278,6 +283,9 @@ in
       ];
 
     langs = {
+      typst = with pkgs.vimPlugins; [
+        typst-preview-nvim
+      ];
       rust = with pkgs.vimPlugins; [
         rustaceanvim
         (nvim-treesitter.withPlugins (

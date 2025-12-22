@@ -38,6 +38,7 @@ return {
 				plsql = { "sqruff" },
 				nix = { "nixfmt" },
 				hlc = { "packer_fmt" },
+				typst = { "typstyle" },
 				tf = { "terraform_fmt" },
 				terraform = { "terraform_fmt" },
 				["terraform-vars"] = { "terraform_fmt" },
