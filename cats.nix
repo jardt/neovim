@@ -154,7 +154,6 @@ in
             vimdoc
             json
             json5
-            jsonc
             comment
             git_rebase
             toml
