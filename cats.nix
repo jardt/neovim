@@ -40,6 +40,8 @@ in
       taplo
       yaml-language-server
       bash-language-server
+      tree-sitter
+      curl
     ];
 
     devops = with pkgs; [
@@ -139,7 +141,7 @@ in
         kanagawa-nvim
         cyberdream-nvim
         blink-pairs
-        nvim-treesitter-textobjects
+        pkgs.neovimPlugins.treesitter-textobjects
         flash-nvim
         blink-pairs
         gruvbox-nvim

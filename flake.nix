@@ -33,6 +33,11 @@
       flake = false;
     };
 
+    plugins-treesitter-textobjects = {
+      url = "github:nvim-treesitter/nvim-treesitter-textobjects/main";
+      flake = false;
+    };
+
     plugins-nvim-lsp-endhints = {
       url = "github:chrisgrieser/nvim-lsp-endhints";
       flake = false;
