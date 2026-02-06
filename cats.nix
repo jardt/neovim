@@ -254,6 +254,9 @@ in
     notify = with pkgs.vimPlugins; [
       noice-nvim
     ];
+    ai = with pkgs.vimPlugins; [
+      opencode-nvim
+    ];
     debugtest = with pkgs.vimPlugins; [
       neotest
       nvim-nio

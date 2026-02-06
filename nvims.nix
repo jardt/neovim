@@ -31,6 +31,7 @@ let
       debugtest = true;
       devops = false;
       notify = true;
+      ai = true;
       git = true;
 
       langs = {
@@ -136,6 +137,7 @@ in
       debugtest = true;
       devops = true;
       notify = true;
+      ai = false;
       git = true;
       langs = {
         rust = false;
