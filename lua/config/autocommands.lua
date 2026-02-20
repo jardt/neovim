@@ -7,6 +7,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	desc = "LSP actions",
 	callback = function(event)
 		local opts = { buffer = event.buf }
+		local client = vim.lsp.get_client_by_id(event.data.client_id)
 		-- these will be buffer-local keybindings
 		-- because they only work if you have an active language server
 		vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
@@ -30,6 +31,25 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		vim.keymap.set("n", "<leader>i", function()
 			vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ 0 }), { 0 })
 		end, { desc = "toggle inlay hints" })
+
+		if client and client.server_capabilities.semanticTokensProvider then
+			if vim.lsp.semantic_tokens and vim.lsp.semantic_tokens.start then
+				pcall(vim.lsp.semantic_tokens.start, event.buf, client.id)
+			end
+		end
+
+		if client and client.server_capabilities.codeLensProvider then
+			if not vim.b[event.buf].codelens_refresh then
+				vim.b[event.buf].codelens_refresh = true
+				vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
+					group = augroup("codelens_refresh"),
+					buffer = event.buf,
+					desc = "Refresh CodeLens",
+					callback = vim.lsp.codelens.refresh,
+				})
+			end
+			vim.lsp.codelens.refresh()
+		end
 	end,
 })
 

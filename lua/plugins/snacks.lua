@@ -1,3 +1,81 @@
+local function lsp_type_hierarchy(direction)
+	if not Snacks or not Snacks.picker then
+		vim.notify("Snacks picker is not available", vim.log.levels.WARN)
+		return
+	end
+
+	local bufnr = vim.api.nvim_get_current_buf()
+	local params = vim.lsp.util.make_position_params()
+
+	vim.lsp.buf_request_all(bufnr, "textDocument/prepareTypeHierarchy", params, function(results)
+		local client_id
+		local prepared
+
+		for id, res in pairs(results) do
+			if res.result and not vim.tbl_isempty(res.result) then
+				client_id = id
+				prepared = res.result
+				break
+			end
+		end
+
+		if not prepared then
+			vim.notify("No type hierarchy available", vim.log.levels.INFO)
+			return
+		end
+
+		local client = vim.lsp.get_client_by_id(client_id)
+		if not client then
+			vim.notify("No LSP client for type hierarchy", vim.log.levels.WARN)
+			return
+		end
+
+		local method = direction == "supertypes" and "typeHierarchy/supertypes" or "typeHierarchy/subtypes"
+		client.request(method, { item = prepared[1] }, function(err, items)
+			if err or not items or vim.tbl_isempty(items) then
+				vim.notify("No type hierarchy results", vim.log.levels.INFO)
+				return
+			end
+
+			local picker_items = {}
+			for _, item in ipairs(items) do
+				local range = item.selectionRange or item.range
+				local pos = range and range.start and { range.start.line + 1, range.start.character + 1 } or { 1, 1 }
+				local kind = vim.lsp.protocol.SymbolKind[item.kind] or "Symbol"
+				local detail = item.detail and item.detail ~= "" and (" " .. item.detail) or ""
+				local file = item.uri and vim.uri_to_fname(item.uri) or ""
+
+				table.insert(picker_items, {
+					text = string.format("%s %s%s", kind, item.name or "?", detail),
+					kind = kind,
+					file = file,
+					pos = pos,
+					lsp_item = item,
+				})
+			end
+
+			Snacks.picker.pick({
+				title = direction == "supertypes" and "Type Hierarchy (Supertypes)" or "Type Hierarchy (Subtypes)",
+				items = picker_items,
+				format = "lsp_symbol",
+				preview = "preview",
+				jump = { tagstack = true, reuse_win = true },
+				auto_confirm = true,
+				confirm = function(picker, selected)
+					if not selected or not selected.lsp_item then
+						return
+					end
+					picker:close()
+					vim.lsp.util.jump_to_location({
+						uri = selected.lsp_item.uri,
+						range = selected.lsp_item.selectionRange or selected.lsp_item.range,
+					}, client.offset_encoding)
+				end,
+			})
+		end, bufnr)
+	end)
+end
+
 return {
 	{
 		"folke/snacks.nvim",
@@ -425,6 +503,20 @@ return {
 					Snacks.picker.lsp_outgoing_calls()
 				end,
 				desc = "C[a]lls Outgoing",
+			},
+			{
+				"<leader>lt",
+				function()
+					lsp_type_hierarchy("subtypes")
+				end,
+				desc = "Type Hierarchy (Subtypes)",
+			},
+			{
+				"<leader>lT",
+				function()
+					lsp_type_hierarchy("supertypes")
+				end,
+				desc = "Type Hierarchy (Supertypes)",
 			},
 			{
 				"<leader>ss",
