@@ -17,8 +17,14 @@ return {
 			},
 		},
 		typescript = {
+			tsserver = {
+				maxTsServerMemory = 4096,
+			},
 			updateImportsOnFileMove = { enabled = "always" },
+			referencesCodeLens = { enabled = true },
+			implementationsCodeLens = { enabled = true },
 			suggest = {
+				autoImports = true,
 				completeFunctionCalls = true,
 			},
 			inlayHints = {
@@ -28,6 +34,12 @@ return {
 				parameterTypes = { enabled = true },
 				propertyDeclarationTypes = { enabled = true },
 				variableTypes = { enabled = false },
+			},
+		},
+		javascript = {
+			implementationsCodeLens = { enabled = true },
+			suggest = {
+				autoImports = true,
 			},
 		},
 	},

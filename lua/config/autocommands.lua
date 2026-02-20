@@ -33,6 +33,18 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
+vim.api.nvim_create_autocmd("BufWritePre", {
+	group = augroup("lsp_organize_imports"),
+	pattern = { "*.ts", "*.tsx", "*.js", "*.jsx" },
+	desc = "Organize imports on save",
+	callback = function()
+		vim.lsp.buf.code_action({
+			context = { only = { "source.organizeImports" } },
+			apply = true,
+		})
+	end,
+})
+
 vim.api.nvim_create_autocmd("TextYankPost", {
 	group = augroup("highlight_yank"),
 	callback = function()
