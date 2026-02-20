@@ -1,8 +1,15 @@
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument = capabilities.textDocument or {}
+capabilities.textDocument.completion = capabilities.textDocument.completion or {}
+capabilities.textDocument.completion.completionItem = capabilities.textDocument.completion.completionItem or {}
+capabilities.textDocument.completion.completionItem.insertReplaceSupport = false
+
 ---@type vim.lsp.Config
 return {
 	cmd = { "vtsls", "--stdio" },
 	filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
 	root_markers = { "tsconfig.json", "package.json", "jsconfig.json", ".git" },
+	capabilities = capabilities,
 
 	settings = {
 		complete_function_calls = true,
