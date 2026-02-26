@@ -4,6 +4,8 @@ local map = vim.keymap.set
 vim.api.nvim_set_keymap("n", "yc", ":norm yygccp<CR>", { noremap = true })
 -- change in word
 vim.keymap.set("n", "<C-c>", "ciw")
+map("n", "<leader>pw", '"_ciw<C-r>"', { desc = "Replace word with unnamed register" })
+map("n", "<leader>ps", '"_ci"<C-r>"', { desc = "Replace inside double quotes with unnamed register" })
 -- move selected lines with shift j and k
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
