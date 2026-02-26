@@ -54,6 +54,11 @@ return {
 					lualine_x = {
 						{ "lsp_status" },
 					},
+					lualine_z = {
+						{
+							require("opencode").statusline,
+						},
+					},
 				},
 				inactive_sections = {},
 				extensions = { "neo-tree", "lazy", "quickfix", "nvim-dap-ui", "trouble", "fzf" },
