@@ -17,13 +17,13 @@ return {
 			vim.o.autoread = true
 
 			-- Recommended/example keymaps.
-			vim.keymap.set({ "n", "x" }, "<C-e>", function()
+			vim.keymap.set({ "n", "x" }, "<C-a>", function()
 				require("opencode").ask("", { submit = true })
 			end, { desc = "Ask opencode…" })
 			vim.keymap.set({ "n", "x" }, "<C-p>", function()
 				require("opencode").select()
 			end, { desc = "Execute opencode action…" })
-			vim.keymap.set({ "n", "t" }, "<C-i>", function()
+			vim.keymap.set({ "n", "t" }, "<C-e>", function()
 				require("opencode").toggle()
 			end, { desc = "Toggle opencode" })
 
