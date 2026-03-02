@@ -21,7 +21,7 @@ return {
 	{
 		"obsidian-nvim/obsidian.nvim",
 		version = "*", -- recommended, use latest release instead of latest commit
-		enabled = require("nixCatsUtils").enableForCategory("langs.markdown", false),
+		enabled = require("nixCatsUtils").enableForCategory("obsidian", false),
 		lazy = true,
 		ft = "markdown",
 		-- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
@@ -39,10 +39,10 @@ return {
 		opts = {
 			ui = { enable = false },
 			workspaces = {
-				{
-					name = "notes",
-					path = "/Users/jardar.ton/notes",
-				},
+				-- {
+				-- 	name = "notes",
+				-- 	path = "/Users/jardar.ton/notes",
+				-- },
 				-- {
 				--     name = "master",
 				--     path = "/Users/jardar/Library/Mobile Documents/iCloud~md~obsidian/Documents/master",

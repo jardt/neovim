@@ -286,6 +286,10 @@ in
         pkgs.neovimPlugins.nvim-ansible
       ];
 
+    obsidian = with pkgs.vimPlugins; [
+      obsidian-nvim
+    ];
+
     langs = {
       typst = with pkgs.vimPlugins; [
         typst-preview-nvim
@@ -301,7 +305,6 @@ in
       ];
       markdown = with pkgs.vimPlugins; [
         render-markdown-nvim
-        obsidian-nvim
         markdown-preview-nvim
         plenary-nvim
         (nvim-treesitter.withPlugins (

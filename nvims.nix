@@ -139,6 +139,7 @@ in
       notify = true;
       ai = false;
       git = true;
+      obsidan = false;
       langs = {
         rust = false;
         web = true;
