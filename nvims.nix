@@ -153,6 +153,22 @@ in
         yuck = false;
         tex = false;
       };
+      opts = {
+        welcome = {
+          snacks = true;
+          alpha = false;
+        };
+        picker = {
+          fzf = false;
+          snacks = true;
+        };
+        theme = {
+          base16 = {
+            enable = false;
+          };
+          name = "gruvbox"; # "kanagawa"; # "catppuccin-gruvbox";
+        };
+      };
 
     };
   };
