@@ -137,7 +137,7 @@ in
       debugtest = true;
       devops = true;
       notify = true;
-      ai = false;
+      ai = true;
       git = true;
       obsidan = false;
       langs = {
