@@ -1,5 +1,8 @@
 local map = vim.keymap.set
 
+-- normal mode from terminal mode with esc
+vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { silent = true, noremap = true })
+
 -- Duplicate a line aod comment out the first line
 vim.api.nvim_set_keymap("n", "yc", ":norm yygccp<CR>", { noremap = true })
 -- change in word
