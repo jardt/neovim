@@ -93,6 +93,9 @@ return {
 						"obsidian_tags",
 						"lazydev",
 					},
+					per_filetype = {
+						snacks_input = { "sidekick_templates", "buffer" },
+					},
 					providers = {
 						lsp = {
 							name = "LSP",
@@ -114,6 +117,12 @@ return {
 							name = "LazyDev",
 							module = "lazydev.integrations.blink",
 							score_offset = 100, -- show at a higher priority than lsp
+						},
+						sidekick_templates = {
+							name = "SidekickTemplates",
+							module = "blink.sources.sidekick_templates",
+							score_offset = 100,
+							min_keyword_length = 0,
 						},
 					},
 				},

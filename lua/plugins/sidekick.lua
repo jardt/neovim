@@ -23,6 +23,11 @@ return {
 			vim.keymap.set({ "n", "x" }, "<leader>e", function()
 				Snacks.input({
 					prompt = "Ask pi: ",
+					win = {
+						b = {
+							completion = true,
+						},
+					},
 				}, function(input)
 					if not input or input == "" then
 						return
