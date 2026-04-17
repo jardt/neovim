@@ -23,7 +23,7 @@ function source.new(opts)
 end
 
 function source:enabled()
-	return vim.bo.filetype == "snacks_input"
+	return vim.bo.filetype == "snacks_input" or vim.bo.filetype == "pi_prompt"
 end
 
 function source:get_trigger_characters()

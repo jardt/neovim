@@ -95,6 +95,7 @@ return {
 					},
 					per_filetype = {
 						snacks_input = { "sidekick_templates", "buffer" },
+						pi_prompt = { "sidekick_templates", "buffer" },
 					},
 					providers = {
 						lsp = {
