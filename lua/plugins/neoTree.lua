@@ -26,42 +26,7 @@ return {
 				end,
 			})
 		end,
-		keys = {
-			{
-				"<leader>e",
-				function()
-					require("neo-tree.command").execute({
-						toggle = true,
-						dir = vim.uv.cwd(),
-						position = "float",
-						reveal = true,
-					})
-				end,
-				desc = "Explorer NeoTree (cwd)",
-			},
-			{
-				"<leader>E",
-				function()
-					require("neo-tree.command").execute({ toggle = true })
-				end,
-				desc = "Explorer NeoTree (cwd)",
-				remap = true,
-			},
-			{
-				"<leader>ge",
-				function()
-					require("neo-tree.command").execute({ source = "git_status", toggle = true })
-				end,
-				desc = "Git Explorer",
-			},
-			{
-				"<leader>be",
-				function()
-					require("neo-tree.command").execute({ source = "buffers", toggle = true })
-				end,
-				desc = "Buffer Explorer",
-			},
-		},
+		keys = {},
 		deactivate = function()
 			vim.cmd([[Neotree close]])
 		end,

@@ -168,6 +168,22 @@
         "type": "github"
       }
     },
+    "plugins-sidekick": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1774386786,
+        "narHash": "sha256-scCYymquGaT9/e7nU2kuyiwFutKfAq8pGQQsOWK+7rM=",
+        "owner": "folke",
+        "repo": "sidekick.nvim",
+        "rev": "17447a05f9385e5f8372b61530f6f9329cb82421",
+        "type": "github"
+      },
+      "original": {
+        "owner": "folke",
+        "repo": "sidekick.nvim",
+        "type": "github"
+      }
+    },
     "plugins-treesitter-textobjects": {
       "flake": false,
       "locked": {
@@ -194,6 +210,7 @@
         "plugins-blink-indent": "plugins-blink-indent",
         "plugins-nvim-ansible": "plugins-nvim-ansible",
         "plugins-nvim-lsp-endhints": "plugins-nvim-lsp-endhints",
+        "plugins-sidekick": "plugins-sidekick",
         "plugins-treesitter-textobjects": "plugins-treesitter-textobjects"
       }
     }

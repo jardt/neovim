@@ -27,7 +27,7 @@ end, { desc = "buffer close" })
 
 map("n", "<leader>a", function()
 	vim.cmd(":b#")
-end, { desc = "alernate file" })
+end, { desc = "alternate file" })
 
 map("n", "<leader>v", function()
 	vim.cmd(":vs")

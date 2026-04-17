@@ -22,7 +22,7 @@ let
       snippets = true;
       extras = true;
       practice = true;
-      explorer = true;
+      explorer = false;
       test = true;
       welcome = false;
       undotree = true;
@@ -128,7 +128,7 @@ in
       snippets = false;
       extras = true;
       practice = true;
-      explorer = true;
+      explorer = false;
       test = true;
       welcome = true;
       undotree = true;

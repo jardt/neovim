@@ -255,7 +255,7 @@ in
       noice-nvim
     ];
     ai = with pkgs.vimPlugins; [
-      opencode-nvim
+      pkgs.neovimPlugins.sidekick
     ];
     debugtest = with pkgs.vimPlugins; [
       neotest
