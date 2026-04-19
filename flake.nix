@@ -58,6 +58,11 @@
       flake = false;
     };
 
+    plugins-ts-error-translator = {
+      url = "github:dmmulroy/ts-error-translator.nvim";
+      flake = false;
+    };
+
     # see :help nixCats.flake.inputs
     # If you want your plugin to be loaded by the standard overlay,
     # i.e. if it wasnt on nixpkgs, but doesnt have an extra build step.

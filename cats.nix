@@ -349,6 +349,7 @@ in
         ]
         ++ [
           pkgs.neovimPlugins.blink-css-vars
+          pkgs.neovimPlugins.ts-error-translator
         ];
       dotnet = with pkgs.vimPlugins; [
         (nvim-treesitter.withPlugins (
