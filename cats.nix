@@ -346,6 +346,7 @@ in
               astro
             ]
           ))
+          tsc-nvim
         ]
         ++ [
           pkgs.neovimPlugins.blink-css-vars
