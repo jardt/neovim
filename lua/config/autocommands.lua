@@ -32,23 +32,22 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ 0 }), { 0 })
 		end, { desc = "toggle inlay hints" })
 
-		if client and client.server_capabilities.semanticTokensProvider then
-			if vim.lsp.semantic_tokens and vim.lsp.semantic_tokens.start then
-				pcall(vim.lsp.semantic_tokens.start, event.buf, client.id)
-			end
-		end
 
 		if client and client.server_capabilities.codeLensProvider then
-			if not vim.b[event.buf].codelens_refresh then
-				vim.b[event.buf].codelens_refresh = true
-				vim.api.nvim_create_autocmd({ "InsertLeave" }, {
-					group = augroup("codelens_refresh"),
-					buffer = event.buf,
-					desc = "Refresh CodeLens",
-					callback = vim.lsp.codelens.refresh,
-				})
+			if vim.lsp.codelens and vim.lsp.codelens.enable then
+				if not vim.b[event.buf].codelens_refresh then
+					vim.b[event.buf].codelens_refresh = true
+					vim.api.nvim_create_autocmd({ "InsertLeave" }, {
+						group = augroup("codelens_refresh"),
+						buffer = event.buf,
+						desc = "Refresh CodeLens",
+						callback = function()
+							vim.lsp.codelens.enable(true, { bufnr = event.buf })
+						end,
+					})
+				end
+				vim.lsp.codelens.enable(true, { bufnr = event.buf })
 			end
-			vim.lsp.codelens.refresh()
 		end
 	end,
 })

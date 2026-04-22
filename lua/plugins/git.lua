@@ -91,6 +91,15 @@ return {
 			"DiffviewRefresh",
 			"DiffviewToggleFiles",
 		},
+		init = function()
+			vim.api.nvim_create_user_command("Review", function()
+				vim.cmd("DiffviewOpen origin/main...HEAD --imply-local")
+			end, { desc = "Open Diffview against origin/main" })
+
+			vim.api.nvim_create_user_command("FileHistory", function()
+				vim.cmd("DiffviewFileHistory %")
+			end, { desc = "Open Diffview file history for current file" })
+		end,
 		keys = {
 			{ "<Leader>gd", "<cmd>DiffviewFileHistory %<CR>", desc = "diff file" },
 			{ "<Leader>gd", "<cmd>DiffviewFileHistory <CR>", desc = "diff all files" },
