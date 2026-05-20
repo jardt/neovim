@@ -18,6 +18,99 @@ Run dotnet/angular config: `nix run github:jardt/neovim#cats_dotang_nvim`
 
 The package outputs remain `catsvim`, `catsvi`, and `cats_dotang_nvim` during this compatibility migration. A later cleanup should consider clearer names such as `full`, `minimal`, and `dotang` while preserving the old outputs for a transition period.
 
+### Use this flake from your Nix config
+
+Add it as a flake input:
+
+```nix
+{
+  inputs.jardt-neovim.url = "github:jardt/neovim";
+}
+```
+
+Then install one of the package outputs like any other package.
+
+NixOS:
+
+```nix
+{ inputs, pkgs, ... }:
+{
+  environment.systemPackages = [
+    inputs.jardt-neovim.packages.${pkgs.system}.default
+    # or: inputs.jardt-neovim.packages.${pkgs.system}.catsvi
+    # or: inputs.jardt-neovim.packages.${pkgs.system}.cats_dotang_nvim
+  ];
+}
+```
+
+Home Manager:
+
+```nix
+{ inputs, pkgs, ... }:
+{
+  home.packages = [
+    inputs.jardt-neovim.packages.${pkgs.system}.default
+  ];
+}
+```
+
+For a one-off install into your user profile:
+
+```sh
+nix profile install github:jardt/neovim
+# or a specific variant
+nix profile install github:jardt/neovim#catsvi
+```
+
+### Build a custom variant
+
+The wrapper module exposes feature flags through `config.info` and user-facing wrapper settings through `config.settings`. Use the exported module with `nix-wrapper-modules` when you want a local variant instead of one of the packaged defaults:
+
+```nix
+{
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nix-wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
+    jardt-neovim.url = "github:jardt/neovim";
+  };
+
+  outputs = inputs@{ nixpkgs, nix-wrapper-modules, jardt-neovim, ... }:
+  let
+    system = "x86_64-linux";
+    pkgs = import nixpkgs { inherit system; config.allowUnfree = true; };
+    baseModule = nixpkgs.lib.modules.importApply "${jardt-neovim}/module.nix" jardt-neovim.inputs;
+    myNvim = (nix-wrapper-modules.lib.evalModules {
+      modules = [
+        baseModule
+        ({ lib, ... }: {
+          settings.aliases = [ "myvim" ];
+          settings.theme.name = "gruvbox";
+
+          # Feature metadata exported to Lua.
+          info.devops = true;
+          info.database = true;
+          info.langs.rust = true;
+          info.langs.dotnet = true;
+          info.langs.java = false;
+
+          # Disable/enable the matching Nix plugin/tool groups.
+          specs.devops.enable = true;
+          specs.database.enable = true;
+          specs."langs.rust".enable = true;
+          specs."langs.dotnet".enable = true;
+          specs."langs.java".enable = false;
+        })
+      ];
+      specialArgs = { inherit pkgs; };
+    }).config.wrap { inherit pkgs; };
+  in {
+    packages.${system}.default = myNvim;
+  };
+}
+```
+
+Available language groups currently include `typst`, `rust`, `web`, `go`, `markdown`, `lua`, `dotnet`, `zig`, `java`, `qml`, `yuck`, and `tex`. Other top-level feature groups include `devops`, `database`, `explorer`, `test`, `debugtest`, `formatlint`, `git`, `ai`, `obsidian`, and more; see `module.nix` for the full list.
+
 ## Plain non-Nix mode
 
 Plain `nvim` uses native `vim.pack` and `nvim-pack-lock.json` from this config directory. Use a Neovim build that provides `vim.pack` for automatic plugin installation.
