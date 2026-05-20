@@ -1,20 +1,19 @@
 return {
 	{
 		"mfussenegger/nvim-dap",
-		enabled = require("nixCatsUtils").enableForCategory("debugtest", false),
+		enabled = require("config.nix").enableForCategory("debugtest", false),
 		desc = "Debugging support. Requires language specific adapters to be configured. (see lang extras)",
 		dependencies = {
 			{
 				{
 					"nicholasmata/nvim-dap-cs",
-					enabled = require("nixCatsUtils").enableForCategory("langs.dotnet", false),
+					enabled = require("config.nix").enableForCategory("langs.dotnet", false),
 				},
 				{
 					"leoluz/nvim-dap-go",
-					enabled = require("nixCatsUtils").enableForCategory("langs.go", false),
+					enabled = require("config.nix").enableForCategory("langs.go", false),
 				},
 				"rcarriga/nvim-dap-ui",
-				dependencies = { "nvim-neotest/nvim-nio" },
 				keys = {
 					{
 						"<leader>Du",

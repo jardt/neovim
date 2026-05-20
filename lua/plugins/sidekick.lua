@@ -2,7 +2,7 @@ return {
 	{
 		"folke/sidekick.nvim",
 		name = "sidekick",
-		enabled = require("nixCatsUtils").enableForCategory("ai", false),
+		enabled = require("config.nix").enableForCategory("ai", false),
 		dependencies = {
 			{ "folke/snacks.nvim", opts = { input = {}, picker = {}, terminal = {} } },
 		},

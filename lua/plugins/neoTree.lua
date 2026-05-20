@@ -1,7 +1,7 @@
 return {
 	{
 		"nvim-neo-tree/neo-tree.nvim",
-		enabled = require("nixCatsUtils").enableForCategory("explorer", false),
+		enabled = require("config.nix").enableForCategory("explorer", false),
 		cmd = "Neotree",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
@@ -56,7 +56,7 @@ return {
 					},
 					["O"] = {
 						function(state)
-							require("lazy.util").open(state.tree:get_node().path, { system = true })
+							vim.ui.open(state.tree:get_node().path)
 						end,
 						desc = "Open with System Application",
 					},

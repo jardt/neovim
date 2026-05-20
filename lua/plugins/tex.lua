@@ -1,7 +1,7 @@
 return {
 	{
 		"lervag/vimtex",
-		enabled = require("nixCatsUtils").enableForCategory("langs.tex", false),
+		enabled = require("config.nix").enableForCategory("langs.tex", false),
 		lazy = false,
 		-- tag = "v2.15", -- uncomment to pin to a specific release
 		config = function()

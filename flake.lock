@@ -57,18 +57,21 @@
         "type": "github"
       }
     },
-    "nixCats": {
+    "nix-wrapper-modules": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
+      },
       "locked": {
-        "lastModified": 1777273601,
-        "narHash": "sha256-xBUa8Tl9V7IXI+VmLEuDc81La/EhoSn1C3EVSnJ3cfU=",
+        "lastModified": 1779230126,
+        "narHash": "sha256-4XXww17gSEQys+RFe2nlFS6eFl6KIChdW7hy5MlZyYE=",
         "owner": "BirdeeHub",
-        "repo": "nixCats-nvim",
-        "rev": "f69ea013e328841a7def7037ed59788a76be8816",
+        "repo": "nix-wrapper-modules",
+        "rev": "c2b76d39f5db070fe947e78dfc7d034874bcaf03",
         "type": "github"
       },
       "original": {
         "owner": "BirdeeHub",
-        "repo": "nixCats-nvim",
+        "repo": "nix-wrapper-modules",
         "type": "github"
       }
     },
@@ -89,6 +92,22 @@
       }
     },
     "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1778869304,
+        "narHash": "sha256-30sZNZoA1cqF5JNO9fVX+wgiQYjB7HJqqJ4ztCDeBZE=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "d233902339c02a9c334e7e593de68855ad26c4cb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_3": {
       "locked": {
         "lastModified": 1778869304,
         "narHash": "sha256-30sZNZoA1cqF5JNO9fVX+wgiQYjB7HJqqJ4ztCDeBZE=",
@@ -133,6 +152,38 @@
       "original": {
         "owner": "saghen",
         "repo": "blink.indent",
+        "type": "github"
+      }
+    },
+    "plugins-lze": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1779072938,
+        "narHash": "sha256-u51pEVISr/jthElqorjttpfK/V3/iDQmter5Upnt0XU=",
+        "owner": "BirdeeHub",
+        "repo": "lze",
+        "rev": "1779386ec281b6c7fe7a5d3d501656ec345e9e37",
+        "type": "github"
+      },
+      "original": {
+        "owner": "BirdeeHub",
+        "repo": "lze",
+        "type": "github"
+      }
+    },
+    "plugins-lzextras": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1779149362,
+        "narHash": "sha256-neZA450ZP5nqaqp/uhQIEVVYBnYkvo0cBcC93F3D+Co=",
+        "owner": "BirdeeHub",
+        "repo": "lzextras",
+        "rev": "138a1a08a8585520f3425a0e03390a534a376fdd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "BirdeeHub",
+        "repo": "lzextras",
         "type": "github"
       }
     },
@@ -220,10 +271,12 @@
     "root": {
       "inputs": {
         "neovim-nightly-overlay": "neovim-nightly-overlay",
-        "nixCats": "nixCats",
-        "nixpkgs": "nixpkgs_2",
+        "nix-wrapper-modules": "nix-wrapper-modules",
+        "nixpkgs": "nixpkgs_3",
         "plugins-blink-css-vars": "plugins-blink-css-vars",
         "plugins-blink-indent": "plugins-blink-indent",
+        "plugins-lze": "plugins-lze",
+        "plugins-lzextras": "plugins-lzextras",
         "plugins-nvim-ansible": "plugins-nvim-ansible",
         "plugins-nvim-lsp-endhints": "plugins-nvim-lsp-endhints",
         "plugins-sidekick": "plugins-sidekick",

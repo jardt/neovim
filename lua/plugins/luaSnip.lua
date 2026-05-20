@@ -2,12 +2,12 @@ return {
 	{
 		"L3MON4D3/LuaSnip",
 		-- follow latest release.
-		enabled = require("nixCatsUtils").enableForCategory("snippets", false),
+		enabled = require("config.nix").enableForCategory("snippets", false),
 		event = "InsertEnter",
 		version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
 		name = "luasnip",
 		-- install jsregexp (optional!).
-		build = require("nixCatsUtils").lazyAdd((function()
+		build = require("config.nix").lazyAdd((function()
 			-- Build Step is needed for regex support in snippets.
 			-- This step is not supported in many windows environments.
 			-- Remove the below condition to re-enable on windows.

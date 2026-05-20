@@ -1,7 +1,8 @@
 return {
 	{
 		"folke/noice.nvim",
-		enabled = require("nixCatsUtils").enableForCategory("notify", false),
+		enabled = require("config.nix").enableForCategory("notify", false),
+		dependencies = { "MunifTanjim/nui.nvim" },
 		event = "VeryLazy",
 		opts = {
 			cmdline = {

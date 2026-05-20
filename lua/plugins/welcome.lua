@@ -9,7 +9,7 @@ return {
 		opts = {
 			dashboard = {
 				preset = {
-					header = require("nixCatsUtils").lazyAdd(
+					header = require("config.nix").lazyAdd(
 						[[
 ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗
 ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║
@@ -26,8 +26,8 @@ return {
  ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚══════╝  ╚═══╝  ╚═╝╚═╝     ╚═╝]]
 					),
 				},
-				enabled = require("nixCatsUtils").enableForCategory("welcome", false)
-					and require("nixCatsUtils").getCatOrDefault("opts.welcome.snacks", true),
+				enabled = require("config.nix").enableForCategory("welcome", false)
+					and require("config.nix").getCatOrDefault("opts.welcome.snacks", true),
 				sections = {
 					{ section = "header" },
 					{ icon = " ", title = "Keymaps", section = "keys", indent = 2, padding = 1 },
@@ -40,8 +40,8 @@ return {
 	},
 	{
 		"goolord/alpha-nvim",
-		enabled = require("nixCatsUtils").enableForCategory("welcome", false)
-			and require("nixCatsUtils").getCatOrDefault("opts.welcome.alpha", false),
+		enabled = require("config.nix").enableForCategory("welcome", false)
+			and require("config.nix").getCatOrDefault("opts.welcome.alpha", false),
 		config = function()
 			local startify = require("alpha.themes.startify")
 			-- available: devicons, mini, default is mini

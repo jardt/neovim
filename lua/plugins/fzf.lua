@@ -2,7 +2,7 @@ return {
 	{
 		"ibhagwan/fzf-lua",
 		event = "VeryLazy",
-		enabled = require("nixCatsUtils").getCatOrDefault("opts.picker.fzf", false),
+		enabled = require("config.nix").getCatOrDefault("opts.picker.fzf", false),
 		dependencies = { "echasnovski/mini.icons" },
 		opts = function()
 			local fzf = require("fzf-lua")
