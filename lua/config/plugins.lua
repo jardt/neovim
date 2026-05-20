@@ -25,8 +25,13 @@ local function setup_specs(specs)
 			if type(spec.init) == "function" then
 				spec.init()
 			end
+			local pack = require("config.pack")
+			for _, dependency in ipairs(spec.dependencies or {}) do
+				local dependency_name = type(dependency) == "table" and (dependency.name or plugin_name(dependency[1])) or plugin_name(dependency)
+				pack.load(dependency_name)
+			end
 			local name = spec.name or plugin_name(spec[1])
-			require("config.pack").load(name)
+			pack.load(name)
 			local opts = type(spec.opts) == "function" and spec.opts() or spec.opts
 			if type(spec.config) == "function" then
 				spec.config(spec, opts)

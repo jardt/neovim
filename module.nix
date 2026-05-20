@@ -294,7 +294,10 @@ in
   };
   config.specs.notify = {
     lazy = true;
-    data = with pkgs.vimPlugins; [ noice-nvim ];
+    data = with pkgs.vimPlugins; [
+      noice-nvim
+      nui-nvim
+    ];
   };
   config.specs.ai = {
     lazy = true;
