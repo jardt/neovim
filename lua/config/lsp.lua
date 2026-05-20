@@ -1,26 +1,34 @@
-vim.lsp.enable({
-	"lua",
-	"yaml",
-	"nix",
-	"ts",
-	"svelte",
-	"bash",
-	"go",
-	"docker",
-	"markdown",
-	"json",
-	-- "ansible", unmaintained in nixpkgs
-	"toml",
-	"tailwind",
-	"html",
-	"css-variables",
-	"css",
-	"terraform",
-	"qml",
-	"angular",
-	"roslyn",
-	"typst",
-})
+local servers = {
+	lua = "lua-language-server",
+	yaml = "yaml-language-server",
+	nix = "nixd",
+	ts = "vtsls",
+	svelte = "svelteserver",
+	bash = "bash-language-server",
+	go = "gopls",
+	docker = "docker-langserver",
+	markdown = "marksman",
+	json = "vscode-json-language-server",
+	toml = "taplo",
+	tailwind = "tailwindcss-language-server",
+	html = "vscode-html-language-server",
+	["css-variables"] = "css-variables-language-server",
+	css = "vscode-css-language-server",
+	terraform = "terraform-ls",
+	qml = "qmlls",
+	angular = "ngserver",
+	roslyn = "Microsoft.CodeAnalysis.LanguageServer",
+	typst = "tinymist",
+}
+
+local enabled = {}
+for server, executable in pairs(servers) do
+	if vim.fn.executable(executable) == 1 then
+		table.insert(enabled, server)
+	end
+end
+
+vim.lsp.enable(enabled)
 
 vim.lsp.config("*", {
 	on_attach = function(client, bufnr)

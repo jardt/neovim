@@ -7,7 +7,7 @@ if plugin_name then
 	ok, info = pcall(require, plugin_name)
 end
 
-if not ok or type(info) ~= "function" then
+if not ok or (type(info) ~= "function" and type(info) ~= "table") then
 	info = function(default)
 		return default
 	end

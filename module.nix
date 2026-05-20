@@ -80,11 +80,17 @@ inputs:
       bash-language-server
       tree-sitter
       curl
+      coreutils
+      mercurial
+      chafa
+      viu
+      ueberzugpp
     ];
     data =
       with pkgs.vimPlugins;
       [
-        lazy-nvim
+        config.nvim-lib.neovimPlugins.lze
+        config.nvim-lib.neovimPlugins.lzextras
         fzf-lua
         yazi-nvim
         SchemaStore-nvim
@@ -97,6 +103,7 @@ inputs:
         kanagawa-nvim
         cyberdream-nvim
         blink-pairs
+        mini-icons
         config.nvim-lib.neovimPlugins.treesitter-textobjects
         flash-nvim
         gruvbox-nvim

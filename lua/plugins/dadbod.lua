@@ -1,58 +1,40 @@
+local M = {}
+
+local nix = require("config.nix")
+
+function M.setup()
+	local data_path = vim.fn.stdpath("data")
+
+	vim.g.db_ui_auto_execute_table_helpers = 1
+	vim.g.db_ui_save_location = data_path .. "/dadbod_ui"
+	vim.g.db_ui_show_database_icon = true
+	vim.g.db_ui_tmp_query_location = data_path .. "/dadbod_ui/tmp"
+	vim.g.db_ui_use_nerd_fonts = true
+	vim.g.db_ui_use_nvim_notify = true
+	vim.g.db_ui_execute_on_save = true
+end
+
+if not nix.enableForCategory("database", true) then
+	return {}
+end
+
 return {
 	{
-		"tpope/vim-dadbod",
+		"vim-dadbod",
 		cmd = "DB",
-		enabled = require("config.nix").enableForCategory("database", false),
 	},
 	{
-		"kristijanhusak/vim-dadbod-completion",
-		enabled = require("config.nix").enableForCategory("database", false),
-		dependencies = {
-			{ "tpope/vim-dadbod", lazy = true },
-			{ "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true },
-		},
-		cmd = {
-			"DBUI",
-			"DBUIToggle",
-			"DBUIAddConnection",
-			"DBUIFindBuffer",
-		},
-		init = function()
-			-- Your DBUI configuration
-			vim.g.db_ui_use_nerd_fonts = 1
-		end,
+		"vim-dadbod-completion",
+		ft = { "sql", "mysql", "plsql" },
 	},
 	{
-		"kristijanhusak/vim-dadbod-ui",
-		enabled = require("config.nix").enableForCategory("database", false),
-		dependencies = {
-			{ "tpope/vim-dadbod", lazy = true },
-			{ "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true }, -- Optional
-		},
+		"vim-dadbod-ui",
+		cmd = { "DBUI", "DBUIToggle", "DBUIAddConnection", "DBUIFindBuffer" },
 		keys = {
 			{ "<leader>D", "<cmd>DBUIToggle<CR>", desc = "Toggle DBUI" },
 		},
-		cmd = {
-			"DBUI",
-			"DBUIToggle",
-			"DBUIAddConnection",
-			"DBUIFindBuffer",
-		},
-		init = function()
-			local data_path = vim.fn.stdpath("data")
-
-			vim.g.db_ui_auto_execute_table_helpers = 1
-			vim.g.db_ui_save_location = data_path .. "/dadbod_ui"
-			vim.g.db_ui_show_database_icon = true
-			vim.g.db_ui_tmp_query_location = data_path .. "/dadbod_ui/tmp"
-			vim.g.db_ui_use_nerd_fonts = true
-			vim.g.db_ui_use_nvim_notify = true
-
-			-- NOTE: The default behavior of auto-execution of queries on save is disabled
-			-- this is useful when you have a big query that you don't want to run every time
-			-- you save the file running those queries can crash neovim to run use the
-			-- default keymap: <leader>S
-			vim.g.db_ui_execute_on_save = true
+		before = function()
+			M.setup()
 		end,
 	},
 }

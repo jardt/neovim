@@ -1,35 +1,25 @@
-return {
-	{
-		"mikavilpas/yazi.nvim",
-		event = "VeryLazy",
-		keys = {
-			-- 👇 in this section, choose your own keymappings!
-			{
-				"<leader>y",
-				"<cmd>Yazi<cr>",
-				desc = "Open yazi at the current file",
-			},
-			{
-				-- Open in the current working directory
-				"<leader>Y",
-				"<cmd>Yazi cwd<cr>",
-				desc = "Open the file manager in nvim's working directory",
-			},
-			{
-				-- NOTE: this requires a version of yazi that includes
-				-- https://github.com/sxyazi/yazi/pull/1305 from 2024-07-18
-				"<c-up>",
-				"<cmd>Yazi toggle<cr>",
-				desc = "Resume the last yazi session",
-			},
+local M = {}
+
+function M.setup()
+	local pack = require("config.pack")
+	pack.load("yazi.nvim")
+
+	local ok, yazi = pcall(require, "yazi")
+	if not ok then
+		return
+	end
+
+	yazi.setup({
+		open_for_directories = false,
+		keymaps = {
+			show_help = "<f1>",
+			copy_relative_path_to_selected_files = false,
 		},
-		---@type YaziConfig
-		opts = {
-			-- if you want to open yazi instead of netrw, see below for more info
-			open_for_directories = false,
-			keymaps = {
-				show_help = "<f1>",
-			},
-		},
-	},
-}
+	})
+
+	vim.keymap.set("n", "<leader>y", "<cmd>Yazi<cr>", { desc = "Open yazi at the current file" })
+	vim.keymap.set("n", "<leader>Y", "<cmd>Yazi cwd<cr>", { desc = "Open the file manager in nvim's working directory" })
+	vim.keymap.set("n", "<c-up>", "<cmd>Yazi toggle<cr>", { desc = "Resume the last yazi session" })
+end
+
+return M
