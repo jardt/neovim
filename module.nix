@@ -37,6 +37,12 @@ inputs:
     default = config.nvim-lib.pluginsFromPrefix "plugins-" inputs;
   };
 
+  options.settings.theme.name = lib.mkOption {
+    type = lib.types.str;
+    default = "kanagawa";
+    description = "Theme name exported to Lua metadata.";
+  };
+
   config.settings.config_directory = ./.;
   config.settings.aliases = [ "cvim" ];
   config.package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.neovim;

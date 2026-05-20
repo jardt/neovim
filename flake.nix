@@ -138,7 +138,6 @@
       # see :help nixCats.flake.outputs.packageDefinitions
       packageDefinitions = import ./nvims.nix inputs;
       wrapperModule = nixpkgs.lib.modules.importApply ./module.nix inputs;
-      wrapper = inputs."nix-wrapper-modules".lib.evalModule wrapperModule;
       # In this section, the main thing you will need to do is change the default package name
       # to the name of the packageDefinitions entry you wish to use as the default.
       defaultPackageName = "catsvim";
@@ -165,14 +164,27 @@
           config = extra_pkg_config;
           overlays = dependencyOverlays;
         };
+        mkWrapper =
+          profile:
+          (inputs."nix-wrapper-modules".lib.evalModules {
+            modules = [
+              wrapperModule
+              profile
+            ];
+            specialArgs = { inherit pkgs; };
+          }).config.wrap
+            { inherit pkgs; };
       in
       {
         # these outputs will be wrapped with ${system} by utils.eachSystem
 
         # this will make a package out of each of the packageDefinitions defined above
         # and set the default package to the one passed in here.
-        packages = (utils.mkAllWithDefault defaultPackage) // {
-          wrapper-test = wrapper.config.wrap { inherit pkgs; };
+        packages = rec {
+          catsvim = mkWrapper ./nix/profiles/full.nix;
+          catsvi = mkWrapper ./nix/profiles/minimal.nix;
+          cats_dotang_nvim = mkWrapper ./nix/profiles/dotang.nix;
+          default = catsvim;
         };
 
         # choose your package for devShell
