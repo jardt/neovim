@@ -57,6 +57,24 @@
         "type": "github"
       }
     },
+    "nix-wrapper-modules": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1779230126,
+        "narHash": "sha256-4XXww17gSEQys+RFe2nlFS6eFl6KIChdW7hy5MlZyYE=",
+        "owner": "BirdeeHub",
+        "repo": "nix-wrapper-modules",
+        "rev": "c2b76d39f5db070fe947e78dfc7d034874bcaf03",
+        "type": "github"
+      },
+      "original": {
+        "owner": "BirdeeHub",
+        "repo": "nix-wrapper-modules",
+        "type": "github"
+      }
+    },
     "nixCats": {
       "locked": {
         "lastModified": 1777273601,
@@ -89,6 +107,22 @@
       }
     },
     "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1778869304,
+        "narHash": "sha256-30sZNZoA1cqF5JNO9fVX+wgiQYjB7HJqqJ4ztCDeBZE=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "d233902339c02a9c334e7e593de68855ad26c4cb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_3": {
       "locked": {
         "lastModified": 1778869304,
         "narHash": "sha256-30sZNZoA1cqF5JNO9fVX+wgiQYjB7HJqqJ4ztCDeBZE=",
@@ -220,8 +254,9 @@
     "root": {
       "inputs": {
         "neovim-nightly-overlay": "neovim-nightly-overlay",
+        "nix-wrapper-modules": "nix-wrapper-modules",
         "nixCats": "nixCats",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs_3",
         "plugins-blink-css-vars": "plugins-blink-css-vars",
         "plugins-blink-indent": "plugins-blink-indent",
         "plugins-nvim-ansible": "plugins-nvim-ansible",
