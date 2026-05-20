@@ -9,7 +9,7 @@ package.path = config_root .. "/lua/?.lua;" .. config_root .. "/lua/?/init.lua;"
 _G.nix_config = require("config.nix")
 _G.pack_config = require("config.pack")
 pack_config.add()
-vim.cmd.packloadall({ bang = true })
+vim.cmd.packloadall()
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
