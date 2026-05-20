@@ -9,9 +9,12 @@ function M.setup()
 	local ok_extras, lzextras = pcall(require, "lzextras")
 	if ok_extras then
 		setmetatable(lze, getmetatable(lzextras))
+		vim.g.lze = vim.tbl_extend("force", vim.g.lze or {}, {
+			load = lzextras.loaders.with_after,
+		})
 		if type(lze.register_handlers) == "function" then
 			local handlers = {}
-			for _, handler in ipairs({ "lsp", "merge" }) do
+			for _, handler in ipairs({ "merge", "lsp" }) do
 				local ok_handler, loaded = pcall(function()
 					return lzextras[handler]
 				end)
