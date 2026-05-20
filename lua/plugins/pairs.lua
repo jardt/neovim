@@ -1,7 +1,7 @@
 return {
 	{
 		"saghen/blink.pairs",
-		enabled = require("nixCatsUtils").enableForCategory("general", false),
+		enabled = require("config.nix").enableForCategory("general", false),
 		event = "BufRead",
 		version = "*", -- (recommended) only required with prebuilt binaries
 

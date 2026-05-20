@@ -79,7 +79,7 @@ end
 return {
 	{
 		"folke/snacks.nvim",
-		enabled = require("nixCatsUtils").enableForCategory("general", true),
+		enabled = require("config.nix").enableForCategory("general", true),
 		priority = 1000,
 		lazy = false,
 		---@type snacks.Config
@@ -98,11 +98,11 @@ return {
 			scroll = { enabled = false },
 			statuscolumn = { enabled = false }, -- we set this in options.lua
 			words = { enabled = true },
-			lazygit = { enabled = require("nixCatsUtils").enableForCategory("git", true) },
-			gh = { enabled = require("nixCatsUtils").enableForCategory("git", true) },
+			lazygit = { enabled = require("config.nix").enableForCategory("git", true) },
+			gh = { enabled = require("config.nix").enableForCategory("git", true) },
 			---@class snacks.picker.Config
 			picker = {
-				enabled = require("nixCatsUtils").getCatOrDefault("opts.picker.snacks", false),
+				enabled = require("config.nix").getCatOrDefault("opts.picker.snacks", false),
 				cwd = true,
 				ui_select = true,
 			},

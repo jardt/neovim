@@ -1,7 +1,7 @@
 return {
 	{
 		"saghen/blink.cmp",
-		enabled = require("nixCatsUtils").enableForCategory("completion", false),
+		enabled = require("config.nix").enableForCategory("completion", false),
 		-- optional: provides snippets for the snippet source
 		dependencies = {
 			{ "rafamadriz/friendly-snippets" },
@@ -134,7 +134,7 @@ return {
 				fuzzy = { implementation = "prefer_rust_with_warning" },
 			}
 
-			if require("nixCatsUtils").getCatOrDefault("langs.markdown", true) then
+			if require("config.nix").getCatOrDefault("langs.markdown", true) then
 				blink_opts.sources.providers.obsidian = {
 					name = "obsidian",
 					module = "blink.compat.source",
@@ -150,15 +150,15 @@ return {
 			end
 
 			-- add dadbod completion
-			if require("nixCatsUtils").getCatOrDefault("database", true) then
+			if require("config.nix").getCatOrDefault("database", true) then
 				blink_opts.sources.providers.dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" }
 				table.insert(blink_opts.sources.default, "dadbod")
 			end
-			if require("nixCatsUtils").getCatOrDefault("snippets", true) then
+			if require("config.nix").getCatOrDefault("snippets", true) then
 				blink_opts.snippets.preset = "luasnip"
 			end
 
-			if require("nixCatsUtils").getCatOrDefault("langs.web", true) then
+			if require("config.nix").getCatOrDefault("langs.web", true) then
 				blink_opts.sources.providers.css_vars = {
 					name = "css-vars",
 					module = "css-vars.blink",
@@ -169,7 +169,7 @@ return {
 					},
 				}
 			end
-			if require("nixCatsUtils").getCatOrDefault("langs.tex", true) then
+			if require("config.nix").getCatOrDefault("langs.tex", true) then
 				blink_opts.sources.providers.vimtex = {
 					name = "vimtex",
 					module = "blink.compat.source",

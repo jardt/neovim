@@ -1,7 +1,7 @@
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
-		build = require("nixCatsUtils").lazyAdd(":TSUpdate"),
+		build = require("config.nix").lazyAdd(":TSUpdate"),
 		lazy = false,
 		branch = "main",
 		---@type TSConfig
@@ -30,7 +30,7 @@ return {
 				pattern = "LazyDone",
 				once = true,
 				callback = function()
-					if not require("nixCatsUtils").isNixCats then
+					if not require("config.nix").is_nix then
 						ts.install({
 							"c",
 							"ron", -- rust object notation

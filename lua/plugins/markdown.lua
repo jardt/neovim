@@ -1,7 +1,7 @@
 return {
 	{
 		"iamcco/markdown-preview.nvim",
-		enabled = require("nixCatsUtils").enableForCategory("langs.markdown", false),
+		enabled = require("config.nix").enableForCategory("langs.markdown", false),
 		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
 		build = "mkdp#util#install()",
 		init = function()
@@ -11,7 +11,7 @@ return {
 	},
 	{
 		"MeanderingProgrammer/render-markdown.nvim",
-		enabled = require("nixCatsUtils").enableForCategory("langs.markdown", false),
+		enabled = require("config.nix").enableForCategory("langs.markdown", false),
 		dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.icons" }, -- if you use standalone mini plugins
 		ft = "markdown",
 		---@module 'render-markdown'
@@ -21,7 +21,7 @@ return {
 	{
 		"obsidian-nvim/obsidian.nvim",
 		version = "*", -- recommended, use latest release instead of latest commit
-		enabled = require("nixCatsUtils").enableForCategory("obsidian", false),
+		enabled = require("config.nix").enableForCategory("obsidian", false),
 		lazy = true,
 		ft = "markdown",
 		-- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:

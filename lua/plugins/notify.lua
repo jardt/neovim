@@ -1,7 +1,7 @@
 return {
 	{
 		"folke/noice.nvim",
-		enabled = require("nixCatsUtils").enableForCategory("notify", false),
+		enabled = require("config.nix").enableForCategory("notify", false),
 		event = "VeryLazy",
 		opts = {
 			cmdline = {

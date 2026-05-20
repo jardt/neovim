@@ -1,7 +1,7 @@
 return {
 	{
 		"elkowar/yuck.vim",
-		enabled = require("nixCatsUtils").enableForCategory("langs.yuck", false),
+		enabled = require("config.nix").enableForCategory("langs.yuck", false),
 		ft = { "yuck" },
 	},
 }

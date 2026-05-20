@@ -1,7 +1,7 @@
 return {
 	{
 		"shaunsingh/nord.nvim",
-		enabled = require("nixCatsUtils").getCatOrDefault("opts.theme.name", "") == "nord",
+		enabled = require("config.nix").getCatOrDefault("opts.theme.name", "") == "nord",
 		priority = 1000,
 		config = function()
 			vim.cmd([[colorscheme nord]])
@@ -9,7 +9,7 @@ return {
 	},
 	{
 		"ellisonleao/gruvbox.nvim",
-		enabled = require("nixCatsUtils").getCatOrDefault("opts.theme.name", "") == "gruvbox",
+		enabled = require("config.nix").getCatOrDefault("opts.theme.name", "") == "gruvbox",
 		priority = 1000,
 		config = function()
 			vim.cmd([[colorscheme gruvbox]])
@@ -18,7 +18,7 @@ return {
 	{
 		"scottmckendry/cyberdream.nvim",
 		lazy = false,
-		enabled = require("nixCatsUtils").getCatOrDefault("opts.theme.name", "") == "cyberdream",
+		enabled = require("config.nix").getCatOrDefault("opts.theme.name", "") == "cyberdream",
 		priority = 1000,
 		config = function()
 			require("cyberdream").setup({
@@ -39,7 +39,7 @@ return {
 	},
 	{
 		"rebelot/kanagawa.nvim",
-		enabled = require("nixCatsUtils").getCatOrDefault("opts.theme.name", "") == "kanagawa",
+		enabled = require("config.nix").getCatOrDefault("opts.theme.name", "") == "kanagawa",
 		config = function()
 			local opts = {
 				background = { -- map the value of 'background' option to a theme
@@ -74,7 +74,7 @@ return {
 	},
 	{
 		"catppuccin/nvim",
-		enabled = require("nixCatsUtils").getCatOrDefault("opts.theme.name", "") == "catppuccin-gruvbox",
+		enabled = require("config.nix").getCatOrDefault("opts.theme.name", "") == "catppuccin-gruvbox",
 		priority = 1000,
 		name = "catppuccin-nvim",
 		config = function()

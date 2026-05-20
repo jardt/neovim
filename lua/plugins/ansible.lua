@@ -1,7 +1,7 @@
 return {
 	{
 		"mfussenegger/nvim-ansible",
-		enabled = require("nixCatsUtils").enableForCategory("devops", true),
+		enabled = require("config.nix").enableForCategory("devops", true),
 		ft = {},
 		keys = {
 			{

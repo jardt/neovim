@@ -2,7 +2,7 @@ return {
 	{
 		"nvim-lualine/lualine.nvim",
 		event = "BufReadPre",
-		enabled = require("nixCatsUtils").enableForCategory("statusline", false),
+		enabled = require("config.nix").enableForCategory("statusline", false),
 		init = function()
 			vim.g.lualine_laststatus = vim.o.laststatus
 			if vim.fn.argc(-1) > 0 then
@@ -14,7 +14,7 @@ return {
 			end
 		end,
 		opts = function()
-			local ai_enabled = require("nixCatsUtils").enableForCategory("ai", false)
+			local ai_enabled = require("config.nix").enableForCategory("ai", false)
 			-- transparent bg
 			local auto = require("lualine.themes.auto")
 			local lualine_modes = { "insert", "normal", "visual", "command", "replace", "inactive", "terminal" }
@@ -26,7 +26,7 @@ return {
 			local opts = {
 				options = {
 					icons_enabled = true,
-					theme = require("nixCatsUtils").getCatOrDefault("opts.theme.name", "base16"),
+					theme = require("config.nix").getCatOrDefault("opts.theme.name", "base16"),
 					component_separators = "",
 					section_separators = "",
 				},

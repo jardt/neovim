@@ -21,7 +21,7 @@ return {
 	},
 	{
 		"lewis6991/gitsigns.nvim",
-		enabled = require("nixCatsUtils").enableForCategory("git", true),
+		enabled = require("config.nix").enableForCategory("git", true),
 		event = "BufReadPre",
 		opts = {
 			signs = {
@@ -65,7 +65,7 @@ return {
 	},
 	{
 		"tpope/vim-fugitive",
-		enabled = require("nixCatsUtils").enableForCategory("git", true),
+		enabled = require("config.nix").enableForCategory("git", true),
 		cmd = {
 			"Gco",
 			"Git",
@@ -81,7 +81,7 @@ return {
 	},
 	{
 		"sindrets/diffview.nvim",
-		enabled = require("nixCatsUtils").enableForCategory("git", true),
+		enabled = require("config.nix").enableForCategory("git", true),
 		cmd = {
 			"DiffviewClose",
 			"DiffviewFileHistory",

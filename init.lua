@@ -1,25 +1,27 @@
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
+_G.nix_config = require("config.nix")
+
+local config_source = debug.getinfo(1, "S").source:sub(2)
+local config_root = vim.fn.fnamemodify(config_source, ":p:h")
+vim.opt.runtimepath:prepend(config_root)
+package.path = config_root .. "/lua/?.lua;" .. config_root .. "/lua/?/init.lua;" .. package.path
+
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
-require("nixCatsUtils").setup({
-	non_nix_value = true,
-})
-
 local function getlockfilepath()
-	if require("nixCatsUtils").isNixCats and type(nixCats.settings.unwrappedCfgPath) == "string" then
-		return nixCats.settings.unwrappedCfgPath .. "/lazy-lock.json"
-	else
-		return vim.fn.stdpath("config") .. "/lazy-lock.json"
+	local unwrapped = nix_config.get(nil, "settings", "unwrappedCfgPath")
+	if nix_config.is_nix and type(unwrapped) == "string" then
+		return unwrapped .. "/lazy-lock.json"
 	end
+	return vim.fn.stdpath("config") .. "/lazy-lock.json"
 end
+
 local lazyOptions = {
 	lockfile = getlockfilepath(),
 	ui = {
-		-- If you are using a Nerd Font: set icons to an empty table which will use the
-		-- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
 		icons = vim.g.have_nerd_font and {} or {
 			cmd = "⌘",
 			config = "🛠",
@@ -38,11 +40,7 @@ local lazyOptions = {
 	},
 }
 
-local lazyCat = require("nixCatsUtils.lazyCat")
-lazyCat.setup(nixCats.pawsible({ "allPlugins", "start", "lazy.nvim" }), { import = "plugins" }, lazyOptions)
-
--- not needed with nixcats
---require("config.lazy")
+require("config.lazy").setup(lazyOptions)
 
 require("config.lsp")
 require("config.options")

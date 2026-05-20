@@ -1,26 +1,26 @@
 return {
 	{
 		"nvim-neotest/neotest",
-		enabled = require("nixCatsUtils").enableForCategory("debugtest", false),
+		enabled = require("config.nix").enableForCategory("debugtest", false),
 		dependencies = {
 			"nvim-neotest/nvim-nio",
 			"nvim-lua/plenary.nvim",
 			"nvim-treesitter/nvim-treesitter",
 			{
 				"marilari88/neotest-vitest",
-				enabled = require("nixCatsUtils").enableForCategory("langs.web", false),
+				enabled = require("config.nix").enableForCategory("langs.web", false),
 			},
 			-- "llllvvuu/neotest-foundry",
 			{
 				"fredrikaverpil/neotest-golang",
-				enabled = require("nixCatsUtils").enableForCategory("langs.go", false),
+				enabled = require("config.nix").enableForCategory("langs.go", false),
 				dependencies = {
 					"leoluz/nvim-dap-go",
 				},
 			},
 			{
 				"nsidorenco/neotest-vstest",
-				enabled = require("nixCatsUtils").enableForCategory("langs.dotnet", false),
+				enabled = require("config.nix").enableForCategory("langs.dotnet", false),
 			},
 		},
 		lazy = true,
@@ -30,20 +30,20 @@ return {
 					-- require("neotest-foundry"),
 				},
 			}
-			if require("nixCatsUtils").getCatOrDefault("langs.web", false) then
+			if require("config.nix").getCatOrDefault("langs.web", false) then
 				table.insert(setup.adapters, require("neotest-vitest"))
 			end
-			if require("nixCatsUtils").getCatOrDefault("langs.dotnet", false) then
+			if require("config.nix").getCatOrDefault("langs.dotnet", false) then
 				table.insert(setup.adapters, require("neotest-vstest"))
 			end
-			if require("nixCatsUtils").getCatOrDefault("langs.rust", false) then
+			if require("config.nix").getCatOrDefault("langs.rust", false) then
 				table.insert(setup.adapters, require("rustaceanvim.neotest"))
 			end
-			if require("nixCatsUtils").getCatOrDefault("langs.rust", false) then
+			if require("config.nix").getCatOrDefault("langs.rust", false) then
 				table.insert(setup.adapters, require("rustaceanvim.neotest"))
 			end
 
-			if require("nixCatsUtils").getCatOrDefault("langs.rust", false) then
+			if require("config.nix").getCatOrDefault("langs.rust", false) then
 				setup.adapters["neotest-golang"] = {
 					-- Here we can set options for neotest-golang, e.g.
 					-- go_test_args = { "-v", "-race", "-count=1", "-timeout=60s" },
