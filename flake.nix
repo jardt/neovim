@@ -160,7 +160,11 @@
         # this is just for using utils such as pkgs.mkShell
         # The one used to build neovim is resolved inside the builder
         # and is passed to our categoryDefinitions and packageDefinitions
-        pkgs = import nixpkgs { inherit system; };
+        pkgs = import nixpkgs {
+          inherit system;
+          config = extra_pkg_config;
+          overlays = dependencyOverlays;
+        };
       in
       {
         # these outputs will be wrapped with ${system} by utils.eachSystem
@@ -178,7 +182,7 @@
             name = defaultPackageName;
             packages = [ defaultPackage ];
             inputsFrom = [ ];
-            shellHook = '''';
+            shellHook = "";
           };
         };
 
