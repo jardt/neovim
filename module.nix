@@ -6,6 +6,61 @@ inputs:
   pkgs,
   ...
 }:
+let
+  categoryInfo = {
+    general = true;
+    completion = true;
+    database = false;
+    snippets = true;
+    extras = true;
+    practice = true;
+    explorer = false;
+    test = true;
+    welcome = true;
+    undotree = true;
+    statusline = true;
+    formatlint = true;
+    debugtest = true;
+    devops = false;
+    notify = true;
+    ai = true;
+    git = true;
+    obsidian = false;
+
+    langs = {
+      typst = true;
+      rust = false;
+      web = true;
+      go = true;
+      markdown = true;
+      lua = true;
+      dotnet = false;
+      zig = false;
+      java = false;
+      qml = false;
+      yuck = false;
+      tex = true;
+    };
+
+    opts = {
+      welcome = {
+        snacks = true;
+        alpha = false;
+      };
+      picker = {
+        fzf = false;
+        snacks = true;
+      };
+      theme = {
+        base16 = {
+          enable = false;
+          table = { };
+        };
+        name = "kanagawa";
+      };
+    };
+  };
+in
 {
   imports = [ wlib.wrapperModules.neovim ];
 
@@ -46,6 +101,12 @@ inputs:
   config.settings.config_directory = ./.;
   config.settings.aliases = [ "cvim" ];
   config.package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.neovim;
+  config.info = lib.mapAttrsRecursive (_: lib.mkDefault) categoryInfo;
+  config.runtimeLibs = with pkgs; [
+    libgit2
+    libxml2
+    imagemagick
+  ];
 
   config.specMods =
     { ... }:
@@ -202,7 +263,6 @@ inputs:
       diffview-nvim
       fzf-lua
       gitsigns-nvim
-      vim-fugitive
     ];
   };
   config.specs.practice = {
@@ -248,12 +308,8 @@ inputs:
       clang-tools
     ];
     data = with pkgs.vimPlugins; [
-      neotest
-      nvim-nio
       nvim-treesitter
       plenary-nvim
-      neotest-vitest
-      neotest-golang
       nvim-dap-go
       nvim-dap
       nvim-dap-ui

@@ -1,12 +1,19 @@
 local M = {}
 
-function M.setup()
-	local pack = require("config.pack")
-	pack.load("yazi.nvim")
+local loaded = false
+
+local function load_yazi()
+	if loaded then
+		return true
+	end
+
+	pcall(vim.api.nvim_del_user_command, "Yazi")
+	require("config.pack").load("yazi.nvim")
 
 	local ok, yazi = pcall(require, "yazi")
 	if not ok then
-		return
+		vim.notify("Failed to load yazi.nvim: " .. tostring(yazi), vim.log.levels.WARN)
+		return false
 	end
 
 	yazi.setup({
@@ -17,9 +24,31 @@ function M.setup()
 		},
 	})
 
-	vim.keymap.set("n", "<leader>y", "<cmd>Yazi<cr>", { desc = "Open yazi at the current file" })
-	vim.keymap.set("n", "<leader>Y", "<cmd>Yazi cwd<cr>", { desc = "Open the file manager in nvim's working directory" })
-	vim.keymap.set("n", "<c-up>", "<cmd>Yazi toggle<cr>", { desc = "Resume the last yazi session" })
+	loaded = true
+	return true
+end
+
+local function yazi_command(args)
+	if not load_yazi() then
+		return
+	end
+	vim.cmd("Yazi " .. args)
+end
+
+function M.setup()
+	vim.api.nvim_create_user_command("Yazi", function(opts)
+		yazi_command(opts.args)
+	end, { nargs = "*", complete = "file" })
+
+	vim.keymap.set("n", "<leader>y", function()
+		yazi_command("")
+	end, { desc = "Open yazi at the current file" })
+	vim.keymap.set("n", "<leader>Y", function()
+		yazi_command("cwd")
+	end, { desc = "Open the file manager in nvim's working directory" })
+	vim.keymap.set("n", "<c-up>", function()
+		yazi_command("toggle")
+	end, { desc = "Resume the last yazi session" })
 end
 
 return M

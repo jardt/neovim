@@ -8,7 +8,7 @@ function M.setup()
 	end
 
 	local pack = require("config.pack")
-	for _, plugin in ipairs({ "gitsigns.nvim", "diffview.nvim", "vim-fugitive" }) do
+	for _, plugin in ipairs({ "gitsigns.nvim", "diffview.nvim" }) do
 		pack.load(plugin)
 	end
 

@@ -76,7 +76,7 @@ local function lsp_type_hierarchy(direction)
 	end)
 end
 
-return {
+local specs = {
 	{
 		"folke/snacks.nvim",
 		enabled = require("config.nix").enableForCategory("general", true),
@@ -542,3 +542,48 @@ return {
 		},
 	},
 }
+
+local function normalize_modes(mode)
+	if mode == nil then
+		return { "n" }
+	end
+	if type(mode) == "string" then
+		return { mode }
+	end
+	return mode
+end
+
+function specs.setup()
+	local spec = specs[1]
+	if spec.enabled == false then
+		return
+	end
+
+	require("config.pack").load("snacks.nvim")
+	local ok, snacks = pcall(require, "snacks")
+	if not ok then
+		vim.notify("Failed to load snacks.nvim: " .. tostring(snacks), vim.log.levels.WARN)
+		return
+	end
+
+	if type(snacks.setup) == "function" then
+		snacks.setup(type(spec.opts) == "function" and spec.opts() or spec.opts or {})
+	end
+
+	for _, key in ipairs(spec.keys or {}) do
+		local lhs, rhs = key[1], key[2]
+		if lhs ~= nil and rhs ~= nil then
+			local opts = {
+				desc = key.desc,
+				silent = key.silent ~= false,
+				noremap = key.noremap ~= false,
+				expr = key.expr,
+			}
+			for _, mode in ipairs(normalize_modes(key.mode)) do
+				vim.keymap.set(mode, lhs, rhs, opts)
+			end
+		end
+	end
+end
+
+return specs

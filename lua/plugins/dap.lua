@@ -14,7 +14,6 @@ return {
 					enabled = require("config.nix").enableForCategory("langs.go", false),
 				},
 				"rcarriga/nvim-dap-ui",
-				dependencies = { "nvim-neotest/nvim-nio" },
 				keys = {
 					{
 						"<leader>Du",

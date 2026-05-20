@@ -8,8 +8,36 @@ in
 {
   config.package = lib.mkForce pkgs.neovim-unwrapped;
   config.settings.aliases = lib.mkForce [ "cvi" ];
+  config.info.completion = true;
+  config.info.database = false;
+  config.info.snippets = false;
+  config.info.extras = false;
+  config.info.practice = false;
+  config.info.explorer = false;
+  config.info.test = false;
+  config.info.welcome = false;
+  config.info.undotree = false;
+  config.info.statusline = false;
+  config.info.formatlint = false;
+  config.info.debugtest = false;
+  config.info.devops = false;
+  config.info.notify = false;
+  config.info.ai = false;
+  config.info.git = false;
+  config.info.obsidian = false;
+  config.info.langs.typst = false;
+  config.info.langs.rust = false;
+  config.info.langs.web = false;
+  config.info.langs.go = false;
+  config.info.langs.markdown = false;
+  config.info.langs.lua = false;
+  config.info.langs.dotnet = false;
+  config.info.langs.zig = false;
+  config.info.langs.java = false;
+  config.info.langs.qml = false;
+  config.info.langs.yuck = false;
+  config.info.langs.tex = false;
 
-  config.specs.completion = disabledSpec;
   config.specs.database = disabledSpec;
   config.specs.snippets = disabledSpec;
   config.specs.extras = disabledSpec;

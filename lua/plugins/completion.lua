@@ -7,7 +7,11 @@ function M.setup()
 		return
 	end
 	local pack = require("config.pack")
-	for _, plugin in ipairs({ "blink.cmp", "blink.compat", "blink-ripgrep.nvim", "colorful-menu.nvim", "friendly-snippets", "lazydev.nvim", "vim-dadbod-completion" }) do
+	local plugins = { "blink.cmp", "blink.compat", "blink-ripgrep.nvim", "colorful-menu.nvim", "friendly-snippets", "lazydev.nvim", "vim-dadbod-completion" }
+	if nix.getCatOrDefault("snippets", true) then
+		table.insert(plugins, "luasnip")
+	end
+	for _, plugin in ipairs(plugins) do
 		pack.load(plugin)
 	end
 	local ok, blink = pcall(require, "blink.cmp")
@@ -49,7 +53,7 @@ function M.setup()
 		appearance = { use_nvim_cmp_as_default = true, nerd_font_variant = "mono" },
 		snippets = {},
 		sources = {
-			default = { "lsp", "path", "snippets", "buffer", "ripgrep", "lazydev" },
+			default = { "lsp", "path", "buffer", "ripgrep", "lazydev" },
 			per_filetype = { snacks_input = { "sidekick_templates", "buffer" }, pi_prompt = { "sidekick_templates", "buffer" } },
 			providers = {
 				lsp = { name = "LSP", module = "blink.cmp.sources.lsp", score_offset = 99 },
@@ -78,6 +82,7 @@ function M.setup()
 	end
 	if nix.getCatOrDefault("snippets", true) then
 		opts.snippets.preset = "luasnip"
+		table.insert(opts.sources.default, 3, "snippets")
 	end
 	if nix.getCatOrDefault("langs.web", true) and pack.load("blink-css-vars") then
 		local has_css_vars = pcall(require, "css-vars.blink")

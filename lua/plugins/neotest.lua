@@ -1,7 +1,9 @@
 return {
 	{
 		"nvim-neotest/neotest",
-		enabled = require("config.nix").enableForCategory("debugtest", false),
+		-- Intentionally disabled after nix-wrapper-modules migration.
+		-- Keep the spec around as reference, but do not register commands/keymaps.
+		enabled = false,
 		dependencies = {
 			"nvim-neotest/nvim-nio",
 			"nvim-lua/plenary.nvim",

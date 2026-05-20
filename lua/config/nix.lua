@@ -37,7 +37,19 @@ local function split_key(key)
 end
 
 function M.getCatOrDefault(key, default)
-	return M.get(default, unpack(split_key(key)))
+	local direct = M.get(nil, unpack(split_key(key)))
+	if direct ~= nil then
+		return direct
+	end
+	local parts = split_key(key)
+	table.insert(parts, 1, "info")
+	-- nix-wrapper-modules' info helper treats stored false as "use default".
+	-- Category/option flags are declared in Nix, so query boolean defaults as
+	-- false to preserve disabled categories from the old nixCats setup.
+	if type(default) == "boolean" then
+		return M.get(false, unpack(parts))
+	end
+	return M.get(default, unpack(parts))
 end
 
 function M.enableForCategory(key, default)

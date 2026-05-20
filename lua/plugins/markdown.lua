@@ -1,4 +1,4 @@
-return {
+local specs = {
 	{
 		"iamcco/markdown-preview.nvim",
 		enabled = require("config.nix").enableForCategory("langs.markdown", false),
@@ -6,13 +6,14 @@ return {
 		build = "mkdp#util#install()",
 		init = function()
 			vim.g.mkdp_filetypes = { "markdown" }
+			vim.g.mkdp_command_for_global = 1
 		end,
 		ft = { "markdown" },
 	},
 	{
 		"MeanderingProgrammer/render-markdown.nvim",
 		enabled = require("config.nix").enableForCategory("langs.markdown", false),
-		dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.icons" }, -- if you use standalone mini plugins
+		dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.icons" },
 		ft = "markdown",
 		---@module 'render-markdown'
 		---@type render.md.UserConfig
@@ -20,48 +21,15 @@ return {
 	},
 	{
 		"obsidian-nvim/obsidian.nvim",
-		version = "*", -- recommended, use latest release instead of latest commit
+		version = "*",
 		enabled = require("config.nix").enableForCategory("obsidian", false),
 		lazy = true,
 		ft = "markdown",
-		-- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
-		-- event = {
-		--   -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
-		--   -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/*.md"
-		--   -- refer to `:h file-pattern` for more examples
-		--   "BufReadPre path/to/my-vault/*.md",
-		--   "BufNewFile path/to/my-vault/*.md",
-		-- },
-		dependencies = {
-			-- Required.
-			"nvim-lua/plenary.nvim",
-		},
+		dependencies = { "nvim-lua/plenary.nvim" },
 		opts = {
 			ui = { enable = false },
-			workspaces = {
-				-- {
-				-- 	name = "notes",
-				-- 	path = "/Users/jardar.ton/notes",
-				-- },
-				-- {
-				--     name = "master",
-				--     path = "/Users/jardar/Library/Mobile Documents/iCloud~md~obsidian/Documents/master",
-				-- },
-				-- {
-				--     name = "audit",
-				--     path = "/Users/jardar/Library/Mobile Documents/iCloud~md~obsidian/Documents/audit",
-				-- },
-			},
-			-- Optional, completion of wiki links, local markdown links, and tags using nvim-cmp.
-			completion = {
-				-- Set to false to disable completion.
-				nvim_cmp = false,
-				-- Trigger completion at 2 chars.
-				min_chars = 2,
-			},
-
-			-- Optional, configure key mappings. These are the defaults. If you don't want to set any keymappings this
-			-- way then set 'mappings = {}'.
+			workspaces = {},
+			completion = { nvim_cmp = false, min_chars = 2 },
 			mappings = {
 				["gd"] = {
 					action = function()
@@ -69,55 +37,80 @@ return {
 					end,
 					opts = { noremap = false, expr = true, buffer = true },
 				},
-				-- Toggle check-boxes.
 				["<leader>ch"] = {
 					action = function()
 						return require("obsidian").util.toggle_checkbox()
 					end,
 					opts = { buffer = true },
 				},
-				-- Smart action depending on context, either follow link or toggle checkbox.
 				["<cr>"] = {
 					action = function()
 						return require("obsidian").util.smart_action()
 					end,
 					opts = { buffer = true, expr = true },
 				},
-				-- Smart action depending on context, either follow link or toggle checkbox.
-				["<leader>N"] = {
-					action = function()
-						return "<cmd>ObsidianNew<cr>"
-					end,
-					opts = { buffer = true, expr = true },
-				},
-				["<leader>oo"] = {
-					action = function()
-						return "<cmd>ObsidianOpen<cr>"
-					end,
-					opts = { buffer = true, expr = true },
-				},
-				["<leader>fl"] = {
-					action = function()
-						return "<cmd>ObsidianLinks<cr>"
-					end,
-					opts = { buffer = true, expr = true },
-				},
-				["<leader>gr"] = {
-					action = function()
-						return "<cmd>ObsidianBacklinks<cr>"
-					end,
-					opts = { buffer = true, expr = true },
-				},
 			},
 		},
-		config = function(_, opts)
-			require("obsidian").setup(opts)
-
-			-- HACK: fix error, disable completion.nvim_cmp option, manually register sources
-			local cmp = require("cmp")
-			cmp.register_source("obsidian", require("cmp_obsidian").new())
-			cmp.register_source("obsidian_new", require("cmp_obsidian_new").new())
-			cmp.register_source("obsidian_tags", require("cmp_obsidian_tags").new())
-		end,
 	},
 }
+
+local preview_loaded = false
+
+local function load_markdown_preview()
+	if preview_loaded then
+		return true
+	end
+
+	if specs[1].enabled == false then
+		vim.notify("markdown-preview.nvim is disabled", vim.log.levels.WARN)
+		return false
+	end
+
+	if type(specs[1].init) == "function" then
+		specs[1].init()
+	end
+
+	pcall(vim.api.nvim_del_user_command, "MarkdownPreview")
+	pcall(vim.api.nvim_del_user_command, "MarkdownPreviewStop")
+	pcall(vim.api.nvim_del_user_command, "MarkdownPreviewToggle")
+	require("config.pack").load("markdown-preview.nvim")
+	preview_loaded = true
+	return true
+end
+
+local function preview_command(command, args)
+	if not load_markdown_preview() then
+		return
+	end
+	vim.cmd(command .. (args ~= "" and " " .. args or ""))
+end
+
+local function setup_render_markdown()
+	if specs[2].enabled == false then
+		return
+	end
+	require("config.pack").load("render-markdown.nvim")
+	local ok, render = pcall(require, "render-markdown")
+	if ok and type(render.setup) == "function" then
+		render.setup(specs[2].opts)
+	end
+end
+
+function specs.setup()
+	if specs[1].enabled ~= false and type(specs[1].init) == "function" then
+		specs[1].init()
+	end
+
+	for _, command in ipairs({ "MarkdownPreview", "MarkdownPreviewStop", "MarkdownPreviewToggle" }) do
+		vim.api.nvim_create_user_command(command, function(opts)
+			preview_command(command, opts.args)
+		end, { nargs = "*", bang = true })
+	end
+
+	vim.api.nvim_create_autocmd("FileType", {
+		pattern = "markdown",
+		callback = setup_render_markdown,
+	})
+end
+
+return specs
