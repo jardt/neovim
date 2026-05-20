@@ -441,7 +441,6 @@ in
         ]
       ))
       tsc-nvim
-      config.nvim-lib.neovimPlugins.blink-css-vars
       config.nvim-lib.neovimPlugins.ts-error-translator
     ];
   };

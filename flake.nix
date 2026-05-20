@@ -32,11 +32,6 @@
       flake = false;
     };
 
-    plugins-blink-css-vars = {
-      url = "github:jdrupal-dev/css-vars.nvim";
-      flake = false;
-    };
-
     plugins-blink-indent = {
       url = "github:saghen/blink.indent";
       flake = false;

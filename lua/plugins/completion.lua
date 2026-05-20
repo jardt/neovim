@@ -84,12 +84,6 @@ function M.setup()
 		opts.snippets.preset = "luasnip"
 		table.insert(opts.sources.default, 3, "snippets")
 	end
-	if nix.getCatOrDefault("langs.web", true) and pack.load("blink-css-vars") then
-		local has_css_vars = pcall(require, "css-vars.blink")
-		if has_css_vars then
-			opts.sources.providers.css_vars = { name = "css-vars", module = "css-vars.blink", opts = { search_extensions = { ".css", ".js", ".ts", ".jsx", ".tsx" } } }
-		end
-	end
 	if nix.getCatOrDefault("langs.tex", true) then
 		opts.sources.providers.vimtex = { name = "vimtex", module = "blink.compat.source", score_offset = 3 }
 	end

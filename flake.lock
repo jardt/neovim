@@ -123,22 +123,6 @@
         "type": "github"
       }
     },
-    "plugins-blink-css-vars": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1738051935,
-        "narHash": "sha256-TAwfi1wyKSzQEOK34pCHuyD3mLylFQX2K8UPBjU9Oo0=",
-        "owner": "jdrupal-dev",
-        "repo": "css-vars.nvim",
-        "rev": "0615782c320f729b04d9c51a8a61fb498ee4234a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "jdrupal-dev",
-        "repo": "css-vars.nvim",
-        "type": "github"
-      }
-    },
     "plugins-blink-indent": {
       "flake": false,
       "locked": {
@@ -273,7 +257,6 @@
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nix-wrapper-modules": "nix-wrapper-modules",
         "nixpkgs": "nixpkgs_3",
-        "plugins-blink-css-vars": "plugins-blink-css-vars",
         "plugins-blink-indent": "plugins-blink-indent",
         "plugins-lze": "plugins-lze",
         "plugins-lzextras": "plugins-lzextras",
