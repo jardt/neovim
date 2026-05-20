@@ -12,7 +12,6 @@ local servers = {
 	toml = "taplo",
 	tailwind = "tailwindcss-language-server",
 	html = "vscode-html-language-server",
-	["css-variables"] = "css-variables-language-server",
 	css = "vscode-css-language-server",
 	terraform = "terraform-ls",
 	qml = "qmlls",
