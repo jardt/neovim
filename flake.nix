@@ -46,6 +46,16 @@
       url = "github:dmmulroy/ts-error-translator.nvim";
       flake = false;
     };
+
+    plugins-delta-lua = {
+      url = "github:kokusenz/delta.lua";
+      flake = false;
+    };
+
+    plugins-deltaview = {
+      url = "github:kokusenz/deltaview.nvim";
+      flake = false;
+    };
   };
 
   outputs =

@@ -8,8 +8,17 @@ function M.setup()
 	end
 
 	local pack = require("config.pack")
-	for _, plugin in ipairs({ "gitsigns.nvim", "diffview.nvim" }) do
+	for _, plugin in ipairs({ "gitsigns.nvim", "diffview.nvim", "delta-lua", "delta.lua", "deltaview", "deltaview.nvim" }) do
 		pack.load(plugin)
+	end
+
+	local deltaview_ok, deltaview = pcall(require, "deltaview")
+	if deltaview_ok then
+		deltaview.setup({
+			-- deltaview does not support Snacks directly yet; use vim.ui.select,
+			-- which Snacks picker owns via `picker.ui_select = true`.
+			fzf_picker = "ui_select",
+		})
 	end
 
 	local ok, gitsigns = pcall(require, "gitsigns")
@@ -43,6 +52,8 @@ function M.setup()
 	vim.keymap.set("n", "<Leader>gs", "<cmd>DiffviewOpen<CR>", { desc = "diff status" })
 	vim.keymap.set("n", "<Leader>qd", "<cmd>DiffviewClose<CR>", { desc = "close diff view" })
 	vim.keymap.set("n", "<leader>gS", "<cmd>DiffviewOpen origin/main...HEAD --imply-local<CR>", { desc = "diff against origin main" })
+	vim.cmd([[cabbrev dm DeltaMenu]])
+	vim.cmd([[cabbrev dv DeltaView]])
 end
 
 return M

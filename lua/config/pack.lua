@@ -54,6 +54,8 @@ M.plugins = {
 	plugin("saghen/blink.indent"),
 	plugin("chrisgrieser/nvim-lsp-endhints"),
 	plugin("mikavilpas/yazi.nvim"),
+	plugin("kokusenz/delta.lua"),
+	plugin("kokusenz/deltaview.nvim"),
 }
 
 M.lazy_plugins = {

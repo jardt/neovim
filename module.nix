@@ -263,6 +263,8 @@ in
       diffview-nvim
       fzf-lua
       gitsigns-nvim
+      config.nvim-lib.neovimPlugins.delta-lua
+      config.nvim-lib.neovimPlugins.deltaview
     ];
   };
   config.specs.practice = {

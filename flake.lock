@@ -139,6 +139,38 @@
         "type": "github"
       }
     },
+    "plugins-delta-lua": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1779940041,
+        "narHash": "sha256-wssLviY2unqUPxtwSYiOP6DQqEILpFlg/flq6KTQpmM=",
+        "owner": "kokusenz",
+        "repo": "delta.lua",
+        "rev": "570d8a6c8c41d99ac051d5c36a85461693d42a9c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kokusenz",
+        "repo": "delta.lua",
+        "type": "github"
+      }
+    },
+    "plugins-deltaview": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1779939939,
+        "narHash": "sha256-zdrwfVXO+x6VCwKEbtGd70cemGy37xqab8Jxl7idhL4=",
+        "owner": "kokusenz",
+        "repo": "deltaview.nvim",
+        "rev": "fed02694ad2a174954b8d6d42b095269786f23d7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kokusenz",
+        "repo": "deltaview.nvim",
+        "type": "github"
+      }
+    },
     "plugins-lze": {
       "flake": false,
       "locked": {
@@ -258,6 +290,8 @@
         "nix-wrapper-modules": "nix-wrapper-modules",
         "nixpkgs": "nixpkgs_3",
         "plugins-blink-indent": "plugins-blink-indent",
+        "plugins-delta-lua": "plugins-delta-lua",
+        "plugins-deltaview": "plugins-deltaview",
         "plugins-lze": "plugins-lze",
         "plugins-lzextras": "plugins-lzextras",
         "plugins-nvim-ansible": "plugins-nvim-ansible",
