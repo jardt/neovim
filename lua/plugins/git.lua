@@ -12,6 +12,27 @@ function M.setup()
 		pack.load(plugin)
 	end
 
+	local delta_ok, delta = pcall(require, "delta")
+	if delta_ok and delta.parse then
+		local get_diff_data_git = delta.parse.get_diff_data_git
+		local get_language_from_filename = delta.parse.get_language_from_filename
+		local function language_from_filename(path)
+			if path and path:match("%.nix$") then
+				return "nix"
+			end
+			return get_language_from_filename(path)
+		end
+
+		delta.parse.get_language_from_filename = language_from_filename
+		delta.parse.get_diff_data_git = function(diff)
+			local diff_data_set = get_diff_data_git(diff)
+			for _, diff_data in ipairs(diff_data_set or {}) do
+				diff_data.language = diff_data.language or language_from_filename(diff_data.new_path or diff_data.old_path)
+			end
+			return diff_data_set
+		end
+	end
+
 	local deltaview_ok, deltaview = pcall(require, "deltaview")
 	if deltaview_ok then
 		deltaview.setup({
