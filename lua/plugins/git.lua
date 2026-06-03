@@ -88,6 +88,19 @@ local function complete_delta_pr(arg_lead)
 	end, branches)
 end
 
+local function close_delta_view()
+	vim.api.nvim_feedkeys(vim.keycode("q"), "m", false)
+end
+
+local function toggle_delta_view()
+	local name = vim.api.nvim_buf_get_name(0)
+	if name:find("deltaview://diff/", 1, true) then
+		close_delta_view()
+	else
+		vim.cmd("DeltaView")
+	end
+end
+
 function M.setup()
 	if not nix.enableForCategory("git", true) then
 		return
@@ -169,6 +182,14 @@ function M.setup()
 	vim.keymap.set("n", "<Leader>qd", "<cmd>DiffviewClose<CR>", { desc = "close diff view" })
 	vim.keymap.set("n", "<leader>gS", "<cmd>DiffviewOpen origin/main...HEAD --imply-local<CR>", { desc = "diff against origin main" })
 	vim.keymap.set("n", "<leader>gR", "<cmd>DeltaPR<CR>", { desc = "review PR with DeltaView" })
+	vim.keymap.set("n", "<leader>gQ", "<cmd>DeltaPR!<CR>", { desc = "review PR with DeltaView quickfix" })
+	vim.keymap.set("n", "<leader>dd", toggle_delta_view, { desc = "toggle DeltaView" })
+	vim.api.nvim_create_autocmd("BufEnter", {
+		pattern = "deltaview://diff/*",
+		callback = function(event)
+			vim.keymap.set("n", "<leader>dd", close_delta_view, { buffer = event.buf, desc = "close DeltaView" })
+		end,
+	})
 	vim.cmd([[cabbrev dm DeltaMenu]])
 	vim.cmd([[cabbrev dpr DeltaPR]])
 	vim.cmd([[cabbrev dv DeltaView]])

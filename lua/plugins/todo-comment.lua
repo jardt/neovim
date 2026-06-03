@@ -52,7 +52,7 @@ return {
 				end,
 				desc = "Previous Todo Comment",
 			},
-			{ "<leader>dt", "<cmd>Trouble todo toggle<cr>", desc = "Todo (Trouble)" },
+			{ "<leader>dO", "<cmd>Trouble todo toggle<cr>", desc = "Todo (Trouble)" },
 			{
 				"<leader>dT",
 				"<cmd>Trouble todo toggle filter = {tag = {TODO,FIX,FIXME}}<cr>",
