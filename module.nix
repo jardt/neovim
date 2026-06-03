@@ -457,7 +457,10 @@ in
       roslyn-ls
       netcoredbg
     ];
-    data = with pkgs.vimPlugins; [ roslyn-nvim ];
+    data = with pkgs.vimPlugins; [
+      roslyn-nvim
+      (nvim-treesitter.withPlugins (plugins: with plugins; [ c_sharp ]))
+    ];
   };
   config.specs."langs.java" = {
     lazy = true;
