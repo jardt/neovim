@@ -303,7 +303,11 @@ in
   };
   config.specs.ai = {
     lazy = true;
-    data = [ config.nvim-lib.neovimPlugins.sidekick ];
+    runtimePkgs = with pkgs; [ copilot-language-server ];
+    data = with pkgs.vimPlugins; [
+      config.nvim-lib.neovimPlugins.sidekick
+      copilot-lsp
+    ];
   };
   config.specs.debugtest = {
     lazy = true;

@@ -24,6 +24,16 @@ function M.setup()
 			preset = "default",
 			["<C-u>"] = { "scroll_documentation_up", "fallback" },
 			["<C-d>"] = { "scroll_documentation_down", "fallback" },
+			["<Tab>"] = {
+				"snippet_forward",
+				function()
+					return require("sidekick").nes_jump_or_apply()
+				end,
+				function()
+					return vim.lsp.inline_completion and vim.lsp.inline_completion.get()
+				end,
+				"fallback",
+			},
 		},
 		completion = {
 			trigger = { show_on_keyword = true },

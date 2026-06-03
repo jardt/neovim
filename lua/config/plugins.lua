@@ -138,6 +138,7 @@ local eager_modules = {
 	"plugins.formatting",
 	"plugins.markdown",
 	"plugins.sidekick",
+	"plugins.copilot-lsp",
 	"plugins.harpoon",
 	"plugins.flash",
 	"plugins.notify",
