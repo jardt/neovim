@@ -30,11 +30,11 @@ vim.opt.incsearch = true
 
 vim.opt.termguicolors = true -- use colors from term
 
-vim.opt.scrolloff = 999
+vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 
-vim.opt.updatetime = 50
+vim.opt.updatetime = 250
 
 vim.opt.colorcolumn = "180"
 
@@ -59,8 +59,9 @@ vim.opt.undofile = true
 
 vim.opt.smoothscroll = true
 
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+-- Treesitter folds are useful, but a global foldexpr is paid during redraws.
+-- Keep folding cheap by default; enable TS folds per-buffer when you actually want them.
+vim.opt.foldmethod = "manual"
 
 vim.opt.foldcolumn = "0"
 vim.opt.foldtext = ""

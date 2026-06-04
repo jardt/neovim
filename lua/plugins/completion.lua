@@ -2,10 +2,14 @@ local M = {}
 
 local nix = require("config.nix")
 
-function M.setup()
-	if not nix.enableForCategory("completion", true) then
+local loaded = false
+
+local function load_completion()
+	if loaded or not nix.enableForCategory("completion", true) then
 		return
 	end
+	loaded = true
+
 	local pack = require("config.pack")
 	local plugins = { "blink.cmp", "blink.compat", "blink-ripgrep.nvim", "colorful-menu.nvim", "friendly-snippets", "lazydev.nvim", "vim-dadbod-completion" }
 	if nix.getCatOrDefault("snippets", true) then
@@ -100,6 +104,14 @@ function M.setup()
 	end
 
 	blink.setup(opts)
+end
+
+function M.setup()
+	vim.api.nvim_create_autocmd("InsertEnter", {
+		group = vim.api.nvim_create_augroup("LoadCompletion", { clear = true }),
+		once = true,
+		callback = load_completion,
+	})
 end
 
 return M
