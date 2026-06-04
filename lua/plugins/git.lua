@@ -3,6 +3,8 @@ local M = {}
 local nix = require("config.nix")
 
 local delta_pr_base_cache = {}
+local review_tools_loaded = false
+local load_review_tools
 
 local function trim(value)
 	return (value or ""):gsub("^%s+", ""):gsub("%s+$", "")
@@ -59,6 +61,8 @@ local function detect_pr_base(root, refresh)
 end
 
 local function open_delta_pr(opts)
+	load_review_tools()
+
 	local root = git_root()
 	if not root then
 		vim.notify("DeltaPR must be run inside a git repository", vim.log.levels.WARN)
@@ -97,17 +101,23 @@ local function toggle_delta_view()
 	if name:find("deltaview://diff/", 1, true) then
 		close_delta_view()
 	else
+		load_review_tools()
 		vim.cmd("DeltaView")
 	end
 end
 
-function M.setup()
-	if not nix.enableForCategory("git", true) then
+load_review_tools = function()
+	if review_tools_loaded then
 		return
+	end
+	review_tools_loaded = true
+
+	for _, command in ipairs({ "DeltaMenu", "DeltaView", "DiffviewOpen", "DiffviewFileHistory", "DiffviewClose" }) do
+		pcall(vim.api.nvim_del_user_command, command)
 	end
 
 	local pack = require("config.pack")
-	for _, plugin in ipairs({ "gitsigns.nvim", "diffview.nvim", "delta-lua", "delta.lua", "deltaview", "deltaview.nvim" }) do
+	for _, plugin in ipairs({ "diffview.nvim", "delta-lua", "delta.lua", "deltaview", "deltaview.nvim" }) do
 		pack.load(plugin)
 	end
 
@@ -143,7 +153,24 @@ function M.setup()
 			fzf_picker = "ui_select",
 		})
 	end
+end
 
+local function review_command(command, args, bang)
+	load_review_tools()
+	vim.cmd(command .. (bang and "!" or "") .. (args ~= "" and " " .. args or ""))
+end
+
+local function diffview(command)
+	load_review_tools()
+	vim.cmd(command)
+end
+
+function M.setup()
+	if not nix.enableForCategory("git", true) then
+		return
+	end
+
+	require("config.pack").load("gitsigns.nvim")
 	local ok, gitsigns = pcall(require, "gitsigns")
 	if ok then
 		gitsigns.setup({
@@ -166,21 +193,35 @@ function M.setup()
 	end
 
 	vim.api.nvim_create_user_command("Review", function()
-		vim.cmd("DiffviewOpen origin/main...HEAD --imply-local")
+		diffview("DiffviewOpen origin/main...HEAD --imply-local")
 	end, { desc = "Open Diffview against origin/main" })
 	vim.api.nvim_create_user_command("FileHistory", function()
-		vim.cmd("DiffviewFileHistory %")
+		diffview("DiffviewFileHistory %")
 	end, { desc = "Open Diffview file history for current file" })
+	for _, command in ipairs({ "DeltaMenu", "DeltaView", "DiffviewOpen", "DiffviewFileHistory", "DiffviewClose" }) do
+		vim.api.nvim_create_user_command(command, function(opts)
+			review_command(command, opts.args, opts.bang)
+		end, { nargs = "*", bang = true, complete = "file" })
+	end
+
 	vim.api.nvim_create_user_command("DeltaPR", open_delta_pr, {
 		nargs = "*",
 		bang = true,
 		complete = complete_delta_pr,
 		desc = "Review PR files in DeltaView against the detected or provided target branch",
 	})
-	vim.keymap.set("n", "<Leader>gd", "<cmd>DiffviewFileHistory %<CR>", { desc = "diff file" })
-	vim.keymap.set("n", "<Leader>gs", "<cmd>DiffviewOpen<CR>", { desc = "diff status" })
-	vim.keymap.set("n", "<Leader>qd", "<cmd>DiffviewClose<CR>", { desc = "close diff view" })
-	vim.keymap.set("n", "<leader>gS", "<cmd>DiffviewOpen origin/main...HEAD --imply-local<CR>", { desc = "diff against origin main" })
+	vim.keymap.set("n", "<Leader>gd", function()
+		diffview("DiffviewFileHistory %")
+	end, { desc = "diff file" })
+	vim.keymap.set("n", "<Leader>gs", function()
+		diffview("DiffviewOpen")
+	end, { desc = "diff status" })
+	vim.keymap.set("n", "<Leader>qd", function()
+		diffview("DiffviewClose")
+	end, { desc = "close diff view" })
+	vim.keymap.set("n", "<leader>gS", function()
+		diffview("DiffviewOpen origin/main...HEAD --imply-local")
+	end, { desc = "diff against origin main" })
 	vim.keymap.set("n", "<leader>gR", "<cmd>DeltaPR<CR>", { desc = "review PR with DeltaView" })
 	vim.keymap.set("n", "<leader>gQ", "<cmd>DeltaPR!<CR>", { desc = "review PR with DeltaView quickfix" })
 	vim.keymap.set("n", "<leader>dd", toggle_delta_view, { desc = "toggle DeltaView" })

@@ -2,10 +2,14 @@ local M = {}
 
 local nix = require("config.nix")
 
-function M.setup()
-	if not nix.enableForCategory("statusline", true) then
+local loaded = false
+
+local function load_lualine()
+	if loaded or not nix.enableForCategory("statusline", true) then
 		return
 	end
+	loaded = true
+
 	require("config.pack").load("lualine.nvim")
 	local ok, lualine = pcall(require, "lualine")
 	if not ok then
@@ -42,7 +46,9 @@ function M.setup()
 
 	if nix.enableForCategory("ai", false) then
 		table.insert(opts.sections.lualine_c, {
-			function() return " " end,
+			function()
+				return " "
+			end,
 			color = function()
 				local ok_status, status_mod = pcall(require, "sidekick.status")
 				local status = ok_status and status_mod.get() or nil
@@ -56,6 +62,20 @@ function M.setup()
 	end
 
 	lualine.setup(opts)
+end
+
+function M.setup()
+	if not nix.enableForCategory("statusline", true) then
+		return
+	end
+
+	vim.api.nvim_create_autocmd("VimEnter", {
+		group = vim.api.nvim_create_augroup("LoadLualine", { clear = true }),
+		once = true,
+		callback = function()
+			vim.schedule(load_lualine)
+		end,
+	})
 end
 
 return M
