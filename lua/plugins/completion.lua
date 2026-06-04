@@ -26,6 +26,7 @@ function M.setup()
 			["<C-d>"] = { "scroll_documentation_down", "fallback" },
 			["<Tab>"] = {
 				"snippet_forward",
+				"select_and_accept",
 				function()
 					return require("sidekick").nes_jump_or_apply()
 				end,
