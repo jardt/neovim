@@ -179,6 +179,13 @@ return {
 
 			vim.keymap.set({ "n", "x" }, "<leader>e", open_pi_prompt, { desc = "Ask pi with templates" })
 
+			vim.keymap.set({ "n", "i" }, "<Tab>", function()
+				if require("sidekick").nes_jump_or_apply() then
+					return ""
+				end
+				return "<Tab>"
+			end, { expr = true, desc = "Goto/Apply Next Edit Suggestion" })
+
 			vim.keymap.set({ "n", "x" }, "<C-f>", function()
 				require("sidekick.cli").select({ focus = true })
 			end, { desc = "Select Sidekick CLI…" })
