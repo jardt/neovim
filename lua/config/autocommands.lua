@@ -2,6 +2,20 @@ local function augroup(name)
 	return vim.api.nvim_create_augroup("vimmer_" .. name, { clear = true })
 end
 
+vim.api.nvim_create_user_command("EslintRestart", function()
+	if vim.fn.executable("eslint_d") ~= 1 then
+		vim.notify("eslint_d not found in PATH", vim.log.levels.ERROR)
+		return
+	end
+
+	local output = vim.fn.system({ "eslint_d", "restart" })
+	if vim.v.shell_error == 0 then
+		vim.notify("eslint_d restarted", vim.log.levels.INFO)
+	else
+		vim.notify("eslint_d restart failed:\n" .. output, vim.log.levels.ERROR)
+	end
+end, { desc = "Restart eslint_d" })
+
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
 	desc = "LSP actions",
