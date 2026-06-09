@@ -136,6 +136,7 @@ local eager_modules = {
 	"plugins.snacks",
 	"plugins.luaSnip",
 	"plugins.formatting",
+	"plugins.linting",
 	"plugins.markdown",
 	"plugins.sidekick",
 	"plugins.copilot-lsp",
