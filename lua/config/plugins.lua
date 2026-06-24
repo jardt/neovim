@@ -134,6 +134,7 @@ local eager_modules = {
 	"plugins.completion",
 	"plugins.git",
 	"plugins.snacks",
+	"plugins.fff",
 	"plugins.luaSnip",
 	"plugins.formatting",
 	"plugins.linting",

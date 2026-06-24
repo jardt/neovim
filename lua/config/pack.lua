@@ -56,6 +56,7 @@ M.plugins = {
 	plugin("mikavilpas/yazi.nvim"),
 	plugin("kokusenz/delta.lua"),
 	plugin("kokusenz/deltaview.nvim"),
+	plugin("dmtrKovalenko/fff.nvim"),
 }
 
 M.lazy_plugins = {

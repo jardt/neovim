@@ -56,6 +56,8 @@
       url = "github:kokusenz/deltaview.nvim";
       flake = false;
     };
+
+    fff-nvim.url = "github:dmtrKovalenko/fff.nvim";
   };
 
   outputs =

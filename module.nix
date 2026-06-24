@@ -152,6 +152,7 @@ in
       [
         config.nvim-lib.neovimPlugins.lze
         config.nvim-lib.neovimPlugins.lzextras
+        inputs.fff-nvim.packages.${pkgs.system}.fff-nvim
         fzf-lua
         yazi-nvim
         SchemaStore-nvim
