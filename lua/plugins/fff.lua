@@ -1,6 +1,44 @@
+local config = {
+	base_path = vim.fn.getcwd(),
+	prompt = "❯ ",
+	max_results = 100,
+	lazy_sync = true,
+	prompt_vim_mode = true,
+	layout = {
+		height = 0.8,
+		width = 0.8,
+		prompt_position = "bottom",
+		preview_position = "right",
+		preview_size = 0.5,
+		anchor = "center",
+	},
+	preview = {
+		enabled = true,
+		line_numbers = false,
+		wrap_lines = false,
+	},
+	keymaps = {
+		close = "<Esc>",
+		select_split = "<C-b>",
+		select_vsplit = "<C-v>",
+		select_tab = "<C-t>",
+		preview_scroll_up = "<C-u>",
+		preview_scroll_down = "<C-d>",
+		send_to_quickfix = "<C-q>",
+	},
+	grep = {
+		smart_case = true,
+		modes = { "plain", "regex", "fuzzy" },
+	},
+}
+
 return {
 	{
 		"dmtrKovalenko/fff.nvim",
+		lazy = false,
+		init = function()
+			vim.g.fff = config
+		end,
 		keys = {
 			{
 				"<leader>o",
@@ -39,6 +77,8 @@ return {
 			},
 		},
 		config = function()
+			vim.g.fff = config
+
 			local ok, rust = pcall(require, "fff.rust")
 			if not ok or rust == nil then
 				local download_ok, download = pcall(require, "fff.download")
@@ -47,38 +87,7 @@ return {
 				end
 			end
 
-			require("fff").setup({
-				base_path = vim.fn.getcwd(),
-				prompt = "❯ ",
-				max_results = 100,
-				lazy_sync = true,
-				prompt_vim_mode = true,
-				layout = {
-					height = 0.8,
-					width = 0.8,
-					prompt_position = "bottom",
-					preview_position = "right",
-					preview_size = 0.5,
-					anchor = "center",
-				},
-				preview = {
-					enabled = true,
-					line_numbers = false,
-					wrap_lines = false,
-				},
-				keymaps = {
-					select_split = "<C-b>",
-					select_vsplit = "<C-v>",
-					select_tab = "<C-t>",
-					preview_scroll_up = "<C-u>",
-					preview_scroll_down = "<C-d>",
-					send_to_quickfix = "<C-q>",
-				},
-				grep = {
-					smart_case = true,
-					modes = { "plain", "regex", "fuzzy" },
-				},
-			})
+			require("fff").setup(config)
 		end,
 	},
 }
