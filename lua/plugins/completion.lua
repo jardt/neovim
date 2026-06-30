@@ -40,6 +40,16 @@ local function load_completion()
 				"fallback",
 			},
 		},
+		cmdline = {
+			keymap = {
+				preset = "cmdline",
+				["<Tab>"] = { "select_next", "fallback" },
+				["<S-Tab>"] = { "select_prev", "fallback" },
+				["<C-n>"] = { "select_next", "fallback" },
+				["<C-p>"] = { "select_prev", "fallback" },
+			},
+			completion = { menu = { auto_show = true } },
+		},
 		completion = {
 			trigger = { show_on_keyword = true },
 			documentation = { auto_show = true, auto_show_delay_ms = 500, window = { border = "rounded" } },
@@ -65,13 +75,13 @@ local function load_completion()
 			},
 			ghost_text = { enabled = vim.g.ai_cmp },
 		},
-		appearance = { use_nvim_cmp_as_default = true, nerd_font_variant = "mono" },
+		appearance = { nerd_font_variant = "mono" },
 		snippets = {},
 		sources = {
 			default = { "lsp", "path", "buffer", "ripgrep", "lazydev" },
 			per_filetype = { snacks_input = { "sidekick_templates", "buffer" }, pi_prompt = { "sidekick_templates", "buffer" } },
 			providers = {
-				lsp = { name = "LSP", module = "blink.cmp.sources.lsp", score_offset = 99 },
+				lsp = { name = "LSP", module = "blink.cmp.sources.lsp", score_offset = 99, fallbacks = {} },
 				ripgrep = { module = "blink-ripgrep", name = "Ripgrep", score_offset = 0, opts = { prefix_min_len = 3, context_size = 5, max_filesize = "1M", additional_rg_options = {} } },
 				lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", score_offset = 100 },
 				sidekick_templates = { name = "SidekickTemplates", module = "blink.sources.sidekick_templates", score_offset = 100, min_keyword_length = 0 },
@@ -107,7 +117,7 @@ local function load_completion()
 end
 
 function M.setup()
-	vim.api.nvim_create_autocmd("InsertEnter", {
+	vim.api.nvim_create_autocmd({ "InsertEnter", "CmdlineEnter" }, {
 		group = vim.api.nvim_create_augroup("LoadCompletion", { clear = true }),
 		once = true,
 		callback = load_completion,
