@@ -16,7 +16,6 @@ in
   config.info.explorer = false;
   config.info.test = false;
   config.info.welcome = false;
-  config.info.undotree = false;
   config.info.statusline = false;
   config.info.formatlint = false;
   config.info.debugtest = false;

@@ -251,10 +251,6 @@ in
       mini-icons
     ];
   };
-  config.specs.undotree = {
-    lazy = true;
-    data = with pkgs.vimPlugins; [ undotree ];
-  };
   config.specs.git = {
     lazy = true;
     runtimePkgs = with pkgs; [ gh ];

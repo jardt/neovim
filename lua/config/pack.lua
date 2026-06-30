@@ -88,7 +88,6 @@ M.lazy_plugins = {
 	plugin("dmmulroy/ts-error-translator.nvim"),
 	plugin("dmmulroy/tsc.nvim"),
 	plugin("goolord/alpha-nvim"),
-	plugin("mbbill/undotree"),
 	plugin("elkowar/yuck.vim"),
 }
 

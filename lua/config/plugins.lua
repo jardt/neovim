@@ -148,6 +148,7 @@ local eager_modules = {
 	"plugins.yazi",
 	"plugins.grugfar",
 	"plugins.trouble",
+	"plugins.undotree",
 	"plugins.luaLine",
 }
 
