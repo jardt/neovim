@@ -25,7 +25,6 @@ let
     notify = true;
     ai = true;
     git = true;
-    obsidian = false;
 
     langs = {
       typst = true;
@@ -342,11 +341,6 @@ in
       config.nvim-lib.neovimPlugins.nvim-ansible
     ];
   };
-  config.specs.obsidian = {
-    lazy = true;
-    data = with pkgs.vimPlugins; [ obsidian-nvim ];
-  };
-
   config.specs."langs.typst" = {
     lazy = true;
     runtimePkgs = with pkgs; [

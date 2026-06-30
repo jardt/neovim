@@ -91,13 +91,6 @@ local function load_completion()
 		fuzzy = { implementation = "prefer_rust_with_warning" },
 	}
 
-	if nix.getCatOrDefault("langs.markdown", true) then
-		opts.sources.providers.obsidian = { name = "obsidian", module = "blink.compat.source" }
-		opts.sources.providers.obsidian_new = { name = "obsidian_new", module = "blink.compat.source" }
-		opts.sources.providers.obsidian_tags = { name = "obsidian_tags", module = "blink.compat.source" }
-		vim.list_extend(opts.sources.default, { "obsidian", "obsidian_new", "obsidian_tags" })
-	end
-
 	if nix.getCatOrDefault("database", true) and pack.load("vim-dadbod-completion") then
 		local has_dadbod = pcall(require, "vim_dadbod_completion.blink")
 		if has_dadbod then

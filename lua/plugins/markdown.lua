@@ -19,39 +19,6 @@ local specs = {
 		---@type render.md.UserConfig
 		opts = {},
 	},
-	{
-		"obsidian-nvim/obsidian.nvim",
-		version = "*",
-		enabled = require("config.nix").enableForCategory("obsidian", false),
-		lazy = true,
-		ft = "markdown",
-		dependencies = { "nvim-lua/plenary.nvim" },
-		opts = {
-			ui = { enable = false },
-			workspaces = {},
-			completion = { nvim_cmp = false, min_chars = 2 },
-			mappings = {
-				["gd"] = {
-					action = function()
-						return require("obsidian").util.gf_passthrough()
-					end,
-					opts = { noremap = false, expr = true, buffer = true },
-				},
-				["<leader>ch"] = {
-					action = function()
-						return require("obsidian").util.toggle_checkbox()
-					end,
-					opts = { buffer = true },
-				},
-				["<cr>"] = {
-					action = function()
-						return require("obsidian").util.smart_action()
-					end,
-					opts = { buffer = true, expr = true },
-				},
-			},
-		},
-	},
 }
 
 local preview_loaded = false

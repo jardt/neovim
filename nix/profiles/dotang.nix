@@ -10,7 +10,6 @@ in
   config.settings.theme.name = "gruvbox";
   config.info.snippets = false;
   config.info.explorer = false;
-  config.info.obsidian = false;
   config.info.opts.theme.name = "gruvbox";
   config.info.langs.typst = false;
   config.info.langs.rust = false;
@@ -26,7 +25,6 @@ in
 
   config.specs.snippets = disabledSpec;
   config.specs.explorer = disabledSpec;
-  config.specs.obsidian = disabledSpec;
 
   config.specs."langs.typst" = disabledSpec;
   config.specs."langs.rust" = disabledSpec;

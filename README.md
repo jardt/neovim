@@ -109,7 +109,7 @@ The wrapper module exposes feature flags through `config.info` and user-facing w
 }
 ```
 
-Available language groups currently include `typst`, `rust`, `web`, `go`, `markdown`, `lua`, `dotnet`, `zig`, `java`, `qml`, `yuck`, and `tex`. Other top-level feature groups include `devops`, `database`, `explorer`, `test`, `debugtest`, `formatlint`, `git`, `ai`, `obsidian`, and more; see `module.nix` for the full list.
+Available language groups currently include `typst`, `rust`, `web`, `go`, `markdown`, `lua`, `dotnet`, `zig`, `java`, `qml`, `yuck`, and `tex`. Other top-level feature groups include `devops`, `database`, `explorer`, `test`, `debugtest`, `formatlint`, `git`, `ai`, and more; see `module.nix` for the full list.
 
 ## Plain non-Nix mode
 

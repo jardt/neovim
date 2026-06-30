@@ -79,7 +79,6 @@ M.lazy_plugins = {
 	plugin("ThePrimeagen/harpoon"),
 	plugin("MeanderingProgrammer/render-markdown.nvim"),
 	plugin("iamcco/markdown-preview.nvim"),
-	plugin("obsidian-nvim/obsidian.nvim"),
 	plugin("mrcjkb/rustaceanvim"),
 	plugin("cordx56/rustowl"),
 	plugin("chomosuke/typst-preview.nvim"),

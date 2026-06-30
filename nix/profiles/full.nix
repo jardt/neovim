@@ -12,7 +12,6 @@ in
   config.specs.database = disabledSpec;
   config.specs.explorer = disabledSpec;
   config.specs.devops = disabledSpec;
-  config.specs.obsidian = disabledSpec;
   config.specs."langs.rust" = disabledSpec;
   config.specs."langs.dotnet" = disabledSpec;
   config.specs."langs.java" = disabledSpec;

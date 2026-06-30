@@ -23,7 +23,6 @@ in
   config.info.notify = false;
   config.info.ai = false;
   config.info.git = false;
-  config.info.obsidian = false;
   config.info.langs.typst = false;
   config.info.langs.rust = false;
   config.info.langs.web = false;
@@ -50,7 +49,6 @@ in
   config.specs.notify = disabledSpec;
   config.specs.ai = disabledSpec;
   config.specs.git = disabledSpec;
-  config.specs.obsidian = disabledSpec;
 
   config.specs."langs.typst" = disabledSpec;
   config.specs."langs.rust" = disabledSpec;
