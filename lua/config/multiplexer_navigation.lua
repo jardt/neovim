@@ -24,7 +24,16 @@ function M.navigate(direction)
 		if not herdr or herdr == "" then
 			herdr = "herdr"
 		end
-		vim.fn.jobstart({ herdr, "pane", "focus", "--direction", direction, "--current" }, { detach = true })
+
+		local result = vim.system({ herdr, "pane", "focus", "--direction", direction, "--pane", vim.env.HERDR_PANE_ID }, {
+			text = true,
+		}):wait()
+		if result.code ~= 0 then
+			vim.notify(
+				("herdr pane focus failed: %s"):format(result.stderr ~= "" and result.stderr or result.stdout),
+				vim.log.levels.WARN
+			)
+		end
 		return
 	end
 
