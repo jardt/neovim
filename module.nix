@@ -396,7 +396,10 @@ in
       render-markdown-nvim
       markdown-preview-nvim
       plenary-nvim
-      (nvim-treesitter.withPlugins (plugins: with plugins; [ markdown ]))
+      (nvim-treesitter.withPlugins (plugins: with plugins; [
+        markdown
+        markdown_inline
+      ]))
     ];
   };
   config.specs."langs.lua" = {
