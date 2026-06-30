@@ -150,6 +150,7 @@ local eager_modules = {
 	"plugins.trouble",
 	"plugins.undotree",
 	"plugins.luaLine",
+	"plugins.tmux",
 }
 
 local function setup_icons()

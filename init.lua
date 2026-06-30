@@ -1,5 +1,6 @@
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+vim.g.tmux_navigator_no_mappings = 1
 
 local config_source = debug.getinfo(1, "S").source:sub(2)
 local config_root = vim.fn.fnamemodify(config_source, ":p:h")
