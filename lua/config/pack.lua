@@ -83,7 +83,6 @@ M.lazy_plugins = {
 	plugin("mrcjkb/rustaceanvim"),
 	plugin("cordx56/rustowl"),
 	plugin("chomosuke/typst-preview.nvim"),
-	plugin("lervag/vimtex"),
 	plugin("mfussenegger/nvim-ansible"),
 	plugin("dmmulroy/ts-error-translator.nvim"),
 	plugin("dmmulroy/tsc.nvim"),

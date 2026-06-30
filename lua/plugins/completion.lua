@@ -109,10 +109,6 @@ local function load_completion()
 		opts.snippets.preset = "luasnip"
 		table.insert(opts.sources.default, 3, "snippets")
 	end
-	if nix.getCatOrDefault("langs.tex", true) then
-		opts.sources.providers.vimtex = { name = "vimtex", module = "blink.compat.source", score_offset = 3 }
-	end
-
 	blink.setup(opts)
 end
 

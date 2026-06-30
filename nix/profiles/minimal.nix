@@ -35,7 +35,6 @@ in
   config.info.langs.java = false;
   config.info.langs.qml = false;
   config.info.langs.yuck = false;
-  config.info.langs.tex = false;
 
   config.specs.database = disabledSpec;
   config.specs.snippets = disabledSpec;
@@ -64,5 +63,4 @@ in
   config.specs."langs.java" = disabledSpec;
   config.specs."langs.qml" = disabledSpec;
   config.specs."langs.yuck" = disabledSpec;
-  config.specs."langs.tex" = disabledSpec;
 }

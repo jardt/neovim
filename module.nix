@@ -39,7 +39,6 @@ let
       java = false;
       qml = false;
       yuck = false;
-      tex = true;
     };
 
     opts = {
@@ -491,9 +490,5 @@ in
       yuck-vim
       (nvim-treesitter.withPlugins (plugins: with plugins; [ yuck ]))
     ];
-  };
-  config.specs."langs.tex" = {
-    lazy = true;
-    data = with pkgs.vimPlugins; [ vimtex ];
   };
 }

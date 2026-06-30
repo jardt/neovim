@@ -20,7 +20,6 @@ in
   config.info.langs.java = false;
   config.info.langs.qml = false;
   config.info.langs.yuck = false;
-  config.info.langs.tex = false;
   config.info.langs.dotnet = true;
   config.info.database = true;
   config.info.devops = true;
@@ -37,5 +36,4 @@ in
   config.specs."langs.java" = disabledSpec;
   config.specs."langs.qml" = disabledSpec;
   config.specs."langs.yuck" = disabledSpec;
-  config.specs."langs.tex" = disabledSpec;
 }
