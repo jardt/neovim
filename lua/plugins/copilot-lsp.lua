@@ -2,7 +2,7 @@ return {
 	{
 		"copilotlsp-nvim/copilot-lsp",
 		name = "copilot-lsp",
-		enabled = require("config.nix").enableForCategory("ai", false),
+		enabled = require("config.nix").enableForCategory("copilot-lsp", false),
 		config = function()
 			vim.api.nvim_create_user_command("LspCopilotSignIn", function()
 				local clients = vim.tbl_filter(function(client)

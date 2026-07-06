@@ -24,6 +24,7 @@ let
     devops = false;
     notify = true;
     ai = true;
+    "copilot-lsp" = false;
     git = true;
 
     langs = {
@@ -32,6 +33,7 @@ let
       web = true;
       go = true;
       markdown = true;
+      svelte = false;
       lua = true;
       dotnet = false;
       zig = false;
@@ -298,11 +300,15 @@ in
   };
   config.specs.ai = {
     lazy = true;
-    runtimePkgs = with pkgs; [ copilot-language-server ];
     data = with pkgs.vimPlugins; [
       config.nvim-lib.neovimPlugins.sidekick
-      copilot-lsp
     ];
+  };
+  config.specs.copilot-lsp = {
+    enable = config.info."copilot-lsp";
+    lazy = true;
+    runtimePkgs = with pkgs; [ copilot-language-server ];
+    data = with pkgs.vimPlugins; [ copilot-lsp ];
   };
   config.specs.debugtest = {
     lazy = true;
@@ -417,7 +423,6 @@ in
     lazy = true;
     runtimePkgs = with pkgs; [
       tailwindcss-language-server
-      svelte-language-server
       vtsls
       eslint_d
       prettierd
@@ -433,7 +438,6 @@ in
           html
           css
           tsx
-          svelte
           angular
           jsdoc
           astro
@@ -442,6 +446,12 @@ in
       tsc-nvim
       config.nvim-lib.neovimPlugins.ts-error-translator
     ];
+  };
+  config.specs."langs.svelte" = {
+    enable = config.info.langs.svelte;
+    lazy = true;
+    runtimePkgs = with pkgs; [ svelte-language-server ];
+    data = with pkgs.vimPlugins; [ (nvim-treesitter.withPlugins (plugins: with plugins; [ svelte ])) ];
   };
   config.specs."langs.dotnet" = {
     lazy = true;

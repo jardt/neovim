@@ -28,6 +28,7 @@ in
   config.info.langs.web = false;
   config.info.langs.go = false;
   config.info.langs.markdown = false;
+  config.info.langs.svelte = false;
   config.info.langs.lua = false;
   config.info.langs.dotnet = false;
   config.info.langs.zig = false;
