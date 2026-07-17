@@ -24,6 +24,10 @@ local function load_yazi()
 		},
 	})
 
+	-- packadd does not re-source plugin/yazi.lua when the package has already
+	-- been discovered, so restore the command that the lazy-loading stub removed.
+	require("yazi.commands").create_yazi_commands()
+
 	loaded = true
 	return true
 end
