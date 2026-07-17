@@ -3,9 +3,15 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nix-wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
+    nix-wrapper-modules = {
+      url = "github:BirdeeHub/nix-wrapper-modules";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     plugins-lze = {
       url = "github:BirdeeHub/lze";
@@ -57,7 +63,10 @@
       flake = false;
     };
 
-    fff-nvim.url = "github:dmtrKovalenko/fff.nvim";
+    fff-nvim = {
+      url = "github:dmtrKovalenko/fff.nvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -69,14 +78,23 @@
     }@inputs:
     let
       lib = nixpkgs.lib;
-      systems = lib.systems.flakeExposed;
+      systems = [
+        "aarch64-darwin"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "x86_64-linux"
+      ];
       forEachSystem = lib.genAttrs systems;
       wrapperModule = lib.modules.importApply ./module.nix inputs;
       extraPkgConfig = {
-        allowUnfree = true;
-        doCheck = true;
+        allowUnfreePredicate = pkg: lib.getName pkg == "copilot-language-server";
       };
-      mkPkgs = system: import nixpkgs { inherit system; config = extraPkgConfig; };
+      mkPkgs =
+        system:
+        import nixpkgs {
+          inherit system;
+          config = extraPkgConfig;
+        };
       mkWrapper =
         pkgs: profile:
         (nix-wrapper-modules.lib.evalModules {
@@ -89,6 +107,11 @@
           { inherit pkgs; };
     in
     {
+      wrapperModules = {
+        neovim = wrapperModule;
+        default = self.wrapperModules.neovim;
+      };
+
       packages = forEachSystem (
         system:
         let
@@ -96,28 +119,66 @@
           wrap = mkWrapper pkgs;
         in
         rec {
-          catsvim = wrap ./nix/profiles/full.nix;
-          catsvi = wrap ./nix/profiles/minimal.nix;
-          cats_dotang_nvim = wrap ./nix/profiles/dotang.nix;
-          default = catsvim;
+          full = wrap ./nix/profiles/full.nix;
+          minimal = wrap ./nix/profiles/minimal.nix;
+          dotang = wrap ./nix/profiles/dotang.nix;
+
+          # Compatibility aliases.
+          catsvim = full;
+          catsvi = minimal;
+          cats_dotang_nvim = dotang;
+          default = full;
         }
       );
 
       apps = forEachSystem (
         system:
         let
-          mkApp = package: {
+          mkApp = description: package: {
             type = "app";
             program = "${package}/bin/nvim";
+            meta = { inherit description; };
           };
         in
         rec {
-          catsvim = mkApp self.packages.${system}.catsvim;
-          catsvi = mkApp self.packages.${system}.catsvi;
-          cats_dotang_nvim = mkApp self.packages.${system}.cats_dotang_nvim;
-          default = catsvim;
+          full = mkApp "Run the full Neovim configuration" self.packages.${system}.full;
+          minimal = mkApp "Run the minimal Neovim configuration" self.packages.${system}.minimal;
+          dotang = mkApp "Run the .NET and Angular Neovim configuration" self.packages.${system}.dotang;
+
+          # Compatibility aliases.
+          catsvim = full;
+          catsvi = minimal;
+          cats_dotang_nvim = dotang;
+          default = full;
         }
       );
+
+      checks = forEachSystem (
+        system:
+        let
+          pkgs = mkPkgs system;
+          packages = self.packages.${system};
+          mkStartupCheck =
+            name: package:
+            pkgs.runCommand "${name}-startup-check" { } ''
+              export HOME="$TMPDIR/home"
+              export XDG_CACHE_HOME="$TMPDIR/cache"
+              export XDG_DATA_HOME="$TMPDIR/data"
+              export XDG_STATE_HOME="$TMPDIR/state"
+              mkdir -p "$HOME" "$XDG_CACHE_HOME" "$XDG_DATA_HOME" "$XDG_STATE_HOME"
+              ${package}/bin/nvim --headless +qa
+              touch "$out"
+            '';
+        in
+        {
+          inherit (packages) full minimal dotang;
+          full-startup = mkStartupCheck "full" packages.full;
+          minimal-startup = mkStartupCheck "minimal" packages.minimal;
+          dotang-startup = mkStartupCheck "dotang" packages.dotang;
+        }
+      );
+
+      formatter = forEachSystem (system: (mkPkgs system).nixfmt-tree);
 
       devShells = forEachSystem (
         system:

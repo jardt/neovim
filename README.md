@@ -12,11 +12,11 @@ Uses:
 
 Run full config: `nix run github:jardt/neovim`
 
-Run minimal config: `nix run github:jardt/neovim#catsvi`
+Run minimal config: `nix run github:jardt/neovim#minimal`
 
-Run dotnet/angular config: `nix run github:jardt/neovim#cats_dotang_nvim`
+Run dotnet/angular config: `nix run github:jardt/neovim#dotang`
 
-The package outputs remain `catsvim`, `catsvi`, and `cats_dotang_nvim` during this compatibility migration. A later cleanup should consider clearer names such as `full`, `minimal`, and `dotang` while preserving the old outputs for a transition period.
+The canonical package and app outputs are `full`, `minimal`, and `dotang`. The old `catsvim`, `catsvi`, and `cats_dotang_nvim` names remain as compatibility aliases.
 
 ### Use this flake from your Nix config
 
@@ -37,8 +37,8 @@ NixOS:
 {
   environment.systemPackages = [
     inputs.jardt-neovim.packages.${pkgs.system}.default
-    # or: inputs.jardt-neovim.packages.${pkgs.system}.catsvi
-    # or: inputs.jardt-neovim.packages.${pkgs.system}.cats_dotang_nvim
+    # or: inputs.jardt-neovim.packages.${pkgs.system}.minimal
+    # or: inputs.jardt-neovim.packages.${pkgs.system}.dotang
   ];
 }
 ```
@@ -59,7 +59,7 @@ For a one-off install into your user profile:
 ```sh
 nix profile install github:jardt/neovim
 # or a specific variant
-nix profile install github:jardt/neovim#catsvi
+nix profile install github:jardt/neovim#minimal
 ```
 
 ### Build a custom variant
@@ -70,15 +70,25 @@ The wrapper module exposes feature flags through `config.info` and user-facing w
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nix-wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
-    jardt-neovim.url = "github:jardt/neovim";
+    nix-wrapper-modules = {
+      url = "github:BirdeeHub/nix-wrapper-modules";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    jardt-neovim = {
+      url = "github:jardt/neovim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs@{ nixpkgs, nix-wrapper-modules, jardt-neovim, ... }:
   let
     system = "x86_64-linux";
-    pkgs = import nixpkgs { inherit system; config.allowUnfree = true; };
-    baseModule = nixpkgs.lib.modules.importApply "${jardt-neovim}/module.nix" jardt-neovim.inputs;
+    pkgs = import nixpkgs {
+      inherit system;
+      config.allowUnfreePredicate = pkg:
+        nixpkgs.lib.getName pkg == "copilot-language-server";
+    };
+    baseModule = jardt-neovim.wrapperModules.default;
     myNvim = (nix-wrapper-modules.lib.evalModules {
       modules = [
         baseModule
@@ -109,7 +119,7 @@ The wrapper module exposes feature flags through `config.info` and user-facing w
 }
 ```
 
-Available language groups currently include `typst`, `rust`, `web`, `go`, `markdown`, `lua`, `dotnet`, `zig`, `java`, `qml`, `yuck`, and `tex`. Other top-level feature groups include `devops`, `database`, `explorer`, `test`, `debugtest`, `formatlint`, `git`, `ai`, and more; see `module.nix` for the full list.
+Available language groups currently include `typst`, `rust`, `web`, `go`, `markdown`, `lua`, `dotnet`, `zig`, `java`, `qml`, and `yuck`. Other top-level feature groups include `devops`, `database`, `explorer`, `test`, `debugtest`, `formatlint`, `git`, `ai`, and more; see `module.nix` for the full list.
 
 ## Plain non-Nix mode
 

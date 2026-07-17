@@ -100,7 +100,7 @@ in
 
   config.settings.config_directory = ./.;
   config.settings.aliases = [ "cvim" ];
-  config.package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.neovim;
+  config.package = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.neovim;
   config.info = lib.mapAttrsRecursive (_: lib.mkDefault) categoryInfo;
   config.runtimeLibs = with pkgs; [
     libgit2
@@ -135,7 +135,7 @@ in
       fzf
       fixjson
       yamlfmt
-      nixfmt-rfc-style
+      nixfmt
       taplo
       yaml-language-server
       bash-language-server
@@ -152,7 +152,7 @@ in
       [
         config.nvim-lib.neovimPlugins.lze
         config.nvim-lib.neovimPlugins.lzextras
-        inputs.fff-nvim.packages.${pkgs.system}.fff-nvim
+        inputs.fff-nvim.packages.${pkgs.stdenv.hostPlatform.system}.fff-nvim
         fzf-lua
         yazi-nvim
         snacks-nvim
@@ -403,10 +403,12 @@ in
       render-markdown-nvim
       markdown-preview-nvim
       plenary-nvim
-      (nvim-treesitter.withPlugins (plugins: with plugins; [
-        markdown
-        markdown_inline
-      ]))
+      (nvim-treesitter.withPlugins (
+        plugins: with plugins; [
+          markdown
+          markdown_inline
+        ]
+      ))
     ];
   };
   config.specs."langs.lua" = {
