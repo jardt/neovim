@@ -39,10 +39,24 @@ local function yazi_command(args)
 	vim.cmd("Yazi " .. args)
 end
 
-function M.setup()
+local function create_lazy_command()
 	vim.api.nvim_create_user_command("Yazi", function(opts)
 		yazi_command(opts.args)
 	end, { nargs = "*", complete = "file" })
+end
+
+function M.setup()
+	create_lazy_command()
+	vim.api.nvim_create_autocmd("SourcePost", {
+		pattern = "*/plugin/yazi.lua",
+		once = true,
+		callback = function()
+			if not loaded then
+				-- Upstream creates :Yazi from its plugin script, replacing this stub.
+				create_lazy_command()
+			end
+		end,
+	})
 
 	vim.keymap.set("n", "<leader>y", function()
 		yazi_command("")

@@ -155,6 +155,7 @@ in
         inputs.fff-nvim.packages.${pkgs.system}.fff-nvim
         fzf-lua
         yazi-nvim
+        snacks-nvim
         SchemaStore-nvim
         plenary-nvim
         lazydev-nvim
