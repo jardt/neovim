@@ -2,11 +2,12 @@
   description = "Neovim configuration packaged with nix-wrapper-modules";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nix-wrapper-modules = {
-      url = "github:BirdeeHub/nix-wrapper-modules";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # `nixos-unstable`, not `nixpkgs-unstable`: the consumer repository builds this
+    # flake with its own `nixos-unstable` nixpkgs through `follows`. Tracking the
+    # faster branch here would check this repository against a newer tree than the
+    # one that actually builds it, so a break would only appear downstream.
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nix-wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
 
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
