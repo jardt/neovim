@@ -173,7 +173,9 @@ in
         nord-nvim
         which-key-nvim
         (nvim-treesitter.withPlugins (
-          plugins: with plugins; [
+          plugins:
+          with plugins;
+          [
             nix
             c
             lua
@@ -184,13 +186,13 @@ in
             git_rebase
             toml
             yaml
-            tmux
             xml
             csv
             regex
             diff
             vim
           ]
+          ++ lib.optional (plugins ? tmux) plugins.tmux
         ))
       ]
       ++ [
