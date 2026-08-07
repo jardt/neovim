@@ -35,6 +35,7 @@ in
   config.info.langs.java = false;
   config.info.langs.qml = false;
   config.info.langs.yuck = false;
+  config.info.langs.powershell = false;
 
   config.specs.database = disabledSpec;
   config.specs.snippets = disabledSpec;

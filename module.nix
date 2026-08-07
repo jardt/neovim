@@ -7,6 +7,9 @@ inputs:
   ...
 }:
 let
+  psscriptanalyzer = pkgs.callPackage ./nix/pkgs/psscriptanalyzer.nix { };
+  pwsh-format = pkgs.callPackage ./nix/pkgs/pwsh-format.nix { inherit psscriptanalyzer; };
+
   categoryInfo = {
     general = true;
     completion = true;
@@ -40,6 +43,7 @@ let
       java = false;
       qml = false;
       yuck = false;
+      powershell = true;
     };
 
     opts = {
@@ -501,6 +505,17 @@ in
     data = with pkgs.vimPlugins; [
       yuck-vim
       (nvim-treesitter.withPlugins (plugins: with plugins; [ yuck ]))
+    ];
+  };
+  config.specs."langs.powershell" = {
+    enable = config.info.langs.powershell;
+    lazy = true;
+    runtimePkgs = [
+      pkgs.powershell
+      pwsh-format
+    ];
+    data = with pkgs.vimPlugins; [
+      (nvim-treesitter.withPlugins (plugins: with plugins; [ powershell ]))
     ];
   };
 }

@@ -28,7 +28,7 @@ function M.setup()
 					"c_sharp", "bash", "go", "gomod", "gowork", "gosum", "comment", "diff", "toml",
 					"git_rebase", "jsdoc", "gitcommit", "gitignore", "json", "json5", "jsonc", "markdown",
 					"markdown_inline", "astro", "pug", "regex", "rust", "yaml", "solidity", "java", "kotlin",
-					"angular", "svelte", "sql", "tmux", "xml", "dockerfile", "csv", "yuck",
+					"angular", "svelte", "sql", "tmux", "xml", "dockerfile", "csv", "yuck", "powershell",
 				}, { max_jobs = 8 })
 			end
 		end,
