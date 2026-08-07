@@ -21,6 +21,7 @@ in
   config.info.langs.yuck = false;
   config.info.langs.dotnet = true;
   config.info.langs.svelte = true;
+  config.info.langs.powershell = true;
   config.info.database = true;
   config.info.devops = true;
   config.info."copilot-lsp" = true;
