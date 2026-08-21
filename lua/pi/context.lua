@@ -1,5 +1,12 @@
 local M = {}
 
+local function absolute_path(origin, name)
+	if name:sub(1, 1) ~= "/" then
+		name = vim.fs.joinpath(origin.cwd, name)
+	end
+	return vim.fs.normalize(name)
+end
+
 local function file_path(origin)
 	local name = vim.api.nvim_buf_get_name(origin.buf)
 	if name == "" or vim.bo[origin.buf].buftype ~= "" then
@@ -8,9 +15,7 @@ local function file_path(origin)
 	if vim.bo[origin.buf].modified then
 		return nil, "Write the current buffer before sending a file reference to Pi"
 	end
-	name = vim.fs.normalize(name)
-	local relative = vim.fs.relpath(origin.cwd, name)
-	return relative or name
+	return absolute_path(origin, name)
 end
 
 local function location(origin, kind)
@@ -44,7 +49,7 @@ local function diagnostics(origin, all)
 	local lines = {}
 	for _, item in ipairs(items) do
 		local name = vim.api.nvim_buf_get_name(item.bufnr)
-		local path = vim.fs.relpath(origin.cwd, name) or name
+		local path = absolute_path(origin, name)
 		lines[#lines + 1] = string.format(
 			"@%s:%d:%d [%s] %s",
 			path,
@@ -64,8 +69,7 @@ local function quickfix(origin)
 		if (not name or name == "") and item.bufnr and item.bufnr > 0 then
 			name = vim.api.nvim_buf_get_name(item.bufnr)
 		end
-		name = name or "[unknown]"
-		local path = vim.fs.relpath(origin.cwd, name) or name
+		local path = name and absolute_path(origin, name) or "[unknown]"
 		lines[#lines + 1] =
 			string.format("@%s:%d:%d %s", path, item.lnum or 1, item.col or 1, (item.text or ""):gsub("\n", " "))
 	end

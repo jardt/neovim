@@ -86,12 +86,18 @@ function M.open(initial)
 				desc = "Submit to Pi",
 			},
 		},
-		on_win = function()
-			vim.schedule(function()
-				if vim.bo.filetype == "pi_prompt" then
-					vim.cmd.startinsert()
-				end
-			end)
+			on_win = function()
+				local prompt_win = vim.api.nvim_get_current_win()
+				local prompt_buf = vim.api.nvim_get_current_buf()
+				vim.schedule(function()
+					if vim.api.nvim_win_is_valid(prompt_win) and vim.api.nvim_buf_is_valid(prompt_buf) then
+						local line_count = vim.api.nvim_buf_line_count(prompt_buf)
+						local line = vim.api.nvim_buf_get_lines(prompt_buf, line_count - 1, line_count, false)[1] or ""
+						vim.api.nvim_win_set_cursor(prompt_win, { line_count, #line })
+						vim.api.nvim_set_current_win(prompt_win)
+						vim.cmd.startinsert({ bang = true })
+					end
+				end)
 		end,
 	})
 	return win

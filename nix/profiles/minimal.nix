@@ -21,7 +21,6 @@ in
   config.info.debugtest = false;
   config.info.devops = false;
   config.info.notify = false;
-  config.info.ai = false;
   config.info.git = false;
   config.info.langs.typst = false;
   config.info.langs.rust = false;
@@ -49,7 +48,6 @@ in
   config.specs.debugtest = disabledSpec;
   config.specs.devops = disabledSpec;
   config.specs.notify = disabledSpec;
-  config.specs.ai = disabledSpec;
   config.specs.git = disabledSpec;
 
   config.specs."langs.typst" = disabledSpec;
