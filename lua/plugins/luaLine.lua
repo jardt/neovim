@@ -36,30 +36,22 @@ local function load_lualine()
 	local opts = {
 		options = { icons_enabled = true, theme = theme, component_separators = "", section_separators = "" },
 		sections = {
-			lualine_c = { { "filename", file_status = true, newfile_status = false, path = 4, shorting_target = 40, symbols = { modified = "[+]", readonly = "[RO]", unnamed = "[No Name]", newfile = "[New]" } } },
+			lualine_c = {
+				{
+					"filename",
+					file_status = true,
+					newfile_status = false,
+					path = 4,
+					shorting_target = 40,
+					symbols = { modified = "[+]", readonly = "[RO]", unnamed = "[No Name]", newfile = "[New]" },
+				},
+			},
 			lualine_x = { { "lsp_status" } },
 			lualine_z = {},
 		},
 		inactive_sections = {},
 		extensions = { "neo-tree", "quickfix", "nvim-dap-ui", "trouble", "fzf" },
 	}
-
-	if nix.enableForCategory("ai", false) then
-		table.insert(opts.sections.lualine_c, {
-			function()
-				return " "
-			end,
-			color = function()
-				local ok_status, status_mod = pcall(require, "sidekick.status")
-				local status = ok_status and status_mod.get() or nil
-				return status and (status.kind == "Error" and "DiagnosticError" or status.busy and "DiagnosticWarn" or "Special") or nil
-			end,
-			cond = function()
-				local ok_status, status = pcall(require, "sidekick.status")
-				return ok_status and status.get() ~= nil
-			end,
-		})
-	end
 
 	lualine.setup(opts)
 end

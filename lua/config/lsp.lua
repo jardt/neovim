@@ -18,7 +18,6 @@ local servers = {
 	angular = "ngserver",
 	roslyn = "Microsoft.CodeAnalysis.LanguageServer",
 	typst = "tinymist",
-	copilot_ls = "copilot-language-server",
 }
 
 local enabled = {}

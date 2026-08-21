@@ -226,10 +226,6 @@
       "rev": "05383893462944f20bf2044b5a1216f894c9b7a0",
       "src": "https://github.com/b0o/schemastore.nvim"
     },
-    "sidekick.nvim": {
-      "rev": "208e1c5b8170c01fd1d07df0139322a76479b235",
-      "src": "https://github.com/folke/sidekick.nvim"
-    },
     "snacks.nvim": {
       "rev": "ad9ede6a9cddf16cedbd31b8932d6dcdee9b716e",
       "src": "https://github.com/folke/snacks.nvim"

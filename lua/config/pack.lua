@@ -73,8 +73,6 @@ M.lazy_plugins = {
 	plugin("nvim-neo-tree/neo-tree.nvim"),
 	plugin("folke/noice.nvim"),
 	plugin("folke/trouble.nvim"),
-	plugin("folke/sidekick.nvim"),
-	plugin("copilotlsp-nvim/copilot-lsp"),
 	plugin("m4xshen/hardtime.nvim"),
 	plugin("ThePrimeagen/harpoon"),
 	plugin("MeanderingProgrammer/render-markdown.nvim"),

@@ -8,12 +8,9 @@ local templates = {
 	{ token = "{selection}", detail = "Visual selection" },
 	{ token = "{line}", detail = "Current line" },
 	{ token = "{position}", detail = "Current cursor position" },
-	{ token = "{buffers}", detail = "Open buffers" },
 	{ token = "{quickfix}", detail = "Quickfix entries" },
 	{ token = "{diagnostics}", detail = "Diagnostics for current file" },
 	{ token = "{diagnostics_all}", detail = "Diagnostics for all files" },
-	{ token = "{function}", detail = "Current function" },
-	{ token = "{class}", detail = "Current class" },
 }
 
 function source.new(opts)

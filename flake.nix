@@ -44,11 +44,6 @@
       flake = false;
     };
 
-    plugins-sidekick = {
-      url = "github:folke/sidekick.nvim";
-      flake = false;
-    };
-
     plugins-ts-error-translator = {
       url = "github:dmmulroy/ts-error-translator.nvim";
       flake = false;
@@ -88,7 +83,6 @@
       forEachSystem = lib.genAttrs systems;
       wrapperModule = lib.modules.importApply ./module.nix inputs;
       extraPkgConfig = {
-        allowUnfreePredicate = pkg: lib.getName pkg == "copilot-language-server";
       };
       mkPkgs =
         system:

@@ -26,7 +26,8 @@ end
 local function load_dependencies(spec)
 	local pack = require("config.pack")
 	for _, dependency in ipairs(spec.dependencies or {}) do
-		local dependency_name = type(dependency) == "table" and (dependency.name or plugin_name(dependency[1])) or plugin_name(dependency)
+		local dependency_name = type(dependency) == "table" and (dependency.name or plugin_name(dependency[1]))
+			or plugin_name(dependency)
 		pack.load(dependency_name)
 	end
 end
@@ -100,7 +101,8 @@ local function set_spec_keys(spec)
 	for _, key in ipairs(keys or {}) do
 		local lhs, rhs = key[1], key[2]
 		if lhs ~= nil and rhs ~= nil then
-			local key_opts = { desc = key.desc, silent = key.silent ~= false, noremap = key.noremap ~= false, expr = key.expr }
+			local key_opts =
+				{ desc = key.desc, silent = key.silent ~= false, noremap = key.noremap ~= false, expr = key.expr }
 			for _, mode in ipairs(normalize_modes(key.mode)) do
 				vim.keymap.set(mode, lhs, rhs, key_opts)
 			end
@@ -139,8 +141,7 @@ local eager_modules = {
 	"plugins.formatting",
 	"plugins.linting",
 	"plugins.markdown",
-	"plugins.sidekick",
-	"plugins.copilot-lsp",
+	"plugins.pi",
 	"plugins.harpoon",
 	"plugins.flash",
 	"plugins.notify",

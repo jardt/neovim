@@ -294,22 +294,6 @@
         "type": "github"
       }
     },
-    "plugins-sidekick": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1776888531,
-        "narHash": "sha256-I1YuIXJHP7JfETwOer6B7QDLMZGG/X59zXopb4nPel4=",
-        "owner": "folke",
-        "repo": "sidekick.nvim",
-        "rev": "208e1c5b8170c01fd1d07df0139322a76479b235",
-        "type": "github"
-      },
-      "original": {
-        "owner": "folke",
-        "repo": "sidekick.nvim",
-        "type": "github"
-      }
-    },
     "plugins-treesitter-textobjects": {
       "flake": false,
       "locked": {
@@ -356,7 +340,6 @@
         "plugins-lzextras": "plugins-lzextras",
         "plugins-nvim-ansible": "plugins-nvim-ansible",
         "plugins-nvim-lsp-endhints": "plugins-nvim-lsp-endhints",
-        "plugins-sidekick": "plugins-sidekick",
         "plugins-treesitter-textobjects": "plugins-treesitter-textobjects",
         "plugins-ts-error-translator": "plugins-ts-error-translator"
       }

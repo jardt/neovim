@@ -27,7 +27,6 @@ let
     devops = false;
     notify = true;
     ai = true;
-    "copilot-lsp" = false;
     git = true;
 
     langs = {
@@ -304,18 +303,6 @@ in
       noice-nvim
       nui-nvim
     ];
-  };
-  config.specs.ai = {
-    lazy = true;
-    data = with pkgs.vimPlugins; [
-      config.nvim-lib.neovimPlugins.sidekick
-    ];
-  };
-  config.specs.copilot-lsp = {
-    enable = config.info."copilot-lsp";
-    lazy = true;
-    runtimePkgs = with pkgs; [ copilot-language-server ];
-    data = with pkgs.vimPlugins; [ copilot-lsp ];
   };
   config.specs.debugtest = {
     lazy = true;

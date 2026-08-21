@@ -24,7 +24,6 @@ in
   config.info.langs.powershell = true;
   config.info.database = true;
   config.info.devops = true;
-  config.info."copilot-lsp" = true;
 
   config.specs.snippets = disabledSpec;
   config.specs.explorer = disabledSpec;
