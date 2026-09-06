@@ -6,8 +6,8 @@ let
   };
 in
 {
-  config.settings.aliases = lib.mkForce [ "cvim" ];
-  config.settings.theme.name = "kanagawa";
+  config.settings.aliases = lib.mkDefault [ "cvim" ];
+  config.settings.theme.name = lib.mkDefault "kanagawa";
 
   config.specs.database = disabledSpec;
   config.specs.explorer = disabledSpec;

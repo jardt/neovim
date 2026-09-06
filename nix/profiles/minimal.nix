@@ -6,8 +6,8 @@ let
   };
 in
 {
-  config.package = lib.mkForce pkgs.neovim-unwrapped;
-  config.settings.aliases = lib.mkForce [ "cvi" ];
+  config.package = lib.mkDefault pkgs.neovim-unwrapped;
+  config.settings.aliases = lib.mkDefault [ "cvi" ];
   config.info.completion = true;
   config.info.database = false;
   config.info.snippets = false;

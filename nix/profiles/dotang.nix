@@ -6,11 +6,10 @@ let
   };
 in
 {
-  config.settings.aliases = lib.mkForce [ "fvim" ];
-  config.settings.theme.name = "gruvbox";
+  config.settings.aliases = lib.mkDefault [ "fvim" ];
+  config.settings.theme.name = lib.mkDefault "gruvbox";
   config.info.snippets = false;
   config.info.explorer = false;
-  config.info.opts.theme.name = "gruvbox";
   config.info.langs.typst = false;
   config.info.langs.rust = false;
   config.info.langs.go = false;

@@ -90,19 +90,40 @@
           inherit system;
           config = extraPkgConfig;
         };
-      mkWrapper =
-        pkgs: profile:
+      profiles = {
+        full = ./nix/profiles/full.nix;
+        minimal = ./nix/profiles/minimal.nix;
+        agent = ./nix/profiles/agent.nix;
+        dotang = ./nix/profiles/dotang.nix;
+      };
+      profileModules = lib.mapAttrs (_: profile: {
+        imports = [
+          wrapperModule
+          profile
+        ];
+        _module.args.inputs = inputs;
+      }) profiles;
+      mkNeovim =
+        {
+          pkgs,
+          profile ? "full",
+          modules ? [ ],
+        }:
         (nix-wrapper-modules.lib.evalModules {
           modules = [
-            wrapperModule
-            profile
-          ];
-          specialArgs = { inherit pkgs inputs; };
+            (profileModules.${profile}
+              or (throw "Unknown Neovim profile '${profile}'; expected one of: ${lib.concatStringsSep ", " (builtins.attrNames profiles)}")
+            )
+          ]
+          ++ modules;
+          specialArgs = { inherit pkgs; };
         }).config.wrap
           { inherit pkgs; };
     in
     {
-      wrapperModules = {
+      lib.mkNeovim = mkNeovim;
+
+      wrapperModules = profileModules // {
         neovim = wrapperModule;
         default = self.wrapperModules.neovim;
       };
@@ -111,13 +132,13 @@
         system:
         let
           pkgs = mkPkgs system;
-          wrap = mkWrapper pkgs;
+          wrap = profile: mkNeovim { inherit pkgs profile; };
         in
         rec {
-          full = wrap ./nix/profiles/full.nix;
-          minimal = wrap ./nix/profiles/minimal.nix;
-          agent = wrap ./nix/profiles/agent.nix;
-          dotang = wrap ./nix/profiles/dotang.nix;
+          full = wrap "full";
+          minimal = wrap "minimal";
+          agent = wrap "agent";
+          dotang = wrap "dotang";
 
           # Compatibility aliases.
           catsvim = full;
@@ -168,7 +189,37 @@
             '';
         in
         {
-          inherit (packages) full minimal agent dotang;
+          profile-api =
+            let
+              valid = lib.all (
+                profile:
+                let
+                  evaluated =
+                    (nix-wrapper-modules.lib.evalModules {
+                      modules = [
+                        self.wrapperModules.${profile}
+                        {
+                          settings.theme.name = "gruvbox";
+                          settings.aliases = [ "custom-nvim" ];
+                          package = pkgs.neovim-unwrapped;
+                        }
+                      ];
+                      specialArgs = { inherit pkgs; };
+                    }).config;
+                in
+                evaluated.info.opts.theme.name == "gruvbox"
+                && evaluated.settings.aliases == [ "custom-nvim" ]
+                && evaluated.package == pkgs.neovim-unwrapped
+              ) (builtins.attrNames profiles);
+            in
+            assert valid;
+            pkgs.runCommand "neovim-profile-api-check" { } "touch $out";
+          inherit (packages)
+            full
+            minimal
+            agent
+            dotang
+            ;
           full-startup = mkStartupCheck "full" packages.full;
           minimal-startup = mkStartupCheck "minimal" packages.minimal;
           agent-startup = mkStartupCheck "agent" packages.agent;

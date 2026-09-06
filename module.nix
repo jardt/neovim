@@ -59,7 +59,7 @@ let
           enable = false;
           table = { };
         };
-        name = "kanagawa";
+        name = config.settings.theme.name;
       };
     };
   };
@@ -102,8 +102,11 @@ in
   };
 
   config.settings.config_directory = ./.;
-  config.settings.aliases = [ "cvim" ];
-  config.package = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.neovim;
+  config.settings.aliases = lib.mkOptionDefault [ "cvim" ];
+  # Below profile defaults (1000), above the upstream option default (1500).
+  config.package =
+    lib.mkOverride 1100
+      inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.neovim;
   config.info = lib.mapAttrsRecursive (_: lib.mkDefault) categoryInfo;
   config.runtimeLibs = with pkgs; [
     libgit2

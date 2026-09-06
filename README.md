@@ -78,6 +78,40 @@ nix profile install github:jardt/neovim#minimal
 
 ### Build a custom variant
 
+Use `lib.mkNeovim` to customize a named profile with your own `pkgs`:
+
+```nix
+{ inputs, pkgs, ... }:
+{
+  home.packages = [
+    (inputs.neovim.lib.mkNeovim {
+      inherit pkgs;
+      profile = "full"; # default; also minimal, agent, dotang
+      modules = [
+        {
+          settings.theme.name = "gruvbox";
+          settings.aliases = [ "catsvim" "nx" ];
+        }
+      ];
+    })
+  ];
+}
+```
+
+`modules` accepts ordinary Nix modules, including functions and paths. Theme,
+alias, and package defaults can be overridden without `mkForce`. The theme
+setting automatically populates the Lua metadata; there is no need to also set
+`info.opts.theme.name`. Other feature/spec overrides still follow normal Nix
+module merging rules.
+
+For direct composition with `nix-wrapper-modules`, `wrapperModules.full`,
+`wrapperModules.minimal`, `wrapperModules.agent`, and `wrapperModules.dotang`
+each include the base configuration and their profile. No internal file paths
+or access to this flake's inputs are needed. `wrapperModules.neovim` and
+`wrapperModules.default` remain the unprofiled base module for compatibility.
+
+### Advanced: compose the base wrapper module
+
 The wrapper module exposes feature flags through `config.info` and user-facing wrapper settings through `config.settings`. Use the exported module with `nix-wrapper-modules` when you want a local variant instead of one of the packaged defaults:
 
 ```nix
