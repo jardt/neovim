@@ -186,10 +186,10 @@ local function setup_icons()
 	icons.mock_nvim_web_devicons()
 end
 
-function M.setup()
+function M.setup(modules)
 	setup_icons()
 
-	for _, module in ipairs(eager_modules) do
+	for _, module in ipairs(modules or eager_modules) do
 		local ok, plugin = pcall(require, module)
 		if ok and type(plugin) == "table" and type(plugin.setup) == "function" then
 			plugin.setup()

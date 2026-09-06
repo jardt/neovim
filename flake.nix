@@ -97,7 +97,7 @@
             wrapperModule
             profile
           ];
-          specialArgs = { inherit pkgs; };
+          specialArgs = { inherit pkgs inputs; };
         }).config.wrap
           { inherit pkgs; };
     in
@@ -116,6 +116,7 @@
         rec {
           full = wrap ./nix/profiles/full.nix;
           minimal = wrap ./nix/profiles/minimal.nix;
+          agent = wrap ./nix/profiles/agent.nix;
           dotang = wrap ./nix/profiles/dotang.nix;
 
           # Compatibility aliases.
@@ -138,6 +139,7 @@
         rec {
           full = mkApp "Run the full Neovim configuration" self.packages.${system}.full;
           minimal = mkApp "Run the minimal Neovim configuration" self.packages.${system}.minimal;
+          agent = mkApp "Run the agent-focused Neovim configuration" self.packages.${system}.agent;
           dotang = mkApp "Run the .NET and Angular Neovim configuration" self.packages.${system}.dotang;
 
           # Compatibility aliases.
@@ -166,9 +168,10 @@
             '';
         in
         {
-          inherit (packages) full minimal dotang;
+          inherit (packages) full minimal agent dotang;
           full-startup = mkStartupCheck "full" packages.full;
           minimal-startup = mkStartupCheck "minimal" packages.minimal;
+          agent-startup = mkStartupCheck "agent" packages.agent;
           dotang-startup = mkStartupCheck "dotang" packages.dotang;
         }
       );

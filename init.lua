@@ -16,6 +16,11 @@ vim.g.maplocalleader = "\\"
 
 _G.lze = require("config.lze").setup()
 
+if nix_config.getCatOrDefault("agent", false) then
+	require("config.agent").setup()
+	return
+end
+
 require("config.plugins").setup()
 require("config.lazy_plugins").setup()
 

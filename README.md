@@ -14,9 +14,22 @@ Run full config: `nix run github:jardt/neovim`
 
 Run minimal config: `nix run github:jardt/neovim#minimal`
 
+Run agent config: `nix run github:jardt/neovim#agent`
+
+The agent profile uses standard nixpkgs Neovim (`neovim-unwrapped`), not nightly. It inherits minimal's disabled feature groups but replaces its general plugins/tools and Lua startup with a small code-browsing and Markdown-editing setup:
+
+- fff file search (`<leader>o`) and live grep (`<leader>/`).
+- Yazi directory browsing (`<leader>y` at the current file, `<leader>Y` at the working directory, `<C-Up>` to resume), with the Yazi executable included.
+- Treesitter highlighting for Markdown and common code/config formats, plus the existing themes.
+- Blink completion for paths and buffer words, with local Pi prompt-template completion.
+- In-buffer Markdown rendering, soft wrapping, and visual-line navigation.
+- The in-repo `lua/pi` integration for prompting Pi through Herdr (Herdr and a running Pi pane must be available externally).
+
+Snacks and mini.icons provide UI dependencies. No LSPs, formatters, browser preview, Git UI, or other editing plugins are enabled. The existing `minimal` output is unchanged. Agent-specific customizations live in `nix/profiles/agent.nix` and `lua/config/agent.lua`.
+
 Run dotnet/angular config: `nix run github:jardt/neovim#dotang`
 
-The canonical package and app outputs are `full`, `minimal`, and `dotang`. The old `catsvim`, `catsvi`, and `cats_dotang_nvim` names remain as compatibility aliases.
+The canonical package and app outputs are `full`, `minimal`, `agent`, and `dotang`. The old `catsvim`, `catsvi`, and `cats_dotang_nvim` names remain as compatibility aliases.
 
 ### Use this flake from your Nix config
 
@@ -38,6 +51,7 @@ NixOS:
   environment.systemPackages = [
     inputs.jardt-neovim.packages.${pkgs.system}.default
     # or: inputs.jardt-neovim.packages.${pkgs.system}.minimal
+    # or: inputs.jardt-neovim.packages.${pkgs.system}.agent
     # or: inputs.jardt-neovim.packages.${pkgs.system}.dotang
   ];
 }
